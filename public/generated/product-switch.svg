@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Produit placeholder switch</title>
+  <desc id="desc">Image produit générique remplaçable.</desc>
+  <rect width="640" height="480" fill="#ffffff"/>
+  <rect x="94" y="184" width="452" height="142" rx="18" fill="#10120f"/>
+  <rect x="128" y="222" width="46" height="28" rx="5" fill="#2f3d20"/>
+  <rect x="190" y="222" width="46" height="28" rx="5" fill="#2f3d20"/>
+  <rect x="252" y="222" width="46" height="28" rx="5" fill="#55720f"/>
+  <rect x="314" y="222" width="46" height="28" rx="5" fill="#2f3d20"/>
+  <rect x="376" y="222" width="46" height="28" rx="5" fill="#2f3d20"/>
+  <rect x="438" y="222" width="46" height="28" rx="5" fill="#2f3d20"/>
+  <rect x="128" y="270" width="356" height="18" rx="9" fill="#22291b"/>
+  <circle cx="508" cy="279" r="10" fill="#a8c84c"/>
+</svg>

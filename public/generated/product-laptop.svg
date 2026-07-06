@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Produit placeholder PC portable</title>
+  <desc id="desc">Image produit générique remplaçable.</desc>
+  <rect width="640" height="480" fill="#ffffff"/>
+  <rect x="158" y="112" width="324" height="210" rx="18" fill="#111710"/>
+  <rect x="181" y="135" width="278" height="158" rx="10" fill="#0b0f0a"/>
+  <path d="M198 278c80-60 158-64 242-12" fill="none" stroke="#9fbd3d" stroke-width="8" stroke-linecap="round"/>
+  <path d="M126 336h388l45 54H81z" fill="#22281d"/>
+  <path d="M236 348h168l18 18H218z" fill="#556524"/>
+</svg>

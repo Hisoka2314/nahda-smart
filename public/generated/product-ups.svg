@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Produit placeholder onduleur</title>
+  <desc id="desc">Image produit générique remplaçable.</desc>
+  <rect width="640" height="480" fill="#ffffff"/>
+  <rect x="220" y="86" width="200" height="302" rx="26" fill="#10120f"/>
+  <rect x="246" y="122" width="148" height="42" rx="10" fill="#20291b"/>
+  <circle cx="320" cy="224" r="52" fill="#f7f8f4"/>
+  <path d="M328 180l-48 62h38l-10 44 54-68h-40z" fill="#55720f"/>
+  <rect x="258" y="322" width="124" height="28" rx="14" fill="#2d371d"/>
+  <circle cx="372" cy="137" r="8" fill="#a8c84c"/>
+</svg>

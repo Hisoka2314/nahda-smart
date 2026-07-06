@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder accessoires</title>
+  <desc id="desc">Illustration générique câbles et accessoires.</desc>
+  <rect width="640" height="480" rx="36" fill="#f7f8f4"/>
+  <path d="M160 242c-5-82 61-134 128-86 35 25 34 91 85 111 62 24 112-21 106-79" fill="none" stroke="#10120f" stroke-width="24" stroke-linecap="round"/>
+  <path d="M178 247c0 42-34 76-76 76" fill="none" stroke="#55720f" stroke-width="18" stroke-linecap="round"/>
+  <path d="M468 190c42 0 76-34 76-76" fill="none" stroke="#55720f" stroke-width="18" stroke-linecap="round"/>
+  <rect x="86" y="306" width="78" height="54" rx="12" fill="#20251c"/>
+  <rect x="476" y="70" width="78" height="54" rx="12" fill="#20251c"/>
+  <circle cx="320" cy="342" r="44" fill="#a8c84c" opacity=".65"/>
+</svg>

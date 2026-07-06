@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f8f4;
+  --foreground: #10120f;
+  --surface: #ffffff;
+  --surface-muted: #eef1e7;
+  --border-soft: #dfe5d5;
+  --nahda-olive: #55720f;
+  --nahda-olive-dark: #314507;
+  --nahda-olive-soft: #edf4de;
+  --nahda-orange: #f27a1a;
+  --nahda-ink: #050706;
+  --nahda-ink-soft: #111710;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border-soft: var(--border-soft);
+  --color-nahda-olive: var(--nahda-olive);
+  --color-nahda-olive-dark: var(--nahda-olive-dark);
+  --color-nahda-olive-soft: var(--nahda-olive-soft);
+  --color-nahda-orange: var(--nahda-orange);
+  --color-nahda-ink: var(--nahda-ink);
+  --color-nahda-ink-soft: var(--nahda-ink-soft);
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --shadow-premium: 0 18px 50px rgb(5 7 6 / 0.10);
+  --shadow-card: 0 12px 34px rgb(18 24 12 / 0.08);
+  --radius-card: 0.75rem;
+  --radius-control: 0.625rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  max-width: 100%;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgb(85 114 15 / 0.22);
+  color: var(--nahda-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@layer components {
+  .premium-card {
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-card);
+    background: rgb(255 255 255 / 0.94);
+    box-shadow: var(--shadow-card);
+  }
+
+  .focus-ring {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+
+  .focus-ring:focus-visible {
+    outline-color: var(--nahda-olive);
+  }
+
+  .tech-grid {
+    background-image:
+      linear-gradient(rgb(85 114 15 / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(85 114 15 / 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Scrollbar discrete pour les zones sombres du back-office. */
+  .dark-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.18) transparent;
+  }
+
+  .dark-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .dark-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .dark-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.18);
+  }
+
+  .dark-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgb(255 255 255 / 0.3);
+  }
+
+  .glow-ring {
+    box-shadow:
+      0 0 0 1px rgb(168 200 76 / 0.14),
+      0 24px 80px rgb(85 114 15 / 0.28);
+  }
+}
+
+@keyframes nahda-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes nahda-glow {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .animate-float-soft {
+    animation: nahda-float 5.5s ease-in-out infinite;
+  }
+
+  .animate-glow-soft {
+    animation: nahda-glow 4s ease-in-out infinite;
+  }
+}

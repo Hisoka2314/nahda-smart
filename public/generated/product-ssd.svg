@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Produit placeholder SSD NVMe</title>
+  <desc id="desc">Image produit générique remplaçable.</desc>
+  <rect width="640" height="480" fill="#ffffff"/>
+  <rect x="130" y="190" width="380" height="110" rx="18" fill="#10120f"/>
+  <rect x="168" y="218" width="150" height="54" rx="10" fill="#2f3d20"/>
+  <rect x="346" y="222" width="92" height="16" rx="8" fill="#a8c84c"/>
+  <rect x="346" y="254" width="128" height="14" rx="7" fill="#36431f"/>
+  <circle cx="151" cy="245" r="10" fill="#dfe5d5"/>
+  <circle cx="489" cy="245" r="10" fill="#dfe5d5"/>
+  <path d="M198 335c72 28 172 28 244 0" fill="none" stroke="#55720f" stroke-width="8" stroke-linecap="round" opacity=".38"/>
+</svg>

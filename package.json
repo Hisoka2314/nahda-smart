@@ -1,0 +1,58 @@
+{
+  "name": "nahda-smart-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "typecheck": "tsc --noEmit",
+    "start": "next start",
+    "lint": "eslint",
+    "prisma:validate": "prisma validate",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "prisma db seed",
+    "prisma:counts": "node scripts/verify-seed-counts.mjs",
+    "db:local:start": "node scripts/db-local-start.mjs",
+    "db:local:stop": "node scripts/db-local-stop.mjs",
+    "db:local:status": "node scripts/db-local-status.mjs",
+    "backup:db": "node scripts/backup-postgres.mjs",
+    "restore:db": "node scripts/restore-postgres.mjs",
+    "export:csv": "node scripts/export-csv.mjs",
+    "security:public-scan": "node scripts/security-public-scan.mjs",
+    "admin:hash": "node scripts/generate-admin-hash.mjs",
+    "admin:upsert": "node scripts/upsert-admin.mjs",
+    "admin:setup-local": "node scripts/setup-local-admin.mjs",
+    "test": "vitest run"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "framer-motion": "^12.40.0",
+    "lucide-react": "^1.21.0",
+    "next": "16.2.9",
+    "nodemailer": "^9.0.3",
+    "pg": "^8.22.0",
+    "prisma": "^7.8.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/nodemailer": "^8.0.1",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "tailwindcss": "^4",
+    "tsx": "^4.22.4",
+    "typescript": "^5",
+    "vitest": "^4.1.9"
+  }
+}

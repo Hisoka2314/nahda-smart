@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder PC portables</title>
+  <desc id="desc">Illustration générique de PC portable pour Nahda Smart.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7f8f4"/>
+      <stop offset="1" stop-color="#dfe9cb"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" x2="1">
+      <stop offset="0" stop-color="#050706"/>
+      <stop offset="1" stop-color="#2f4309"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" rx="36" fill="url(#bg)"/>
+  <path d="M80 122h480v236H80z" fill="none" stroke="#55720f" stroke-opacity=".12"/>
+  <rect x="150" y="115" width="340" height="220" rx="18" fill="#10120f"/>
+  <rect x="172" y="137" width="296" height="170" rx="10" fill="url(#screen)"/>
+  <path d="M188 292c82-66 160-72 264-17" fill="none" stroke="#a8c84c" stroke-width="7" stroke-linecap="round" opacity=".72"/>
+  <path d="M118 348h404l42 52H76z" fill="#20251c"/>
+  <path d="M214 360h212l14 19H200z" fill="#394421"/>
+  <circle cx="500" cy="102" r="12" fill="#55720f"/>
+  <circle cx="532" cy="132" r="7" fill="#a8c84c"/>
+</svg>

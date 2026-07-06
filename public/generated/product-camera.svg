@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Produit placeholder caméra</title>
+  <desc id="desc">Image produit générique remplaçable.</desc>
+  <rect width="640" height="480" fill="#ffffff"/>
+  <rect x="234" y="94" width="172" height="66" rx="22" fill="#f0f2ec" stroke="#dfe5d5" stroke-width="8"/>
+  <path d="M244 150h152l-24 82H268z" fill="#e9ede2"/>
+  <circle cx="320" cy="246" r="88" fill="#f6f8f2" stroke="#dfe5d5" stroke-width="12"/>
+  <circle cx="320" cy="246" r="47" fill="#111710"/>
+  <circle cx="335" cy="231" r="11" fill="#9fbd3d"/>
+  <path d="M210 346c74 42 148 42 220 0" fill="none" stroke="#55720f" stroke-width="8" stroke-linecap="round" opacity=".42"/>
+</svg>

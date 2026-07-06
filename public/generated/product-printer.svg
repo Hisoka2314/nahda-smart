@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Produit placeholder imprimante</title>
+  <desc id="desc">Image produit générique remplaçable.</desc>
+  <rect width="640" height="480" fill="#ffffff"/>
+  <rect x="202" y="104" width="236" height="94" rx="10" fill="#eef1e7"/>
+  <rect x="154" y="188" width="332" height="142" rx="22" fill="#10120f"/>
+  <rect x="200" y="250" width="240" height="108" rx="10" fill="#f9faf6" stroke="#dfe5d5"/>
+  <rect x="222" y="279" width="188" height="12" rx="6" fill="#dfe5d5"/>
+  <rect x="222" y="307" width="132" height="12" rx="6" fill="#dfe5d5"/>
+  <rect x="374" y="220" width="52" height="14" rx="7" fill="#a8c84c"/>
+</svg>

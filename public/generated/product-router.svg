@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Produit placeholder routeur</title>
+  <desc id="desc">Image produit générique remplaçable.</desc>
+  <rect width="640" height="480" fill="#ffffff"/>
+  <path d="M190 254l-30-126M450 254l30-126M258 258l-8-154M382 258l8-154" stroke="#12170f" stroke-width="15" stroke-linecap="round"/>
+  <rect x="122" y="250" width="396" height="96" rx="20" fill="#10120f"/>
+  <rect x="166" y="284" width="54" height="26" rx="6" fill="#2f3d20"/>
+  <rect x="240" y="284" width="54" height="26" rx="6" fill="#2f3d20"/>
+  <rect x="314" y="284" width="54" height="26" rx="6" fill="#55720f"/>
+  <rect x="388" y="284" width="54" height="26" rx="6" fill="#2f3d20"/>
+  <circle cx="464" cy="297" r="9" fill="#a8c84c"/>
+</svg>

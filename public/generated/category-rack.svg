@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder baie réseau</title>
+  <desc id="desc">Illustration générique de baie réseau remplaçable.</desc>
+  <rect width="640" height="480" rx="36" fill="#f7f8f4"/>
+  <rect x="218" y="70" width="204" height="340" rx="18" fill="#10120f"/>
+  <rect x="238" y="96" width="164" height="42" rx="8" fill="#22291b"/>
+  <rect x="238" y="154" width="164" height="42" rx="8" fill="#22291b"/>
+  <rect x="238" y="212" width="164" height="42" rx="8" fill="#2f3d20"/>
+  <rect x="238" y="270" width="164" height="42" rx="8" fill="#22291b"/>
+  <rect x="238" y="328" width="164" height="42" rx="8" fill="#22291b"/>
+  <path d="M262 232h116" stroke="#a8c84c" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="386" cy="233" r="7" fill="#a8c84c"/>
+  <path d="M136 372c112-54 256-54 368 0" fill="none" stroke="#55720f" stroke-width="9" stroke-linecap="round" opacity=".35"/>
+</svg>
