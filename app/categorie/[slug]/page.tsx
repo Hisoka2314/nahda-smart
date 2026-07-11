@@ -9,6 +9,10 @@ import {
   getPublicCategoryData,
 } from "@/lib/services/public-catalogue";
 
+// Régénération au plus toutes les 5 minutes : stock, prix et avis suivent
+// la base sans rebuild.
+export const revalidate = 300;
+
 export function generateStaticParams() {
   return catalogueCategories.map((category) => ({
     slug: category.slug,

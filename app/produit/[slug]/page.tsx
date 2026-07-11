@@ -14,6 +14,10 @@ type ProductPageProps = {
   }>;
 };
 
+// Régénération au plus toutes les 5 minutes : stock, prix et avis suivent
+// la base sans rebuild.
+export const revalidate = 300;
+
 export function generateStaticParams() {
   return catalogueProducts.map((product) => ({
     slug: product.slug,

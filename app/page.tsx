@@ -55,6 +55,10 @@ const trustBlocks = [
 
 const heroStats = ["Solutions fiables", "Livraison Maroc", "Support expert"];
 
+// La page est pré-rendue mais se régénère au plus toutes les 5 minutes :
+// les produits/compteurs suivent la base sans nécessiter de rebuild.
+export const revalidate = 300;
+
 export default async function Home() {
   const homeData = await getPublicHomeData();
 
