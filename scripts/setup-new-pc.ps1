@@ -121,8 +121,14 @@ if ($backupFiles.Count -gt 0) {
   Write-Host "    Sauvegarde trouvee : $($backupFiles[0].Name)"
   $choice = Read-Host "    [R]estaurer cette sauvegarde ou charger les donnees de [D]emo ? (R/D)"
   if ($choice -match '^[Rr]') {
+    # Le script de restauration exige cette confirmation explicite (garde-fou
+    # contre l'ecrasement d'une mauvaise base). Ici la cible vient d'etre
+    # configuree par ce script, on peut confirmer.
+    $env:CONFIRM_RESTORE = "YES"
     npm run restore:db -- $backupFiles[0].FullName
-    if ($LASTEXITCODE -ne 0) { Fail "La restauration a echoue." }
+    $restoreExit = $LASTEXITCODE
+    Remove-Item Env:CONFIRM_RESTORE -ErrorAction SilentlyContinue
+    if ($restoreExit -ne 0) { Fail "La restauration a echoue." }
     Write-Host "    Donnees restaurees depuis la sauvegarde."
   } else {
     npm run prisma:seed
