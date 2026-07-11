@@ -149,14 +149,11 @@ export function ProductCard({ product }: ProductCardProps) {
         >
           {product.name}
         </Link>
-        <p className="mt-1 min-h-[40px] text-sm leading-5 text-neutral-600">
-          {product.description}
-        </p>
-        <div className="mt-3 flex min-h-[46px] flex-wrap gap-1.5">
+        <div className="mt-2.5 flex min-h-[46px] flex-wrap content-start gap-1.5">
           {product.specs.slice(0, 4).map((spec) => (
             <span
               key={spec}
-              className="rounded-[7px] bg-surface-muted px-2 py-1 text-[11px] font-bold text-neutral-600"
+              className="max-w-full truncate rounded-[7px] bg-surface-muted px-2 py-1 text-[11px] font-bold text-neutral-600"
             >
               {spec}
             </span>
