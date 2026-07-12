@@ -100,6 +100,7 @@ export default async function AdminSupplierPurchasesPage({
                   <tr>
                     <th className="px-3 py-3">Date</th>
                     <th className="px-3 py-3">Fournisseur</th>
+                    <th className="px-3 py-3">Type</th>
                     <th className="px-3 py-3">Reference</th>
                     <th className="px-3 py-3">Depot</th>
                     <th className="px-3 py-3">Statut</th>
@@ -124,6 +125,7 @@ export default async function AdminSupplierPurchasesPage({
                           {purchase.supplierTypeLabel}
                         </p>
                       </AdminTableCell>
+                      <AdminTableCell>{purchase.documentTypeLabel}</AdminTableCell>
                       <AdminTableCell>{purchase.reference}</AdminTableCell>
                       <AdminTableCell>{purchase.depotName}</AdminTableCell>
                       <AdminTableCell>

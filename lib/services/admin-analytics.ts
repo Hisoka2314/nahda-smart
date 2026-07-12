@@ -58,6 +58,7 @@ export async function getAdminKpiDashboard({
     newContacts,
     openServiceTickets,
     activeSuppliers,
+    purchasesToReceive,
     lowStocks,
     topProducts,
     topSavProducts,
@@ -76,6 +77,7 @@ export async function getAdminKpiDashboard({
       where: { status: { notIn: ["CLOSED", "REFUSED"] } },
     }),
     db.supplier.count({ where: { isActive: true } }),
+    db.supplierPurchase.count({ where: { status: "DRAFT" } }),
     getLowStockRows(6),
     getTopProductsByRevenue({ range, pagination: { page: 1, perPage: 20, skip: 0, take: 20 } }),
     getTopSavProducts(6),
@@ -99,6 +101,7 @@ export async function getAdminKpiDashboard({
       newContacts,
       openServiceTickets,
       activeSuppliers,
+      purchasesToReceive,
       estimatedMargin: margin?.margin ?? null,
       estimatedMarginLabel: margin ? formatMoney(margin.margin) : "Masquee",
     },
@@ -227,6 +230,7 @@ export async function getTopProductsByRevenue({
       name: true,
       sku: true,
       priceBuy: true,
+      averageCost: true,
       category: { select: { name: true } },
       stocks: { select: { quantity: true } },
       _count: { select: { serviceTickets: true } },
@@ -239,7 +243,7 @@ export async function getTopProductsByRevenue({
     const stockTotal =
       product?.stocks.reduce((sum, stock) => sum + stock.quantity, 0) ?? 0;
     const estimatedCost = roundMoney(
-      row.quantity * Number(product?.priceBuy ?? 0),
+      row.quantity * Number(product?.averageCost ?? product?.priceBuy ?? 0),
     );
     const estimatedMargin = roundMoney(row.revenue - estimatedCost);
 
@@ -383,7 +387,7 @@ export async function getStockIntelligence({
     .map((stock) => {
       const movement = movementByProduct.get(stock.productId);
       const demand = demandByProduct.get(stock.productId) ?? 0;
-      const stockValue = stock.quantity * Number(stock.product.priceBuy);
+      const stockValue = stock.quantity * Number(stock.product.averageCost ?? stock.product.priceBuy);
 
       return {
         id: stock.id,
@@ -552,10 +556,10 @@ async function estimateMargin(where: Prisma.OrderWhereInput) {
   });
   const products = await db.product.findMany({
     where: { id: { in: grouped.map((row) => row.productId) } },
-    select: { id: true, priceBuy: true },
+    select: { id: true, priceBuy: true, averageCost: true },
   });
   const priceBuyById = new Map(
-    products.map((product) => [product.id, Number(product.priceBuy)]),
+    products.map((product) => [product.id, Number(product.averageCost ?? product.priceBuy)]),
   );
   const revenue = roundMoney(
     grouped.reduce((sum, row) => sum + Number(row._sum.totalPrice ?? 0), 0),

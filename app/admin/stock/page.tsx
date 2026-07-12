@@ -173,6 +173,7 @@ export default async function AdminStockPage({
                   <th className="px-3 py-3">Depot</th>
                   <th className="px-3 py-3">Quantite</th>
                   <th className="px-3 py-3">Seuil</th>
+                  <th className="px-3 py-3">CMUP</th>
                   <th className="px-3 py-3">Action</th>
                 </tr>
               </AdminTableHead>
@@ -193,6 +194,7 @@ export default async function AdminStockPage({
                       <AdminStatusBadge tone={row.tone}>{row.quantity}</AdminStatusBadge>
                     </AdminTableCell>
                     <AdminTableCell>{row.lowStockThreshold}</AdminTableCell>
+                    <AdminTableCell>{row.averageCostLabel}</AdminTableCell>
                     <AdminTableCell>
                       <Link
                         href={`/admin/produits/${row.productId}`}

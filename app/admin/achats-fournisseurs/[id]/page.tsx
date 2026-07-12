@@ -53,7 +53,7 @@ export default async function SupplierPurchaseDetailPage({
       <div className="space-y-6">
         <AdminPageHeader
           eyebrow="Achat fournisseur"
-          title={`Achat ${purchase.reference}`}
+          title={`${purchase.documentTypeLabel} ${purchase.reference}`}
           description={`${purchase.supplierName} - ${purchase.depotName}`}
           breadcrumbs={[
             { label: "Admin", href: "/admin" },

@@ -1,4 +1,5 @@
 import {
+  SupplierDocumentType,
   SupplierNoteType,
   SupplierPurchaseStatus,
   SupplierType,
@@ -73,6 +74,7 @@ export const adminSupplierPurchaseSchema = z
     supplierId: z.string().min(1),
     depotId: z.string().min(1, "Depot de reception obligatoire."),
     reference: optionalString,
+    documentType: z.enum(SupplierDocumentType).default("INVOICE"),
     date: z.coerce.date(),
     status: z.enum(SupplierPurchaseStatus).default("DRAFT"),
     transportFee: nonNegativeMoneySchema.default(0),

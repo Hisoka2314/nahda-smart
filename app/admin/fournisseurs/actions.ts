@@ -98,6 +98,7 @@ export async function createSupplierPurchaseAction(formData: FormData) {
     supplierId,
     depotId: formData.get("depotId"),
     reference: formData.get("reference"),
+    documentType: formData.get("documentType") ?? undefined,
     date: formData.get("date"),
     status: formData.get("status"),
     transportFee: formData.get("transportFee"),

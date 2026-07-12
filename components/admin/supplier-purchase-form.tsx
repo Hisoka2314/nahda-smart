@@ -1,4 +1,4 @@
-import { SupplierPurchaseStatus } from "@prisma/client";
+import { SupplierDocumentType, SupplierPurchaseStatus } from "@prisma/client";
 import Link from "next/link";
 import {
   AdminCheckbox,
@@ -10,7 +10,10 @@ import {
   AdminTextarea,
 } from "@/components/admin/admin-ui";
 import { Button } from "@/components/ui/button";
-import { supplierPurchaseStatusLabels } from "@/lib/admin/labels";
+import {
+  supplierDocumentTypeLabels,
+  supplierPurchaseStatusLabels,
+} from "@/lib/admin/labels";
 
 type SupplierPurchaseFormData = {
   selectedSupplierId?: string;
@@ -74,7 +77,16 @@ export function SupplierPurchaseForm({
               ))}
             </AdminSelect>
           </AdminField>
-          <AdminField label="Reference facture / bon">
+          <AdminField label="Type de document">
+            <AdminSelect name="documentType" defaultValue="INVOICE">
+              {Object.values(SupplierDocumentType).map((type) => (
+                <option key={type} value={type}>
+                  {supplierDocumentTypeLabels[type]}
+                </option>
+              ))}
+            </AdminSelect>
+          </AdminField>
+          <AdminField label="Numero de facture / document">
             <AdminTextInput name="reference" placeholder="FAC-2026-001" />
           </AdminField>
           <AdminField label="Transport">

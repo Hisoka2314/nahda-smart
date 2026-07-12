@@ -12,6 +12,7 @@ import {
   formatMoney,
   getSupplierPurchaseStatusTone,
   supplierNoteTypeLabels,
+  supplierDocumentTypeLabels,
   supplierPurchaseStatusLabels,
   supplierTypeLabels,
 } from "@/lib/admin/labels";
@@ -19,6 +20,7 @@ import {
   toAdminPaginatedResult,
   type AdminPagination,
 } from "@/lib/admin/pagination";
+import { computeCmup } from "@/lib/cmup";
 import { roundMoney } from "@/lib/utils";
 import {
   isReceivedStatus,
@@ -363,6 +365,7 @@ export async function createAdminSupplierPurchase({
         supplierId: input.supplierId,
         depotId: input.depotId,
         reference: input.reference,
+        documentType: input.documentType,
         status,
         total,
         paid,
@@ -401,6 +404,13 @@ export async function createAdminSupplierPurchase({
 
     if (shouldReceive) {
       for (const item of input.items) {
+        // CMUP d'abord (il se base sur le stock d'avant reception).
+        await applyCmupForReception({
+          tx,
+          productId: item.productId,
+          quantity: item.quantity,
+          unitBuyPrice: item.unitBuyPrice,
+        });
         await applyIncomingStock({
           tx,
           productId: item.productId,
@@ -469,6 +479,13 @@ export async function receiveAdminSupplierPurchase({
     }
 
     for (const item of purchase.items) {
+      // CMUP d'abord (il se base sur le stock d'avant reception).
+      await applyCmupForReception({
+        tx,
+        productId: item.productId,
+        quantity: item.quantity,
+        unitBuyPrice: Number(item.unitBuyPrice),
+      });
       await applyIncomingStock({
         tx,
         productId: item.productId,
@@ -708,6 +725,8 @@ function toSupplierDetail(
       status: purchase.status,
       statusLabel: supplierPurchaseStatusLabels[purchase.status],
       statusTone: getSupplierPurchaseStatusTone(purchase.status),
+    documentType: purchase.documentType,
+    documentTypeLabel: supplierDocumentTypeLabels[purchase.documentType],
       depotName: purchase.depot?.name ?? "-",
       totalLabel: formatMoney(Number(purchase.total)),
       paidLabel: formatMoney(Number(purchase.paid)),
@@ -752,6 +771,8 @@ function toPurchaseListItem(
     status: purchase.status,
     statusLabel: supplierPurchaseStatusLabels[purchase.status],
     statusTone: getSupplierPurchaseStatusTone(purchase.status),
+    documentType: purchase.documentType,
+    documentTypeLabel: supplierDocumentTypeLabels[purchase.documentType],
     depotName: purchase.depot?.name ?? "-",
     itemCount: purchase.items.length,
     quantityTotal: purchase.items.reduce((sum, item) => sum + item.quantity, 0),
@@ -797,6 +818,8 @@ function toPurchaseDetail(
     status: purchase.status,
     statusLabel: supplierPurchaseStatusLabels[purchase.status],
     statusTone: getSupplierPurchaseStatusTone(purchase.status),
+    documentType: purchase.documentType,
+    documentTypeLabel: supplierDocumentTypeLabels[purchase.documentType],
     depotName: purchase.depot?.name ?? "-",
     total: Number(purchase.total),
     totalLabel: formatMoney(Number(purchase.total)),
@@ -874,6 +897,49 @@ function buildPurchaseWhere(filters: {
   }
 
   return where;
+}
+
+// Recalcule le CMUP du produit pour une reception : a appeler AVANT
+// l'increment de stock (le calcul utilise le stock d'avant reception).
+async function applyCmupForReception({
+  tx,
+  productId,
+  quantity,
+  unitBuyPrice,
+}: {
+  tx: Prisma.TransactionClient;
+  productId: string;
+  quantity: number;
+  unitBuyPrice: number;
+}) {
+  const [stockAggregate, product] = await Promise.all([
+    tx.stock.aggregate({
+      where: { productId, depot: { isActive: true } },
+      _sum: { quantity: true },
+    }),
+    tx.product.findUnique({
+      where: { id: productId },
+      select: { averageCost: true, priceBuy: true },
+    }),
+  ]);
+
+  if (!product) return;
+
+  const currentCmup =
+    product.averageCost !== null
+      ? Number(product.averageCost)
+      : Number(product.priceBuy) || null;
+  const nextCmup = computeCmup({
+    stockBefore: stockAggregate._sum.quantity ?? 0,
+    currentCmup,
+    receivedQuantity: quantity,
+    unitPrice: unitBuyPrice,
+  });
+
+  await tx.product.update({
+    where: { id: productId },
+    data: { averageCost: nextCmup },
+  });
 }
 
 async function applyIncomingStock({

@@ -4,6 +4,7 @@ import { logAdminEvent } from "@/lib/auth/admin-auth";
 import { checkLowStockAndNotify } from "@/lib/services/stock-alerts";
 import {
   formatDateTime,
+  formatMoney,
   getStockTone,
   stockMovementTypeLabels,
 } from "@/lib/admin/labels";
@@ -90,6 +91,10 @@ export async function getAdminStockRowsPage(
       quantity: stock.quantity,
       lowStockThreshold: stock.lowStockThreshold,
       tone: getStockTone(stock.quantity, stock.lowStockThreshold),
+      // CMUP (fallback prix d'achat tant qu'aucune reception n'a ete faite)
+      averageCostLabel: formatMoney(
+        Number(stock.product.averageCost ?? stock.product.priceBuy),
+      ),
     })),
     total,
     page: pagination.page,

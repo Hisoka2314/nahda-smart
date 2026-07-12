@@ -130,6 +130,13 @@ export default async function AdminDashboardPage() {
             icon={<Truck size={20} />}
             tone="info"
           />
+          <AdminStatCard
+            label="Achats a receptionner"
+            value={kpi.stats.purchasesToReceive}
+            helper="Brouillons en attente d'entree stock"
+            icon={<Database size={20} />}
+            tone={kpi.stats.purchasesToReceive > 0 ? "warning" : "info"}
+          />
         </div>
 
         <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr]">

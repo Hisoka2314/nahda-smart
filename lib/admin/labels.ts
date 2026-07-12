@@ -19,6 +19,7 @@ import {
   ServiceTicketUrgency,
   StockMovementType,
   SupplierNoteType,
+  SupplierDocumentType,
   SupplierPurchaseStatus,
   SupplierType,
 } from "@prisma/client";
@@ -115,6 +116,12 @@ export const supplierPurchaseStatusLabels: Record<SupplierPurchaseStatus, string
   PARTIALLY_PAID: "Partiellement paye",
   PAID: "Paye",
   CANCELLED: "Annule",
+};
+
+export const supplierDocumentTypeLabels: Record<SupplierDocumentType, string> = {
+  INVOICE: "Facture",
+  QUOTE: "Devis",
+  PURCHASE_ORDER: "Bon de commande",
 };
 
 export const supplierNoteTypeLabels: Record<SupplierNoteType, string> = {
