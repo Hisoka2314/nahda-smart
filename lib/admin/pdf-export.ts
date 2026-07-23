@@ -23,7 +23,8 @@ export async function createPdfDocument(
 
   const pageWidth =
     doc.page.width - doc.page.margins.left - doc.page.margins.right;
-  const visibleColumns = definition.columns.slice(0, 9);
+  const visibleColumns = definition.columns;
+  const tableFontSize = visibleColumns.length > 9 ? 6.25 : 7.5;
   const totalWeight = visibleColumns.reduce(
     (sum, column) => sum + (column.width ?? 18),
     0,
@@ -33,12 +34,18 @@ export async function createPdfDocument(
   );
 
   let y = drawPdfHeading(doc, definition);
-  y = drawPdfHeader(doc, visibleColumns, columnWidths, y);
+  y = drawPdfHeader(doc, visibleColumns, columnWidths, y, tableFontSize);
 
   definition.rows.forEach((row, index) => {
     if (y > doc.page.height - doc.page.margins.bottom - 24) {
       doc.addPage();
-      y = drawPdfHeader(doc, visibleColumns, columnWidths, doc.page.margins.top);
+      y = drawPdfHeader(
+        doc,
+        visibleColumns,
+        columnWidths,
+        doc.page.margins.top,
+        tableFontSize,
+      );
     }
 
     const rowHeight = 22;
@@ -56,7 +63,7 @@ export async function createPdfDocument(
       doc
         .fillColor("#182016")
         .font("Helvetica")
-        .fontSize(7.5)
+        .fontSize(tableFontSize)
         .text(String(row[column.key] ?? ""), x + 4, y + 7, {
           width: columnWidths[columnIndex] - 8,
           height: 10,
@@ -105,6 +112,7 @@ function drawPdfHeader(
   columns: AdminExportDefinition["columns"],
   widths: number[],
   y: number,
+  fontSize: number,
 ) {
   const pageWidth =
     doc.page.width - doc.page.margins.left - doc.page.margins.right;
@@ -120,7 +128,7 @@ function drawPdfHeader(
     doc
       .fillColor("#ffffff")
       .font("Helvetica-Bold")
-      .fontSize(7.5)
+      .fontSize(fontSize)
       .text(column.header, x + 4, y + 8, {
         width: widths[index] - 8,
         height: 10,

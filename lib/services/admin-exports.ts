@@ -4,6 +4,7 @@ import {
   formatShortDate,
   orderStatusLabels,
   productStatusLabels,
+  supplierPaymentMethodLabels,
   supplierPurchaseStatusLabels,
   supplierTypeLabels,
 } from "@/lib/admin/labels";
@@ -150,6 +151,7 @@ async function getPurchasesExport(): Promise<AdminExportDefinition> {
       supplier: { select: { reference: true, name: true } },
       depot: { select: { name: true } },
       items: { select: { quantity: true } },
+      payments: { select: { method: true } },
     },
     orderBy: { date: "desc" },
     take: MAX_EXPORT_ROWS,
@@ -165,6 +167,7 @@ async function getPurchasesExport(): Promise<AdminExportDefinition> {
       { header: "Référence document", key: "reference", width: 22 },
       { header: "Dépôt", key: "depot", width: 20 },
       { header: "Statut", key: "status", width: 18 },
+      { header: "Modes de paiement", key: "paymentMethods", width: 24 },
       { header: "Produits distincts", key: "products", width: 18 },
       { header: "Quantité achetée", key: "quantity", width: 18 },
       { header: "Total (DH)", key: "total", width: 16 },
@@ -178,6 +181,13 @@ async function getPurchasesExport(): Promise<AdminExportDefinition> {
       reference: purchase.reference ?? "",
       depot: purchase.depot?.name ?? "",
       status: supplierPurchaseStatusLabels[purchase.status],
+      paymentMethods: [
+        ...new Set(
+          purchase.payments.map(
+            (payment) => supplierPaymentMethodLabels[payment.method],
+          ),
+        ),
+      ].join(", "),
       products: purchase.items.length,
       quantity: purchase.items.reduce((sum, item) => sum + item.quantity, 0),
       total: moneyNumber(purchase.total),
@@ -246,6 +256,7 @@ async function getProductsExport(): Promise<AdminExportDefinition> {
       { header: "Catégorie", key: "category", width: 20 },
       { header: "Statut", key: "status", width: 18 },
       { header: "Prix achat (DH)", key: "buyPrice", width: 18 },
+      { header: "CMUP (DH)", key: "averageCost", width: 18 },
       { header: "Prix vente (DH)", key: "sellPrice", width: 18 },
       { header: "Stock total", key: "stock", width: 14 },
     ],
@@ -256,6 +267,7 @@ async function getProductsExport(): Promise<AdminExportDefinition> {
       category: product.category.name,
       status: productStatusLabels[product.status],
       buyPrice: moneyNumber(product.priceBuy),
+      averageCost: moneyNumber(product.averageCost ?? product.priceBuy),
       sellPrice: moneyNumber(product.priceSell),
       stock: product.stocks.reduce((sum, stock) => sum + stock.quantity, 0),
     })),
@@ -266,7 +278,14 @@ async function getStockExport(): Promise<AdminExportDefinition> {
   const db = getPrismaClient();
   const stocks = await db.stock.findMany({
     include: {
-      product: { select: { sku: true, name: true } },
+      product: {
+        select: {
+          sku: true,
+          name: true,
+          priceBuy: true,
+          averageCost: true,
+        },
+      },
       depot: { select: { name: true } },
     },
     orderBy: [{ product: { name: "asc" } }, { depot: { name: "asc" } }],
@@ -281,6 +300,8 @@ async function getStockExport(): Promise<AdminExportDefinition> {
       { header: "Produit", key: "product", width: 38 },
       { header: "Dépôt", key: "depot", width: 24 },
       { header: "Quantité", key: "quantity", width: 14 },
+      { header: "CMUP (DH)", key: "averageCost", width: 18 },
+      { header: "Valeur stock (DH)", key: "stockValue", width: 20 },
       { header: "Seuil bas", key: "threshold", width: 14 },
       { header: "État", key: "status", width: 18 },
     ],
@@ -289,6 +310,13 @@ async function getStockExport(): Promise<AdminExportDefinition> {
       product: stock.product.name,
       depot: stock.depot.name,
       quantity: stock.quantity,
+      averageCost: moneyNumber(
+        stock.product.averageCost ?? stock.product.priceBuy,
+      ),
+      stockValue: moneyNumber(
+        stock.quantity *
+          Number(stock.product.averageCost ?? stock.product.priceBuy),
+      ),
       threshold: stock.lowStockThreshold,
       status:
         stock.quantity <= 0

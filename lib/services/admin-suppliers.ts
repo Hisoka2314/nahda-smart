@@ -2,6 +2,7 @@ import {
   AdminRole,
   Prisma,
   SupplierNoteType,
+  SupplierPaymentMethod,
   SupplierPurchaseStatus,
   SupplierType,
 } from "@prisma/client";
@@ -13,6 +14,7 @@ import {
   getSupplierPurchaseStatusTone,
   supplierNoteTypeLabels,
   supplierDocumentTypeLabels,
+  supplierPaymentMethodLabels,
   supplierPurchaseStatusLabels,
   supplierTypeLabels,
 } from "@/lib/admin/labels";
@@ -304,6 +306,7 @@ export async function getAdminSupplierPurchaseById(id: string) {
               name: true,
               sku: true,
               priceBuy: true,
+              averageCost: true,
               priceSell: true,
             },
           },
@@ -395,7 +398,7 @@ export async function createAdminSupplierPurchase({
           supplierId: input.supplierId,
           purchaseId: purchase.id,
           amount: paid,
-          method: "Initial",
+          method: input.paymentMethod,
           note: "Paiement enregistre lors de la creation achat.",
           createdById: adminId,
         },
@@ -532,7 +535,7 @@ export async function addAdminSupplierPayment({
   adminId: string;
   purchaseId: string;
   amount: number;
-  method?: string;
+  method: SupplierPaymentMethod;
   note?: string;
 }) {
   const db = getPrismaClient();
@@ -739,7 +742,7 @@ function toSupplierDetail(
       id: payment.id,
       purchaseReference: payment.purchase.reference ?? payment.purchaseId,
       amountLabel: formatMoney(Number(payment.amount)),
-      method: payment.method ?? "-",
+      method: supplierPaymentMethodLabels[payment.method],
       note: payment.note ?? "",
       createdAt: formatDateTime(payment.createdAt),
     })),
@@ -799,6 +802,7 @@ function toPurchaseDetail(
               name: true;
               sku: true;
               priceBuy: true;
+              averageCost: true;
               priceSell: true;
             };
           };
@@ -847,12 +851,15 @@ function toPurchaseDetail(
       unitBuyPrice: Number(item.unitBuyPrice),
       unitBuyPriceLabel: formatMoney(Number(item.unitBuyPrice)),
       currentBuyPriceLabel: formatMoney(Number(item.product.priceBuy)),
+      currentAverageCostLabel: formatMoney(
+        Number(item.product.averageCost ?? item.product.priceBuy),
+      ),
       totalLabel: formatMoney(Number(item.total)),
     })),
     payments: purchase.payments.map((payment) => ({
       id: payment.id,
       amountLabel: formatMoney(Number(payment.amount)),
-      method: payment.method ?? "-",
+      method: supplierPaymentMethodLabels[payment.method],
       note: payment.note ?? "",
       createdBy: payment.createdBy?.name ?? "-",
       createdAt: formatDateTime(payment.createdAt),

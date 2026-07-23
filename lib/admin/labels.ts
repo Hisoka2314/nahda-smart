@@ -20,6 +20,7 @@ import {
   StockMovementType,
   SupplierNoteType,
   SupplierDocumentType,
+  SupplierPaymentMethod,
   SupplierPurchaseStatus,
   SupplierType,
 } from "@prisma/client";
@@ -176,6 +177,17 @@ export const deliveryMethodLabels: Record<DeliveryMethod, string> = {
 export const paymentMethodLabels: Record<PaymentMethod, string> = {
   CASH_ON_DELIVERY: "Paiement a la livraison",
   PAY_ON_SITE: "Paiement sur place",
+};
+
+export const supplierPaymentMethodLabels: Record<SupplierPaymentMethod, string> = {
+  CASH: "Espèces",
+  BANK_TRANSFER: "Virement bancaire",
+  CHEQUE: "Chèque",
+  BANK_CARD: "Carte bancaire",
+  MOBILE_PAYMENT: "Paiement mobile",
+  BILL_OF_EXCHANGE: "Effet de commerce",
+  DIRECT_DEBIT: "Prélèvement",
+  OTHER: "Autre",
 };
 
 export const productStatusLabels: Record<ProductStatus, string> = {

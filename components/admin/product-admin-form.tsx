@@ -70,6 +70,9 @@ type ProductFormValue = {
   description: string;
   technicalDescription: string;
   priceBuy: number;
+  averageCost: number;
+  averageCostLabel: string;
+  hasCalculatedAverageCost: boolean;
   priceSell: number;
   promoPrice?: number;
   warrantyMonths: number;
@@ -212,7 +215,7 @@ export function ProductAdminForm({
           title="Prix & promotion"
           description="Le prix d'achat reste reserve a l'admin et n'est jamais expose cote public."
         >
-          <div className="grid gap-4 lg:grid-cols-4">
+          <div className="grid gap-4 lg:grid-cols-5">
             <AdminField label="Prix achat">
               <AdminTextInput
                 name="priceBuy"
@@ -220,6 +223,18 @@ export function ProductAdminForm({
                 defaultValue={product?.priceBuy ?? 0}
                 required
               />
+            </AdminField>
+            <AdminField label="CMUP">
+              <div className="flex min-h-11 flex-col justify-center rounded-control border border-white/10 bg-white/[0.035] px-3">
+                <span className="text-sm font-black text-white">
+                  {product?.averageCostLabel ?? "Calculé à la réception"}
+                </span>
+                <span className="text-xs text-white/42">
+                  {product?.hasCalculatedAverageCost
+                    ? "Coût moyen pondéré"
+                    : "Pas encore de réception"}
+                </span>
+              </div>
             </AdminField>
             <AdminField label="Prix vente">
               <AdminTextInput

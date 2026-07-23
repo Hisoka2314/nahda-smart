@@ -430,6 +430,11 @@ function toAdminProductListItem(product: ProductListPayload) {
     categoryName: product.category.name,
     priceSell: Number(product.priceSell),
     priceSellLabel: formatMoney(Number(product.priceSell)),
+    averageCost: Number(product.averageCost ?? product.priceBuy),
+    averageCostLabel: formatMoney(
+      Number(product.averageCost ?? product.priceBuy),
+    ),
+    hasCalculatedAverageCost: product.averageCost !== null,
     promoPrice: product.promoPrice ? Number(product.promoPrice) : undefined,
     promoPriceLabel: product.promoPrice
       ? formatMoney(Number(product.promoPrice))

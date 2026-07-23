@@ -179,6 +179,7 @@ export default async function AdminProductsPage({
                   <th className="px-3 py-3">Marque</th>
                   <th className="px-3 py-3">Categorie</th>
                   <th className="px-3 py-3">Prix</th>
+                  <th className="px-3 py-3">CMUP</th>
                   <th className="px-3 py-3">Stock</th>
                   <th className="px-3 py-3">Statut</th>
                   <th className="px-3 py-3">Actions</th>
@@ -222,6 +223,14 @@ export default async function AdminProductsPage({
                       {product.promoPriceLabel ? (
                         <p className="text-xs text-orange-200">{product.promoPriceLabel}</p>
                       ) : null}
+                    </AdminTableCell>
+                    <AdminTableCell>
+                      <p className="font-black text-white">{product.averageCostLabel}</p>
+                      <p className="text-xs text-white/42">
+                        {product.hasCalculatedAverageCost
+                          ? "Calculé sur les réceptions"
+                          : "Prix achat initial"}
+                      </p>
                     </AdminTableCell>
                     <AdminTableCell>{product.stockTotal}</AdminTableCell>
                     <AdminTableCell>

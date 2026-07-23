@@ -61,6 +61,7 @@ export async function GET(
     headers: {
       "Cache-Control": "private, no-store, max-age=0",
       "Content-Disposition": `attachment; filename="${definition.filename}.${format}"`,
+      "Content-Length": String(body.byteLength),
       "Content-Type":
         format === "xlsx"
           ? "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"

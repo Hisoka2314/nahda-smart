@@ -120,6 +120,17 @@ enum SupplierPurchaseStatus {
   CANCELLED
 }
 
+enum SupplierPaymentMethod {
+  CASH
+  BANK_TRANSFER
+  CHEQUE
+  BANK_CARD
+  MOBILE_PAYMENT
+  BILL_OF_EXCHANGE
+  DIRECT_DEBIT
+  OTHER
+}
+
 enum SupplierDocumentType {
   INVOICE
   QUOTE
@@ -645,17 +656,17 @@ model SupplierPurchaseItem {
 }
 
 model SupplierPayment {
-  id          String           @id @default(cuid())
+  id          String                @id @default(cuid())
   supplierId  String
-  supplier    Supplier         @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  supplier    Supplier              @relation(fields: [supplierId], references: [id], onDelete: Cascade)
   purchaseId  String
-  purchase    SupplierPurchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
-  amount      Decimal          @db.Decimal(12, 2)
-  method      String?
-  note        String?          @db.Text
+  purchase    SupplierPurchase      @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  amount      Decimal               @db.Decimal(12, 2)
+  method      SupplierPaymentMethod @default(CASH)
+  note        String?               @db.Text
   createdById String?
-  createdBy   AdminUser?       @relation(fields: [createdById], references: [id], onDelete: SetNull)
-  createdAt   DateTime         @default(now())
+  createdBy   AdminUser?            @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime              @default(now())
 
   @@index([supplierId])
   @@index([purchaseId])

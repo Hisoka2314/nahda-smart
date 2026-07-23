@@ -43,6 +43,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // PDFKit lit ses polices standards depuis le système de fichiers Node.
+  // L'externaliser évite que le bundler n'omette ces fichiers en production.
+  serverExternalPackages: ["pdfkit"],
   async headers() {
     return [
       {

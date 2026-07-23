@@ -1,4 +1,8 @@
-import { SupplierDocumentType, SupplierPurchaseStatus } from "@prisma/client";
+import {
+  SupplierDocumentType,
+  SupplierPaymentMethod,
+  SupplierPurchaseStatus,
+} from "@prisma/client";
 import Link from "next/link";
 import {
   AdminCheckbox,
@@ -12,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   supplierDocumentTypeLabels,
+  supplierPaymentMethodLabels,
   supplierPurchaseStatusLabels,
 } from "@/lib/admin/labels";
 
@@ -105,6 +110,15 @@ export function SupplierPurchaseForm({
           </AdminField>
           <AdminField label="Montant paye">
             <AdminTextInput name="paid" type="number" defaultValue={0} />
+          </AdminField>
+          <AdminField label="Mode de paiement">
+            <AdminSelect name="paymentMethod" defaultValue="CASH">
+              {Object.values(SupplierPaymentMethod).map((method) => (
+                <option key={method} value={method}>
+                  {supplierPaymentMethodLabels[method]}
+                </option>
+              ))}
+            </AdminSelect>
           </AdminField>
         </div>
       </AdminPanel>

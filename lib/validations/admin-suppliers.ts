@@ -1,6 +1,7 @@
 import {
   SupplierDocumentType,
   SupplierNoteType,
+  SupplierPaymentMethod,
   SupplierPurchaseStatus,
   SupplierType,
 } from "@prisma/client";
@@ -81,6 +82,7 @@ export const adminSupplierPurchaseSchema = z
     customsFee: nonNegativeMoneySchema.default(0),
     otherFee: nonNegativeMoneySchema.default(0),
     paid: nonNegativeMoneySchema.default(0),
+    paymentMethod: z.enum(SupplierPaymentMethod).default("CASH"),
     notes: optionalTextSchema,
     items: z.array(adminSupplierPurchaseItemSchema).min(1, "Ajoutez au moins un produit."),
   })
@@ -123,7 +125,7 @@ export const adminSupplierPurchaseSchema = z
 export const adminSupplierPaymentSchema = z.object({
   purchaseId: z.string().min(1),
   amount: nonNegativeMoneySchema,
-  method: optionalString,
+  method: z.enum(SupplierPaymentMethod),
   note: optionalTextSchema,
   returnTo: z.string().optional(),
 });

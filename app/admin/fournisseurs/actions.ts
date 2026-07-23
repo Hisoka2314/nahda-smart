@@ -105,6 +105,7 @@ export async function createSupplierPurchaseAction(formData: FormData) {
     customsFee: formData.get("customsFee"),
     otherFee: formData.get("otherFee"),
     paid: formData.get("paid"),
+    paymentMethod: formData.get("paymentMethod"),
     notes: formData.get("notes"),
     items: purchaseItemsFromForm(formData),
   });

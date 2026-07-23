@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { SupplierPaymentMethod } from "@prisma/client";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import {
@@ -9,6 +10,7 @@ import {
   AdminHiddenFields,
   AdminPageHeader,
   AdminPanel,
+  AdminSelect,
   AdminStatCard,
   AdminStatusBadge,
   AdminTable,
@@ -26,6 +28,7 @@ import {
 } from "@/app/admin/fournisseurs/actions";
 import { requireAdminSection } from "@/lib/auth/admin-auth";
 import { getSingleQuery } from "@/lib/admin/pagination";
+import { supplierPaymentMethodLabels } from "@/lib/admin/labels";
 import { getAdminSupplierPurchaseById } from "@/lib/services/admin-suppliers";
 
 export const dynamic = "force-dynamic";
@@ -157,7 +160,13 @@ export default async function SupplierPurchaseDetailPage({
                     <AdminTextInput name="amount" type="number" placeholder="Montant" required />
                   </AdminField>
                   <AdminField label="Methode">
-                    <AdminTextInput name="method" placeholder="Espece, virement..." />
+                    <AdminSelect name="method" defaultValue="CASH">
+                      {Object.values(SupplierPaymentMethod).map((method) => (
+                        <option key={method} value={method}>
+                          {supplierPaymentMethodLabels[method]}
+                        </option>
+                      ))}
+                    </AdminSelect>
                   </AdminField>
                   <AdminField label="Note">
                     <AdminTextarea name="note" rows={3} />
@@ -180,6 +189,7 @@ export default async function SupplierPurchaseDetailPage({
                   <th className="px-3 py-3">Quantite</th>
                   <th className="px-3 py-3">Prix achat</th>
                   <th className="px-3 py-3">Prix achat actuel</th>
+                  <th className="px-3 py-3">CMUP actuel</th>
                   <th className="px-3 py-3">Total ligne</th>
                 </tr>
               </AdminTableHead>
@@ -198,6 +208,7 @@ export default async function SupplierPurchaseDetailPage({
                     <AdminTableCell>{item.quantity}</AdminTableCell>
                     <AdminTableCell>{item.unitBuyPriceLabel}</AdminTableCell>
                     <AdminTableCell>{item.currentBuyPriceLabel}</AdminTableCell>
+                    <AdminTableCell>{item.currentAverageCostLabel}</AdminTableCell>
                     <AdminTableCell>{item.totalLabel}</AdminTableCell>
                   </tr>
                 ))}
