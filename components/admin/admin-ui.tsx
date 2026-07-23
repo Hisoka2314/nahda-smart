@@ -293,6 +293,9 @@ export function AdminTextInput({
   type = "text",
   required,
   disabled,
+  min,
+  max,
+  step,
 }: {
   name: string;
   defaultValue?: string | number;
@@ -300,6 +303,9 @@ export function AdminTextInput({
   type?: string;
   required?: boolean;
   disabled?: boolean;
+  min?: number | string;
+  max?: number | string;
+  step?: number | string;
 }) {
   return (
     <input
@@ -309,6 +315,9 @@ export function AdminTextInput({
       placeholder={placeholder}
       required={required}
       disabled={disabled}
+      min={min}
+      max={max}
+      step={step}
       className="h-11 w-full rounded-control border border-white/10 bg-white/[0.055] px-3 text-sm font-semibold text-white outline-none placeholder:text-white/34 focus:border-nahda-olive/70"
     />
   );

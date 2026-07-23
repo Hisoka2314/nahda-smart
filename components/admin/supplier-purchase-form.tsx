@@ -33,15 +33,20 @@ export function SupplierPurchaseForm({
   action,
   data,
   canUpdateProductPrice,
+  returnTo = "/admin/achats-fournisseurs/nouveau",
+  cancelHref = "/admin/achats-fournisseurs",
 }: {
   action: (formData: FormData) => Promise<void>;
   data: SupplierPurchaseFormData;
   canUpdateProductPrice: boolean;
+  returnTo?: string;
+  cancelHref?: string;
 }) {
   const defaultDate = new Date().toISOString().slice(0, 10);
 
   return (
     <form action={action} className="space-y-5">
+      <AdminHiddenFields values={{ returnTo }} />
       <AdminPanel
         title="Achat fournisseur"
         description="Creez un brouillon ou validez directement une entree stock recue."
@@ -109,7 +114,7 @@ export function SupplierPurchaseForm({
         description="Laissez les lignes non utilisees vides. Le total est verifie cote serveur."
       >
         <div className="space-y-3">
-          {Array.from({ length: 8 }).map((_, index) => (
+          {Array.from({ length: 12 }).map((_, index) => (
             <div
               key={index}
               className="grid gap-3 rounded-control border border-white/10 bg-white/[0.035] p-3 lg:grid-cols-[minmax(0,1.9fr)_110px_140px_170px]"
@@ -133,6 +138,8 @@ export function SupplierPurchaseForm({
                 <AdminTextInput
                   name={`items.${index}.quantity`}
                   type="number"
+                  min={1}
+                  step={1}
                   defaultValue={index === 0 ? 1 : undefined}
                   placeholder="1"
                 />
@@ -178,11 +185,7 @@ export function SupplierPurchaseForm({
 
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
         <Link
-          href={
-            data.selectedSupplierId
-              ? `/admin/fournisseurs/${data.selectedSupplierId}`
-              : "/admin/achats-fournisseurs"
-          }
+          href={cancelHref}
           className="inline-flex h-11 items-center justify-center rounded-control border border-white/10 px-4 text-sm font-bold text-white hover:bg-white/[0.08]"
         >
           Annuler

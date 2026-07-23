@@ -46,7 +46,7 @@ export default async function SupplierDetailPage({
         <AdminPageHeader
           eyebrow="Fiche fournisseur"
           title={supplier.name}
-          description={`${supplier.typeLabel} - ${supplier.city}`}
+          description={`${supplier.reference} · ${supplier.typeLabel} · ${supplier.city}`}
           breadcrumbs={[
             { label: "Admin", href: "/admin" },
             { label: "Fournisseurs", href: "/admin/fournisseurs" },
@@ -88,6 +88,7 @@ export default async function SupplierDetailPage({
         <div className="grid gap-6 xl:grid-cols-[1fr_1.2fr]">
           <AdminPanel title="Informations fournisseur">
             <div className="space-y-3 text-sm text-white/68">
+              <p><span className="font-black text-white">Code fournisseur :</span> {supplier.reference}</p>
               <p><span className="font-black text-white">Telephone :</span> {supplier.phone}</p>
               <p><span className="font-black text-white">Email :</span> {supplier.email || "-"}</p>
               <p><span className="font-black text-white">Adresse :</span> {supplier.address || "-"}</p>

@@ -17,6 +17,8 @@ import {
   AdminTableHead,
 } from "@/components/admin/admin-ui";
 import { Button } from "@/components/ui/button";
+import { AdminConfirmSubmit } from "@/components/admin/admin-confirm-submit";
+import { AdminExportActions } from "@/components/admin/admin-export-actions";
 import { requireAdminSection } from "@/lib/auth/admin-auth";
 import {
   getProductStatusTone,
@@ -75,14 +77,17 @@ export default async function AdminProductsPage({
             { label: "Produits" },
           ]}
           action={
-            canManageProduct ? (
-              <Link href="/admin/produits/nouveau">
-                <Button>
-                  <PackagePlus size={16} />
-                  Nouveau produit
-                </Button>
-              </Link>
-            ) : null
+            <div className="flex flex-wrap items-center gap-2">
+              <AdminExportActions dataset="produits" />
+              {canManageProduct ? (
+                <Link href="/admin/produits/nouveau">
+                  <Button>
+                    <PackagePlus size={16} />
+                    Nouveau produit
+                  </Button>
+                </Link>
+              ) : null}
+            </div>
           }
         />
         <AdminFeedback
@@ -237,9 +242,16 @@ export default async function AdminProductsPage({
                           <form action={archiveProductAction}>
                             <input type="hidden" name="productId" value={product.id} />
                             <input type="hidden" name="returnTo" value="/admin/produits" />
-                            <Button type="submit" variant="lightOutline" size="sm">
-                              Archiver
-                            </Button>
+                            <AdminConfirmSubmit
+                              title="Archiver ce produit ?"
+                              description={`Le produit « ${product.name} » ne sera plus disponible dans le catalogue actif. Son historique restera conservé.`}
+                              confirmLabel="Archiver le produit"
+                              trigger={
+                                <span className="focus-ring inline-flex h-9 items-center justify-center rounded-control border border-red-300/30 px-3 text-sm font-bold text-red-100 hover:bg-red-500/10">
+                                  Archiver
+                                </span>
+                              }
+                            />
                           </form>
                         ) : null}
                       </div>

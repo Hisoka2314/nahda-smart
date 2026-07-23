@@ -17,6 +17,7 @@ import {
   AdminTableHead,
 } from "@/components/admin/admin-ui";
 import { Button } from "@/components/ui/button";
+import { AdminExportActions } from "@/components/admin/admin-export-actions";
 import { requireAdminSection } from "@/lib/auth/admin-auth";
 import {
   supplierPurchaseStatusLabels,
@@ -55,12 +56,15 @@ export default async function AdminSupplierPurchasesPage({
             { label: "Achats fournisseurs" },
           ]}
           action={
-            <Link href="/admin/fournisseurs">
-              <Button variant="primary" size="sm">
-                <Plus size={16} />
-                Choisir fournisseur
-              </Button>
-            </Link>
+            <div className="flex flex-wrap items-center gap-2">
+              <AdminExportActions dataset="achats" />
+              <Link href="/admin/achats-fournisseurs/nouveau">
+                <Button variant="primary" size="sm">
+                  <Plus size={16} />
+                  Nouvel achat
+                </Button>
+              </Link>
+            </div>
           }
         />
         <AdminFeedback
@@ -104,7 +108,7 @@ export default async function AdminSupplierPurchasesPage({
                     <th className="px-3 py-3">Reference</th>
                     <th className="px-3 py-3">Depot</th>
                     <th className="px-3 py-3">Statut</th>
-                    <th className="px-3 py-3">Articles</th>
+                    <th className="px-3 py-3">Produits achetés</th>
                     <th className="px-3 py-3">Total</th>
                     <th className="px-3 py-3">Reste</th>
                     <th className="px-3 py-3">Action</th>
@@ -134,7 +138,12 @@ export default async function AdminSupplierPurchasesPage({
                         </AdminStatusBadge>
                       </AdminTableCell>
                       <AdminTableCell>
-                        {purchase.itemCount} lignes / {purchase.quantityTotal} pcs
+                        <p className="font-black text-white">
+                          {purchase.quantityTotal} unité(s)
+                        </p>
+                        <p className="mt-1 text-xs text-white/44">
+                          {purchase.itemCount} produit(s) distinct(s)
+                        </p>
                       </AdminTableCell>
                       <AdminTableCell>{purchase.totalLabel}</AdminTableCell>
                       <AdminTableCell>
@@ -167,7 +176,7 @@ export default async function AdminSupplierPurchasesPage({
           ) : (
             <AdminEmptyState
               title="Aucun achat fournisseur"
-              description="Creez un achat depuis la fiche d'un fournisseur."
+              description="Créez un achat et choisissez directement le fournisseur."
             />
           )}
         </AdminPanel>

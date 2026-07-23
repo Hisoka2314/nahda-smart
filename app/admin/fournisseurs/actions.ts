@@ -108,9 +108,10 @@ export async function createSupplierPurchaseAction(formData: FormData) {
     notes: formData.get("notes"),
     items: purchaseItemsFromForm(formData),
   });
-  const returnTo = supplierId
-    ? `/admin/fournisseurs/${supplierId}/achat`
-    : "/admin/achats-fournisseurs";
+  const returnTo = safeAdminReturnPath(
+    String(formData.get("returnTo") ?? ""),
+    "/admin/achats-fournisseurs/nouveau",
+  );
 
   if (!parsed.success) redirect(`${returnTo}?error=validation`);
 
@@ -230,7 +231,7 @@ function supplierPayloadFromForm(formData: FormData) {
 function purchaseItemsFromForm(formData: FormData) {
   const items = [];
 
-  for (let index = 0; index < 8; index += 1) {
+  for (let index = 0; index < 12; index += 1) {
     const productId = String(formData.get(`items.${index}.productId`) ?? "");
     if (!productId) continue;
 

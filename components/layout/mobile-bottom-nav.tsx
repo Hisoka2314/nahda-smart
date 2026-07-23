@@ -13,7 +13,7 @@ const mobileItems = [
 ];
 
 export function MobileBottomNav() {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-nahda-ink/[0.96] px-1.5 pb-[env(safe-area-inset-bottom)] pt-2 text-white shadow-[0_-16px_42px_rgb(0_0_0_/_0.28)] backdrop-blur lg:hidden">

@@ -22,6 +22,7 @@ import {
   AdminTableHead,
 } from "@/components/admin/admin-ui";
 import { Button } from "@/components/ui/button";
+import { AdminExportActions } from "@/components/admin/admin-export-actions";
 import { requireAdminSection } from "@/lib/auth/admin-auth";
 import {
   customerLevelLabels,
@@ -67,12 +68,15 @@ export default async function AdminClientsPage({
           title="Clients"
           description="Mini CRM Nahda Smart: relation client, historique achats, notes internes et commandes manuelles."
           action={
-            <Link href="/admin/clients/nouveau">
-              <Button variant="primary" size="sm">
-                <Plus size={16} />
-                Nouveau client
-              </Button>
-            </Link>
+            <div className="flex flex-wrap items-center gap-2">
+              <AdminExportActions dataset="clients" />
+              <Link href="/admin/clients/nouveau">
+                <Button variant="primary" size="sm">
+                  <Plus size={16} />
+                  Nouveau client
+                </Button>
+              </Link>
+            </div>
           }
         />
 
@@ -84,7 +88,7 @@ export default async function AdminClientsPage({
         <AdminPanel title="Filtres CRM">
           <AdminFilterBar columns="xl:grid-cols-[1.5fr_repeat(5,minmax(0,1fr))_auto]">
             <AdminSearchBox
-              placeholder="Nom, telephone, email, organisation..."
+              placeholder="Code client, nom, telephone, email..."
               defaultValue={filters.q}
             />
             <AdminSelect name="type" defaultValue={filters.type}>
@@ -161,7 +165,10 @@ export default async function AdminClientsPage({
                           {client.name}
                         </Link>
                         <p className="mt-1 text-xs text-white/44">
-                          {client.phone}
+                          <span className="font-black text-nahda-olive">
+                            {client.reference}
+                          </span>{" "}
+                          · {client.phone}
                         </p>
                         {client.email ? (
                           <p className="mt-1 text-xs text-white/38">

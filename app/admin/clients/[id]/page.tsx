@@ -48,7 +48,7 @@ export default async function AdminClientDetailPage({
         <AdminPageHeader
           eyebrow="Fiche client"
           title={client.name}
-          description={`${client.phone} - ${client.typeLabel}${client.organizationName ? ` - ${client.organizationName}` : ""}`}
+          description={`${client.reference} · ${client.phone} · ${client.typeLabel}${client.organizationName ? ` · ${client.organizationName}` : ""}`}
           breadcrumbs={[
             { label: "Clients", href: "/admin/clients" },
             { label: client.name },
@@ -80,6 +80,7 @@ export default async function AdminClientDetailPage({
           <div className="space-y-6">
             <AdminPanel title="Profil CRM">
               <div className="grid gap-4 md:grid-cols-3">
+                <Info label="Code client" value={client.reference} />
                 <Info label="Telephone" value={client.phone} />
                 <Info label="Email" value={client.email ?? "-"} />
                 <Info label="Ville" value={client.city ?? "-"} />

@@ -436,6 +436,7 @@ model ProductAttributeValue {
 
 model Customer {
   id                 String                     @id @default(cuid())
+  reference          String                     @unique @default(dbgenerated())
   name               String
   phone              String
   email              String?
@@ -574,6 +575,7 @@ model QuoteItem {
 
 model Supplier {
   id            String             @id @default(cuid())
+  reference     String             @unique @default(dbgenerated())
   name          String
   phone         String?
   email         String?

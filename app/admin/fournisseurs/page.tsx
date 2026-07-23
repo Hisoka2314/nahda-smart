@@ -17,6 +17,7 @@ import {
   AdminTableHead,
 } from "@/components/admin/admin-ui";
 import { Button } from "@/components/ui/button";
+import { AdminExportActions } from "@/components/admin/admin-export-actions";
 import { requireAdminSection } from "@/lib/auth/admin-auth";
 import { supplierTypeLabels } from "@/lib/admin/labels";
 import { getAdminPagination, getSingleQuery } from "@/lib/admin/pagination";
@@ -53,12 +54,15 @@ export default async function AdminSuppliersPage({
           description="Suivez les importateurs, grossistes, revendeurs et achats avec dette fournisseur."
           breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Fournisseurs" }]}
           action={
-            <Link href="/admin/fournisseurs/nouveau">
-              <Button variant="primary" size="sm">
-                <Plus size={16} />
-                Nouveau fournisseur
-              </Button>
-            </Link>
+            <div className="flex flex-wrap items-center gap-2">
+              <AdminExportActions dataset="fournisseurs" />
+              <Link href="/admin/fournisseurs/nouveau">
+                <Button variant="primary" size="sm">
+                  <Plus size={16} />
+                  Nouveau fournisseur
+                </Button>
+              </Link>
+            </div>
           }
         />
 
@@ -70,7 +74,7 @@ export default async function AdminSuppliersPage({
         <AdminPanel title="Filtres fournisseurs">
           <AdminFilterBar columns="xl:grid-cols-[1.6fr_repeat(4,minmax(0,1fr))_auto]">
             <AdminSearchBox
-              placeholder="Nom, telephone, email..."
+              placeholder="Code fournisseur, nom, telephone..."
               defaultValue={filters.q}
             />
             <AdminSelect name="type" defaultValue={filters.type}>
@@ -125,7 +129,10 @@ export default async function AdminSuppliersPage({
                           {supplier.name}
                         </Link>
                         <p className="mt-1 text-xs text-white/44">
-                          {supplier.phone}
+                          <span className="font-black text-nahda-olive">
+                            {supplier.reference}
+                          </span>{" "}
+                          · {supplier.phone}
                         </p>
                         {supplier.email ? (
                           <p className="mt-1 text-xs text-white/38">

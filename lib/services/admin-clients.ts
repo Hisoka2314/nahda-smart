@@ -55,6 +55,7 @@ export const customerTagLabels: Record<string, string> = {
 
 export type AdminClientListItem = {
   id: string;
+  reference: string;
   name: string;
   phone: string;
   email?: string;
@@ -628,6 +629,7 @@ function buildCustomerWhere(
   const q = filters.q?.trim();
   if (q) {
     where.OR = [
+      { reference: { contains: q, mode: "insensitive" } },
       { name: { contains: q, mode: "insensitive" } },
       { phone: { contains: q, mode: "insensitive" } },
       { email: { contains: q, mode: "insensitive" } },
@@ -650,6 +652,7 @@ function toAdminClientListItem(customer: CustomerWithOrders): AdminClientListIte
 
   return {
     id: customer.id,
+    reference: customer.reference,
     name: customer.name,
     phone: customer.phone,
     email: customer.email ?? undefined,

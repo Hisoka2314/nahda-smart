@@ -38,6 +38,7 @@ import {
   updateStockThresholdAction,
 } from "@/app/admin/stock/actions";
 import { AdminFilePreview } from "@/components/admin/admin-file-preview";
+import { AdminConfirmSubmit } from "@/components/admin/admin-confirm-submit";
 
 type Option = { id: string; name: string; slug?: string };
 type DepotOption = { id: string; name: string; type: string };
@@ -451,7 +452,16 @@ export function ProductImagesPanel({ product }: { product: ProductFormValue }) {
                 <input type="hidden" name="imageId" value={image.id} />
                 <input type="hidden" name="productId" value={product.id} />
                 <input type="hidden" name="returnTo" value={`/admin/produits/${product.id}`} />
-                <Button type="submit" variant="lightOutline">Supprimer</Button>
+                <AdminConfirmSubmit
+                  title="Supprimer cette image ?"
+                  description="Le fichier image sera supprimé du produit et du stockage local. Cette opération est irréversible."
+                  confirmLabel="Supprimer l'image"
+                  trigger={
+                    <span className="focus-ring inline-flex h-11 items-center justify-center rounded-control border border-red-300/30 px-4 text-sm font-bold text-red-100 hover:bg-red-500/10">
+                      Supprimer
+                    </span>
+                  }
+                />
               </form>
             </div>
           ))
@@ -635,7 +645,19 @@ export function ProductStockPanel({
               <AdminTextInput name="reason" />
             </AdminField>
           </div>
-          <Button type="submit" className="lg:col-span-3">Creer le mouvement</Button>
+          <div className="lg:col-span-3">
+            <AdminConfirmSubmit
+              title="Créer ce mouvement de stock ?"
+              description="Le stock de ce produit sera modifié. Vérifiez le dépôt, le type et la quantité avant confirmation."
+              confirmLabel="Confirmer le mouvement"
+              tone="warning"
+              trigger={
+                <span className="focus-ring inline-flex h-11 w-full items-center justify-center rounded-control bg-nahda-olive px-4 text-sm font-bold text-white hover:bg-nahda-olive-dark">
+                  Créer le mouvement
+                </span>
+              }
+            />
+          </div>
         </form>
         {product.movements.length ? (
           <div>

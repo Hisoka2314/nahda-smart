@@ -664,6 +664,7 @@ function toSupplierListItem(
 
   return {
     id: supplier.id,
+    reference: supplier.reference,
     name: supplier.name,
     phone: supplier.phone ?? "-",
     email: supplier.email ?? "",
@@ -833,6 +834,10 @@ function toPurchaseDetail(
     receivedAt: purchase.receivedAt ? formatDateTime(purchase.receivedAt) : "",
     createdBy: purchase.createdBy?.name ?? "-",
     notes: purchase.notes ?? "",
+    quantityTotal: purchase.items.reduce(
+      (sum, item) => sum + item.quantity,
+      0,
+    ),
     items: purchase.items.map((item) => ({
       id: item.id,
       productId: item.productId,
@@ -868,6 +873,7 @@ function buildSupplierWhere(filters: AdminSupplierFilters): Prisma.SupplierWhere
   }
   if (q) {
     where.OR = [
+      { reference: { contains: q, mode: "insensitive" } },
       { name: { contains: q, mode: "insensitive" } },
       { phone: { contains: q, mode: "insensitive" } },
       { email: { contains: q, mode: "insensitive" } },

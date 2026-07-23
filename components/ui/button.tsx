@@ -8,6 +8,7 @@ type ButtonVariant =
   | "outline"
   | "ghost"
   | "promo"
+  | "danger"
   | "dark"
   | "lightOutline";
 
@@ -28,6 +29,8 @@ const variants: Record<ButtonVariant, string> = {
     "border border-nahda-olive/[0.45] bg-white text-nahda-olive-dark hover:border-nahda-olive hover:bg-nahda-olive-soft",
   ghost: "text-nahda-ink hover:bg-surface-muted",
   promo: "bg-nahda-orange text-white hover:bg-[#d9610a]",
+  danger:
+    "bg-red-600 text-white shadow-[0_10px_24px_rgb(220_38_38_/_0.2)] hover:bg-red-700",
   dark: "bg-nahda-ink text-white hover:bg-[#172016]",
   lightOutline:
     "border border-white/40 bg-white/[0.06] text-white backdrop-blur hover:bg-white/[0.14]",

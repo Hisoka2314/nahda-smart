@@ -18,6 +18,8 @@ import {
   AdminTextInput,
 } from "@/components/admin/admin-ui";
 import { Button } from "@/components/ui/button";
+import { AdminExportActions } from "@/components/admin/admin-export-actions";
+import { AdminConfirmSubmit } from "@/components/admin/admin-confirm-submit";
 import { requireAdminSection } from "@/lib/auth/admin-auth";
 import { stockMovementTypeLabels } from "@/lib/admin/labels";
 import { getAdminDepots } from "@/lib/services/admin-depots";
@@ -66,6 +68,7 @@ export default async function AdminStockPage({
             { label: "Admin", href: "/admin" },
             { label: "Stock" },
           ]}
+          action={<AdminExportActions dataset="stock" />}
         />
         <AdminFeedback
           success={getSingleQuery(params.success)}
@@ -159,7 +162,19 @@ export default async function AdminStockPage({
             <AdminField label="Raison">
               <AdminTextInput name="reason" />
             </AdminField>
-            <Button type="submit" className="lg:col-span-4">Enregistrer mouvement</Button>
+            <div className="lg:col-span-4">
+              <AdminConfirmSubmit
+                title="Enregistrer ce mouvement de stock ?"
+                description="Le stock sera modifié et un mouvement d'audit sera créé. Vérifiez le produit, le dépôt, le type et la quantité."
+                confirmLabel="Confirmer le mouvement"
+                tone="warning"
+                trigger={
+                  <span className="focus-ring inline-flex h-11 w-full items-center justify-center rounded-control bg-nahda-olive px-4 text-sm font-bold text-white hover:bg-nahda-olive-dark">
+                    Enregistrer mouvement
+                  </span>
+                }
+              />
+            </div>
           </form>
         </AdminPanel>
 

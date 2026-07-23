@@ -19,6 +19,8 @@ import {
   AdminTableHead,
 } from "@/components/admin/admin-ui";
 import { Button } from "@/components/ui/button";
+import { AdminConfirmSubmit } from "@/components/admin/admin-confirm-submit";
+import { AdminExportActions } from "@/components/admin/admin-export-actions";
 import { requireAdminSection } from "@/lib/auth/admin-auth";
 import {
   customerTypeLabels,
@@ -59,13 +61,21 @@ export default async function AdminOrdersPage({
           eyebrow="Gestion commerciale"
           title="Commandes"
           description="Suivez les commandes hors ligne, confirmez les statuts et gardez l'historique admin propre."
+          action={<AdminExportActions dataset="commandes" />}
         />
 
         {["SUPER_ADMIN", "MANAGER"].includes(admin.role) ? (
           <form action={cancelStaleOrdersAction} className="flex justify-end">
-            <Button type="submit" variant="lightOutline" size="sm">
-              Annuler les commandes non confirmées &gt; 48h (libère le stock)
-            </Button>
+            <AdminConfirmSubmit
+              title="Annuler les commandes en attente ?"
+              description="Toutes les commandes non confirmées depuis plus de 48 heures seront annulées et leur stock réservé sera libéré. Cette opération ne peut pas être annulée automatiquement."
+              confirmLabel="Annuler et libérer le stock"
+              trigger={
+                <span className="focus-ring inline-flex h-9 items-center justify-center rounded-control border border-red-300/35 bg-red-500/[0.08] px-3 text-sm font-bold text-red-100 hover:bg-red-500/15">
+                  Annuler les commandes non confirmées &gt; 48h
+                </span>
+              }
+            />
           </form>
         ) : null}
 

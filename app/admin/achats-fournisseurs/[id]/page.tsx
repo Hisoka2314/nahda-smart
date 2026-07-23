@@ -18,6 +18,7 @@ import {
   AdminTextarea,
 } from "@/components/admin/admin-ui";
 import { Button } from "@/components/ui/button";
+import { AdminConfirmSubmit } from "@/components/admin/admin-confirm-submit";
 import {
   addSupplierPaymentAction,
   cancelSupplierPurchaseAction,
@@ -74,7 +75,7 @@ export default async function SupplierPurchaseDetailPage({
           error={getSingleQuery(query.error)}
         />
 
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
           <AdminStatCard label="Total achat" value={purchase.totalLabel} />
           <AdminStatCard label="Total paye" value={purchase.paidLabel} tone="success" />
           <AdminStatCard
@@ -83,6 +84,11 @@ export default async function SupplierPurchaseDetailPage({
             tone={purchase.remaining > 0 ? "warning" : "success"}
           />
           <AdminStatCard label="Statut" value={purchase.statusLabel} tone={purchase.statusTone} />
+          <AdminStatCard
+            label="Quantité achetée"
+            value={`${purchase.quantityTotal} unité(s)`}
+            tone="info"
+          />
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
@@ -114,19 +120,34 @@ export default async function SupplierPurchaseDetailPage({
               {purchase.status === "DRAFT" ? (
                 <form action={receiveSupplierPurchaseAction}>
                   <AdminHiddenFields values={{ purchaseId: purchase.id, returnTo }} />
-                  <Button type="submit" variant="primary" className="w-full">
-                    <CheckCircle2 size={16} />
-                    Valider comme recu
-                  </Button>
+                  <AdminConfirmSubmit
+                    title="Réceptionner cet achat ?"
+                    description={`Cette action ajoutera ${purchase.quantityTotal} unité(s) au stock et recalculera les coûts moyens. Vérifiez les produits et quantités avant de continuer.`}
+                    confirmLabel="Réceptionner et entrer en stock"
+                    tone="warning"
+                    trigger={
+                      <span className="focus-ring inline-flex h-11 w-full items-center justify-center gap-2 rounded-control bg-nahda-olive px-4 text-sm font-bold text-white hover:bg-nahda-olive-dark">
+                        <CheckCircle2 size={16} />
+                        Valider comme reçu
+                      </span>
+                    }
+                  />
                 </form>
               ) : null}
               {purchase.status === "DRAFT" ? (
                 <form action={cancelSupplierPurchaseAction}>
                   <AdminHiddenFields values={{ purchaseId: purchase.id, returnTo }} />
-                  <Button type="submit" variant="lightOutline" className="w-full">
-                    <XCircle size={16} />
-                    Annuler brouillon
-                  </Button>
+                  <AdminConfirmSubmit
+                    title="Annuler ce brouillon d'achat ?"
+                    description="L'achat sera marqué comme annulé et ne pourra plus être réceptionné."
+                    confirmLabel="Annuler le brouillon"
+                    trigger={
+                      <span className="focus-ring inline-flex h-11 w-full items-center justify-center gap-2 rounded-control border border-red-300/30 px-4 text-sm font-bold text-red-100 hover:bg-red-500/10">
+                        <XCircle size={16} />
+                        Annuler brouillon
+                      </span>
+                    }
+                  />
                 </form>
               ) : null}
               {purchase.status !== "CANCELLED" && purchase.remaining > 0 && canManagePayment ? (

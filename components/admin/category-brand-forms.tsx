@@ -18,6 +18,7 @@ import {
   uploadBrandLogoAction,
 } from "@/app/admin/marques/actions";
 import { AdminFilePreview } from "@/components/admin/admin-file-preview";
+import { AdminConfirmSubmit } from "@/components/admin/admin-confirm-submit";
 
 type CategoryOption = { id: string; name: string };
 
@@ -196,9 +197,16 @@ export function BrandLogoPanel({
         <form action={removeBrandLogoAction} className="mt-3">
           <input type="hidden" name="brandId" value={brand.id} />
           <input type="hidden" name="returnTo" value={`/admin/marques/${brand.id}`} />
-          <Button type="submit" variant="lightOutline">
-            Supprimer le logo
-          </Button>
+          <AdminConfirmSubmit
+            title="Supprimer le logo ?"
+            description="Le logo de la marque sera retiré du site et du stockage. Cette opération est irréversible."
+            confirmLabel="Supprimer le logo"
+            trigger={
+              <span className="focus-ring inline-flex h-11 items-center justify-center rounded-control border border-red-300/30 px-4 text-sm font-bold text-red-100 hover:bg-red-500/10">
+                Supprimer le logo
+              </span>
+            }
+          />
         </form>
       ) : null}
     </AdminPanel>

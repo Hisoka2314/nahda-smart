@@ -59,7 +59,7 @@ const adminNav: Array<{
 ];
 
 export function AdminNav({ role }: { role: AdminRole }) {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
 
   return (
     <nav className="mt-8 grid gap-1.5">

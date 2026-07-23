@@ -126,6 +126,7 @@ const filterKeys = [
 ] as const;
 
 const productLimitStep = 12;
+const emptySearchParams = new URLSearchParams();
 
 export function CataloguePageClient({
   categorySlug,
@@ -133,9 +134,9 @@ export function CataloguePageClient({
   categories = catalogueCategories,
   filterGroups,
 }: CataloguePageClientProps) {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? emptySearchParams;
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "/catalogue";
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(productLimitStep);
 
