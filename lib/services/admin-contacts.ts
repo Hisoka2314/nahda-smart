@@ -5,6 +5,10 @@ import {
   contactStatusLabels,
   formatDateTime,
 } from "@/lib/admin/labels";
+import {
+  toAdminPaginatedResult,
+  type AdminPagination,
+} from "@/lib/admin/pagination";
 import { adminContactFiltersSchema } from "@/lib/validations/admin";
 
 export type AdminContactListItem = {
@@ -39,29 +43,60 @@ export async function getAdminContacts(rawFilters: AdminContactFilters = {}) {
     take: 50,
   });
 
-  return contacts.map((contact): AdminContactListItem => {
-    const message = contact.message.trim();
+  return contacts.map(toAdminContactListItem);
+}
 
-    return {
-      id: contact.id,
-      createdAt: formatDateTime(contact.createdAt),
-      name: contact.name,
-      phone: contact.phone,
-      email: contact.email ?? undefined,
-      subject: contact.subject,
-      message,
-      shortMessage: message.length > 130 ? `${message.slice(0, 130)}...` : message,
-      status: contact.status,
-      statusLabel: contactStatusLabels[contact.status],
-      callAttempts: contact.callAttempts,
-      callbackAt: contact.callbackAt ? formatDateTime(contact.callbackAt) : null,
-      lastContactAt: contact.lastContactAt
-        ? formatDateTime(contact.lastContactAt)
-        : null,
-      internalNote: contact.internalNote ?? "",
-      customerId: contact.customerId,
-    };
+// Idem commandes et devis : les leads plus anciens que les 50 derniers
+// sortaient purement et simplement du back-office.
+export async function getAdminContactsPage(
+  rawFilters: AdminContactFilters = {},
+  pagination: AdminPagination,
+) {
+  const filters = adminContactFiltersSchema.parse(rawFilters);
+  const db = getPrismaClient();
+  const where = buildContactWhere(filters);
+  const [total, contacts] = await Promise.all([
+    db.contactMessage.count({ where }),
+    db.contactMessage.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip: pagination.skip,
+      take: pagination.take,
+    }),
+  ]);
+
+  return toAdminPaginatedResult({
+    items: contacts.map(toAdminContactListItem),
+    total,
+    page: pagination.page,
+    perPage: pagination.perPage,
   });
+}
+
+function toAdminContactListItem(
+  contact: Prisma.ContactMessageGetPayload<object>,
+): AdminContactListItem {
+  const message = contact.message.trim();
+
+  return {
+    id: contact.id,
+    createdAt: formatDateTime(contact.createdAt),
+    name: contact.name,
+    phone: contact.phone,
+    email: contact.email ?? undefined,
+    subject: contact.subject,
+    message,
+    shortMessage: message.length > 130 ? `${message.slice(0, 130)}...` : message,
+    status: contact.status,
+    statusLabel: contactStatusLabels[contact.status],
+    callAttempts: contact.callAttempts,
+    callbackAt: contact.callbackAt ? formatDateTime(contact.callbackAt) : null,
+    lastContactAt: contact.lastContactAt
+      ? formatDateTime(contact.lastContactAt)
+      : null,
+    internalNote: contact.internalNote ?? "",
+    customerId: contact.customerId,
+  };
 }
 
 export async function updateAdminContactStatus({

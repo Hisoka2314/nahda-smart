@@ -10,6 +10,7 @@ import { AdminLayout } from "@/components/admin/admin-layout";
 import {
   AdminEmptyState,
   AdminPageHeader,
+  AdminPagination,
   AdminPanel,
   AdminSearchBox,
   AdminSelect,
@@ -29,7 +30,8 @@ import {
   orderStatusLabels,
   paymentMethodLabels,
 } from "@/lib/admin/labels";
-import { getAdminOrders } from "@/lib/services/admin-orders";
+import { getAdminPagination } from "@/lib/admin/pagination";
+import { getAdminOrdersPage } from "@/lib/services/admin-orders";
 import {
   cancelStaleOrdersAction,
   updateOrderStatusAction,
@@ -52,7 +54,12 @@ export default async function AdminOrdersPage({
     delivery: getDeliveryMethod(params.delivery),
     date: getDateFilter(params.date),
   };
-  const orders = await getAdminOrders(filters);
+  const pagination = getAdminPagination({
+    page: getSingle(params.page),
+    perPage: getSingle(params.perPage),
+  });
+  const ordersPage = await getAdminOrdersPage(filters, pagination);
+  const orders = ordersPage.items;
 
   return (
     <AdminLayout admin={admin}>
@@ -129,7 +136,7 @@ export default async function AdminOrdersPage({
           </form>
         </AdminPanel>
 
-        <AdminPanel title={`${orders.length} commandes`}>
+        <AdminPanel title={`${ordersPage.total} commandes`}>
           {orders.length ? (
             <AdminTable>
               <AdminTableHead>
@@ -220,6 +227,14 @@ export default async function AdminOrdersPage({
               description="Essayez de modifier les filtres ou attendez les prochaines commandes du site."
             />
           )}
+          <AdminPagination
+            basePath="/admin/commandes"
+            searchParams={params}
+            page={ordersPage.page}
+            perPage={ordersPage.perPage}
+            total={ordersPage.total}
+            totalPages={ordersPage.totalPages}
+          />
         </AdminPanel>
       </div>
     </AdminLayout>

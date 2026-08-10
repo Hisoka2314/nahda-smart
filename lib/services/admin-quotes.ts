@@ -7,6 +7,10 @@ import {
   formatMoney,
   quoteStatusLabels,
 } from "@/lib/admin/labels";
+import {
+  toAdminPaginatedResult,
+  type AdminPagination,
+} from "@/lib/admin/pagination";
 import { adminQuoteFiltersSchema } from "@/lib/validations/admin";
 
 export type AdminQuoteListItem = {
@@ -71,6 +75,33 @@ export async function getAdminQuotes(rawFilters: AdminQuoteFilters = {}) {
   });
 
   return quotes.map(toAdminQuoteListItem);
+}
+
+// Idem commandes : la liste plafonnait aux 50 devis les plus recents.
+export async function getAdminQuotesPage(
+  rawFilters: AdminQuoteFilters = {},
+  pagination: AdminPagination,
+) {
+  const filters = adminQuoteFiltersSchema.parse(rawFilters);
+  const db = getPrismaClient();
+  const where = buildQuoteWhere(filters);
+  const [total, quotes] = await Promise.all([
+    db.quote.count({ where }),
+    db.quote.findMany({
+      where,
+      include: quoteListInclude,
+      orderBy: { createdAt: "desc" },
+      skip: pagination.skip,
+      take: pagination.take,
+    }),
+  ]);
+
+  return toAdminPaginatedResult({
+    items: quotes.map(toAdminQuoteListItem),
+    total,
+    page: pagination.page,
+    perPage: pagination.perPage,
+  });
 }
 
 export async function getAdminQuoteById(id: string) {

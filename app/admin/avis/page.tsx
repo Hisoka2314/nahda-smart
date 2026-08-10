@@ -6,6 +6,7 @@ import {
   AdminEmptyState,
   AdminFeedback,
   AdminPageHeader,
+  AdminPagination,
   AdminPanel,
   AdminSelect,
   AdminStatusBadge,
@@ -16,7 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { moderateReviewAction } from "@/app/admin/avis/actions";
 import { requireAdminSection } from "@/lib/auth/admin-auth";
-import { getAdminReviews } from "@/lib/services/reviews";
+import { getAdminPagination, getSingleQuery } from "@/lib/admin/pagination";
+import { getAdminReviewsPage } from "@/lib/services/reviews";
 
 export const dynamic = "force-dynamic";
 
@@ -46,7 +48,12 @@ export default async function AdminReviewsPage({
     rawStatus && (Object.values(ReviewStatus) as string[]).includes(rawStatus)
       ? (rawStatus as ReviewStatus)
       : undefined;
-  const reviews = await getAdminReviews(status);
+  const pagination = getAdminPagination({
+    page: getSingleQuery(params.page),
+    perPage: getSingleQuery(params.perPage),
+  });
+  const reviewsPage = await getAdminReviewsPage(status, pagination);
+  const reviews = reviewsPage.items;
 
   return (
     <AdminLayout admin={admin}>
@@ -80,7 +87,7 @@ export default async function AdminReviewsPage({
           </form>
         </AdminPanel>
 
-        <AdminPanel title={`${reviews.length} avis`}>
+        <AdminPanel title={`${reviewsPage.total} avis`}>
           {reviews.length ? (
             <AdminTable>
               <AdminTableHead>
@@ -162,6 +169,14 @@ export default async function AdminReviewsPage({
               description="Les avis soumis depuis les fiches produit apparaîtront ici pour modération."
             />
           )}
+          <AdminPagination
+            basePath="/admin/avis"
+            searchParams={params}
+            page={reviewsPage.page}
+            perPage={reviewsPage.perPage}
+            total={reviewsPage.total}
+            totalPages={reviewsPage.totalPages}
+          />
         </AdminPanel>
       </div>
     </AdminLayout>

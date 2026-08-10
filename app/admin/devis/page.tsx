@@ -5,6 +5,7 @@ import { AdminLayout } from "@/components/admin/admin-layout";
 import {
   AdminEmptyState,
   AdminPageHeader,
+  AdminPagination,
   AdminPanel,
   AdminSearchBox,
   AdminSelect,
@@ -19,7 +20,8 @@ import {
   getQuoteStatusTone,
   quoteStatusLabels,
 } from "@/lib/admin/labels";
-import { getAdminQuotes } from "@/lib/services/admin-quotes";
+import { getAdminPagination, getSingleQuery } from "@/lib/admin/pagination";
+import { getAdminQuotesPage } from "@/lib/services/admin-quotes";
 import { updateQuoteStatusAction } from "@/app/admin/devis/actions";
 
 export const dynamic = "force-dynamic";
@@ -35,7 +37,12 @@ export default async function AdminQuotesPage({
     q: getSingle(params.q),
     status: getQuoteStatus(params.status),
   };
-  const quotes = await getAdminQuotes(filters);
+  const pagination = getAdminPagination({
+    page: getSingleQuery(params.page),
+    perPage: getSingleQuery(params.perPage),
+  });
+  const quotesPage = await getAdminQuotesPage(filters, pagination);
+  const quotes = quotesPage.items;
 
   return (
     <AdminLayout admin={admin}>
@@ -66,7 +73,7 @@ export default async function AdminQuotesPage({
           </form>
         </AdminPanel>
 
-        <AdminPanel title={`${quotes.length} demandes`}>
+        <AdminPanel title={`${quotesPage.total} demandes`}>
           {quotes.length ? (
             <AdminTable>
               <AdminTableHead>
@@ -165,6 +172,14 @@ export default async function AdminQuotesPage({
               description="Les demandes de devis apparaissent ici apres soumission."
             />
           )}
+          <AdminPagination
+            basePath="/admin/devis"
+            searchParams={params}
+            page={quotesPage.page}
+            perPage={quotesPage.perPage}
+            total={quotesPage.total}
+            totalPages={quotesPage.totalPages}
+          />
         </AdminPanel>
       </div>
     </AdminLayout>

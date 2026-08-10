@@ -16,6 +16,10 @@ import {
   orderStatusLabels,
   paymentMethodLabels,
 } from "@/lib/admin/labels";
+import {
+  toAdminPaginatedResult,
+  type AdminPagination,
+} from "@/lib/admin/pagination";
 import { adminOrderFiltersSchema } from "@/lib/validations/admin";
 import {
   reserveStockForOrderItems,
@@ -128,6 +132,34 @@ export async function getAdminOrders(rawFilters: AdminOrderFilters = {}) {
   });
 
   return orders.map(toAdminOrderListItem);
+}
+
+// Sans pagination, la liste plafonnait aux 50 commandes les plus recentes :
+// passe ce seuil les plus anciennes devenaient inaccessibles au back-office.
+export async function getAdminOrdersPage(
+  rawFilters: AdminOrderFilters = {},
+  pagination: AdminPagination,
+) {
+  const filters = adminOrderFiltersSchema.parse(rawFilters);
+  const db = getPrismaClient();
+  const where = buildOrderWhere(filters);
+  const [total, orders] = await Promise.all([
+    db.order.count({ where }),
+    db.order.findMany({
+      where,
+      include: orderListInclude,
+      orderBy: { createdAt: "desc" },
+      skip: pagination.skip,
+      take: pagination.take,
+    }),
+  ]);
+
+  return toAdminPaginatedResult({
+    items: orders.map(toAdminOrderListItem),
+    total,
+    page: pagination.page,
+    perPage: pagination.perPage,
+  });
 }
 
 export async function getAdminOrderById(id: string) {
@@ -349,7 +381,7 @@ function toAdminOrderListItem(order: OrderListPayload): AdminOrderListItem {
     orderNumber: order.orderNumber,
     createdAt: formatDateTime(order.createdAt),
     customerName: order.customer.name,
-    customerPhone: order.customer.phone,
+    customerPhone: order.customer.phone ?? "",
     customerType: order.customer.type,
     customerTypeLabel: customerTypeLabels[order.customer.type],
     total: Number(order.total),

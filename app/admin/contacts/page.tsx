@@ -6,6 +6,7 @@ import {
   AdminEmptyState,
   AdminFeedback,
   AdminPageHeader,
+  AdminPagination,
   AdminPanel,
   AdminSearchBox,
   AdminSelect,
@@ -27,7 +28,8 @@ import {
   contactStatusLabels,
   getContactStatusTone,
 } from "@/lib/admin/labels";
-import { getAdminContacts } from "@/lib/services/admin-contacts";
+import { getAdminPagination, getSingleQuery } from "@/lib/admin/pagination";
+import { getAdminContactsPage } from "@/lib/services/admin-contacts";
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +44,12 @@ export default async function AdminContactsPage({
     q: getSingle(params.q),
     status: getContactStatus(params.status),
   };
-  const contacts = await getAdminContacts(filters);
+  const pagination = getAdminPagination({
+    page: getSingleQuery(params.page),
+    perPage: getSingleQuery(params.perPage),
+  });
+  const contactsPage = await getAdminContactsPage(filters, pagination);
+  const contacts = contactsPage.items;
 
   return (
     <AdminLayout admin={admin}>
@@ -77,7 +84,7 @@ export default async function AdminContactsPage({
           </form>
         </AdminPanel>
 
-        <AdminPanel title={`${contacts.length} leads`}>
+        <AdminPanel title={`${contactsPage.total} leads`}>
           {contacts.length ? (
             <AdminTable>
               <AdminTableHead>
@@ -239,6 +246,14 @@ export default async function AdminContactsPage({
               description="Les messages du formulaire contact arrivent ici en tant que leads a traiter."
             />
           )}
+          <AdminPagination
+            basePath="/admin/contacts"
+            searchParams={params}
+            page={contactsPage.page}
+            perPage={contactsPage.perPage}
+            total={contactsPage.total}
+            totalPages={contactsPage.totalPages}
+          />
         </AdminPanel>
       </div>
     </AdminLayout>

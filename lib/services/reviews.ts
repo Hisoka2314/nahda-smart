@@ -3,6 +3,10 @@ import { z } from "zod";
 import { getPrismaClient } from "@/lib/db";
 import { logAdminEvent } from "@/lib/auth/admin-auth";
 import { formatDateTime } from "@/lib/admin/labels";
+import {
+  toAdminPaginatedResult,
+  type AdminPagination,
+} from "@/lib/admin/pagination";
 
 export const productReviewSchema = z.object({
   // Le slug identifie le produit côté public (l'id DB n'est pas exposé au client).
@@ -116,27 +120,61 @@ export async function getApprovedProductReviews(
   };
 }
 
-export async function getAdminReviews(status?: ReviewStatus) {
+export async function getAdminReviewsPage(
+  status: ReviewStatus | undefined,
+  pagination: AdminPagination,
+) {
   const db = getPrismaClient();
-  const reviews = await db.productReview.findMany({
-    where: status ? { status } : undefined,
-    include: {
-      product: { select: { name: true, slug: true } },
-    },
-    orderBy: { createdAt: "desc" },
-    take: 100,
+  const where = status ? { status } : undefined;
+  const [total, reviews] = await Promise.all([
+    db.productReview.count({ where }),
+    db.productReview.findMany({
+      where,
+      include: { product: { select: { name: true, slug: true } } },
+      orderBy: { createdAt: "desc" },
+      skip: pagination.skip,
+      take: pagination.take,
+    }),
+  ]);
+
+  return toAdminPaginatedResult({
+    items: reviews.map((review) => ({
+      id: review.id,
+      productName: review.product.name,
+      productSlug: review.product.slug,
+      authorName: review.authorName,
+      rating: review.rating,
+      comment: review.comment,
+      status: review.status,
+      createdAt: formatDateTime(review.createdAt),
+    })),
+    total,
+    page: pagination.page,
+    perPage: pagination.perPage,
+  });
+}
+
+// Product.rating et Product.reviewCount sont denormalises : ils alimentent les
+// cartes produit et le filtre "note minimum" du catalogue. Sans ce recalcul ils
+// restaient figes sur les valeurs du seed, et le site affichait une note sans
+// rapport avec les avis reellement approuves.
+export async function syncProductRatingFromReviews(productId: string) {
+  const db = getPrismaClient();
+  const aggregate = await db.productReview.aggregate({
+    where: { productId, status: ReviewStatus.APPROVED },
+    _avg: { rating: true },
+    _count: true,
   });
 
-  return reviews.map((review) => ({
-    id: review.id,
-    productName: review.product.name,
-    productSlug: review.product.slug,
-    authorName: review.authorName,
-    rating: review.rating,
-    comment: review.comment,
-    status: review.status,
-    createdAt: formatDateTime(review.createdAt),
-  }));
+  const average = aggregate._avg.rating;
+
+  await db.product.update({
+    where: { id: productId },
+    data: {
+      rating: average === null ? null : Math.round(average * 100) / 100,
+      reviewCount: aggregate._count,
+    },
+  });
 }
 
 export async function moderateReview({
@@ -154,6 +192,8 @@ export async function moderateReview({
     data: { status },
     select: { id: true, productId: true, status: true },
   });
+
+  await syncProductRatingFromReviews(review.productId);
 
   await logAdminEvent({
     adminId,
