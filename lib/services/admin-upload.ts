@@ -81,7 +81,8 @@ export async function removeLocalPublicUpload(publicPath: string | null | undefi
   const uploadsRoot = path.normalize(path.join(process.cwd(), "public", "uploads"));
   const normalized = path.normalize(diskPath);
 
-  if (!normalized.startsWith(uploadsRoot)) return;
+  // Separateur final obligatoire : cf. app/uploads/[...path]/route.ts.
+  if (!normalized.startsWith(uploadsRoot + path.sep)) return;
 
   try {
     await unlink(normalized);

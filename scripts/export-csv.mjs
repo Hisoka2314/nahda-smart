@@ -42,6 +42,7 @@ try {
       FROM "orders" o
       JOIN "Customer" c ON c."id" = o."customerId"
       ORDER BY o."createdAt" DESC
+      LIMIT 5000
     `,
   );
   await exportQuery(
@@ -67,6 +68,7 @@ try {
       JOIN "Brand" b ON b."id" = p."brandId"
       JOIN "Category" c ON c."id" = p."categoryId"
       ORDER BY p."updatedAt" DESC
+      LIMIT 5000
     `,
   );
   await exportQuery(
@@ -85,6 +87,7 @@ try {
         "createdAt"
       FROM "Customer"
       ORDER BY "createdAt" DESC
+      LIMIT 5000
     `,
   );
   await exportQuery(
@@ -100,6 +103,7 @@ try {
       JOIN "Product" p ON p."id" = s."productId"
       JOIN "Depot" d ON d."id" = s."depotId"
       ORDER BY d."name", p."sku"
+      LIMIT 5000
     `,
   );
 } finally {
@@ -125,5 +129,14 @@ async function exportQuery(name, sql) {
 function csvCell(value) {
   if (value === null || value === undefined) return "";
   const text = value instanceof Date ? value.toISOString() : String(value);
-  return `"${text.replaceAll('"', '""')}"`;
+  return `"${neutralizeFormula(text).replaceAll('"', '""')}"`;
+}
+
+// Injection de formule CSV : les guillemets protegent l'analyse du fichier
+// mais pas Excel, qui evalue toute cellule commencant par = + - @ (ou une
+// tabulation / un retour chariot). Un nom client saisi au checkout sous la
+// forme =HYPERLINK(...) s'executait donc a l'ouverture de l'export.
+// L'apostrophe de tete force Excel a traiter la valeur comme du texte.
+function neutralizeFormula(text) {
+  return /^[=+\-@\t\r]/.test(text) ? `'${text}` : text;
 }

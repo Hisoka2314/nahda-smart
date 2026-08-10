@@ -23,6 +23,27 @@ if (!globalForRateLimit.nahdaRateLimits) {
   globalForRateLimit.nahdaRateLimits = buckets;
 }
 
+// Sans eviction, la Map grossissait indefiniment : chaque IP distincte y
+// laissait une entree permanente, ce qui constitue une fuite memoire lente
+// sur un serveur de longue duree.
+const EVICTION_INTERVAL_MS = 5 * 60 * 1000;
+const ENTRY_MAX_IDLE_MS = 60 * 60 * 1000;
+let lastEvictionAt = 0;
+
+function evictStaleEntries(now: number) {
+  if (now - lastEvictionAt < EVICTION_INTERVAL_MS) return;
+
+  lastEvictionAt = now;
+
+  for (const [key, entry] of buckets) {
+    const blocked = entry.blockedUntil && entry.blockedUntil > now;
+
+    if (!blocked && now - entry.firstHitAt > ENTRY_MAX_IDLE_MS) {
+      buckets.delete(key);
+    }
+  }
+}
+
 export function checkRateLimit({
   scope,
   key,
@@ -33,6 +54,7 @@ export function checkRateLimit({
   rule: RateLimitRule;
 }): { limited: boolean; retryAfterSeconds?: number } {
   const now = Date.now();
+  evictStaleEntries(now);
   const bucketKey = `${scope}:${key}`;
   const current = buckets.get(bucketKey);
 

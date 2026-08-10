@@ -43,6 +43,13 @@ export async function createAdminSession(
     Date.now() + ADMIN_SESSION_MAX_AGE_SECONDS * 1000,
   );
 
+  // Purge opportuniste a la connexion : les sessions expirees n'etaient
+  // supprimees qu'a la presentation de leur propre cookie, donc la table
+  // grossissait indefiniment pour les sessions jamais reutilisees.
+  await prisma.adminSession
+    .deleteMany({ where: { expiresAt: { lte: new Date() } } })
+    .catch(() => undefined);
+
   await prisma.adminSession.create({
     data: {
       adminId,

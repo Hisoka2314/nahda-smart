@@ -21,7 +21,10 @@ export async function GET(
   const { path: segments } = await params;
   const diskPath = path.normalize(path.join(uploadsRoot, ...segments));
 
-  if (!diskPath.startsWith(uploadsRoot)) {
+  // Le separateur final est indispensable : sans lui, startsWith laissait
+  // passer les repertoires freres (public/uploads-prive correspondait au
+  // prefixe public/uploads).
+  if (!diskPath.startsWith(uploadsRoot + path.sep)) {
     return new Response("Not found", { status: 404 });
   }
 
