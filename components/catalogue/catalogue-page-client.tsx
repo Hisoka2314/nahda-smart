@@ -473,8 +473,11 @@ export function CataloguePageClient({
     const brandCounts = countOptions(baseProducts, brandOptions, (product) => [
       product.brandSlug,
     ]);
+    // Le filtre expose "available" / "out_of_stock" : les compteurs doivent
+    // etre calcules sur cette meme cle, sinon "Disponible" reste a zero et
+    // l'option est masquee, faisant disparaitre le groupe entier.
     const stockCounts = countOptions(baseProducts, stockOptions, (product) => [
-      product.stockStatus,
+      product.stockStatus === "out_of_stock" ? "out_of_stock" : "available",
     ]);
     const stockLocationCounts = countOptions(
       baseProducts,
