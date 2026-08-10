@@ -172,12 +172,22 @@ function normalizeAttributeValue(
 }
 
 function mapStockStatus(product: PrismaPublicProduct): StockStatus {
-  const totalStock = product.stocks.reduce((sum, stock) => sum + stock.quantity, 0);
-
-  if (totalStock > 0) return "in_stock";
+  // Le statut decide par l'administrateur prime sur le compteur de stock.
+  // Sans cette garde, un produit marque en rupture depuis le back-office
+  // restait "en stock" sur le site tant qu'un depot affichait une quantite :
+  // le client pouvait l'ajouter au panier et ne decouvrait le refus qu'a la
+  // validation de sa commande, ou createWebsiteOrder le rejette.
+  if (product.status === ProductStatus.OUT_OF_STOCK) return "out_of_stock";
   if (product.status === ProductStatus.ON_ORDER) return "on_order";
 
-  return "out_of_stock";
+  // Seuls les depots actifs comptent : du stock immobilise dans un depot
+  // desactive n'est pas vendable, et reserveStockForOrderItems l'ignore deja.
+  const sellableStock = product.stocks.reduce(
+    (sum, stock) => (stock.depot.isActive ? sum + stock.quantity : sum),
+    0,
+  );
+
+  return sellableStock > 0 ? "in_stock" : "out_of_stock";
 }
 
 function inferStockLocation(

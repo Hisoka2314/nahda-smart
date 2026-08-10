@@ -100,7 +100,7 @@ export function ProductCard({ product }: ProductCardProps) {
             product.status === "in_stock"
               ? "success"
               : product.status === "out_of_stock"
-                ? "default"
+                ? "danger"
                 : "olive"
           }
         >
@@ -122,8 +122,17 @@ export function ProductCard({ product }: ProductCardProps) {
           alt={product.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 24vw"
-          className="object-cover transition duration-500 group-hover:scale-105"
+          className={`object-cover transition duration-500 group-hover:scale-105 ${
+            product.status === "out_of_stock" ? "opacity-45 grayscale" : ""
+          }`}
         />
+        {/* Bandeau explicite : le badge seul passait inapercu dans une grille
+            de produits, et le client comprenait la rupture au clic. */}
+        {product.status === "out_of_stock" ? (
+          <span className="absolute inset-x-0 bottom-0 bg-[#a11212]/90 py-1.5 text-center text-xs font-black uppercase tracking-wide text-white">
+            Rupture de stock
+          </span>
+        ) : null}
         <BrandMark
           brand={productBrand}
           compact

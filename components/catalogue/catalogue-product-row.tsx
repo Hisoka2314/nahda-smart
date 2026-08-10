@@ -111,7 +111,13 @@ export function CatalogueProductRow({ product }: CatalogueProductRowProps) {
         />
         <div className="absolute left-3 top-3 flex gap-2">
           <Badge
-            variant={product.stockStatus === "in_stock" ? "success" : "olive"}
+            variant={
+              product.stockStatus === "in_stock"
+                ? "success"
+                : product.stockStatus === "out_of_stock"
+                  ? "danger"
+                  : "olive"
+            }
           >
             {stockStatusLabels[product.stockStatus]}
           </Badge>

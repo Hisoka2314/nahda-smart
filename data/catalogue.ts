@@ -190,9 +190,11 @@ export const catalogueCategories: CatalogCategory[] = [
   },
 ];
 
+// Filtre binaire cote client : le visiteur veut savoir s'il peut commander,
+// pas connaitre le detail logistique. "Disponible" couvre le stock immediat
+// et la commande fournisseur ; "Rupture" isole ce qui n'est pas commandable.
 export const stockOptions: FilterOption[] = [
-  { label: "En stock", value: "in_stock" },
-  { label: "Sur commande", value: "on_order" },
+  { label: "Disponible", value: "available" },
   { label: "Rupture", value: "out_of_stock" },
 ];
 

@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type BadgeVariant = "default" | "olive" | "success" | "promo" | "muted";
+type BadgeVariant = "default" | "olive" | "success" | "promo" | "muted" | "danger";
 
 type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
   variant?: BadgeVariant;
@@ -12,6 +12,7 @@ const variants: Record<BadgeVariant, string> = {
   default: "bg-neutral-100 text-neutral-700",
   olive: "bg-nahda-olive-soft text-nahda-olive-dark",
   success: "bg-[#e8f7df] text-[#2f6a13]",
+  danger: "bg-[#fde8e8] text-[#a11212]",
   promo: "bg-nahda-orange text-white",
   muted: "bg-white/[0.12] text-white/[0.82]",
 };

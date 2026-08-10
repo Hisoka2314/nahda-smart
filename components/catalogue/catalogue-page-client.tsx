@@ -51,7 +51,6 @@ import {
   purchaseTypeLabels,
   rangeLabels,
   stockLocationLabels,
-  stockStatusLabels,
   toProductCardProduct,
   usageLabels,
   warrantyProviderLabels,
@@ -239,7 +238,13 @@ export function CataloguePageClient({
           return false;
         }
 
-        if (selectedStock.length > 0 && !selectedStock.includes(product.stockStatus)) {
+        // Le filtre expose deux valeurs ("available" / "out_of_stock") alors
+        // que le produit porte trois statuts : on ramene le statut a la
+        // disponibilite avant comparaison.
+        const availability =
+          product.stockStatus === "out_of_stock" ? "out_of_stock" : "available";
+
+        if (selectedStock.length > 0 && !selectedStock.includes(availability)) {
           return false;
         }
 
@@ -1406,8 +1411,11 @@ function buildChips({
     pushMulti("category", "Catégorie", categoryOptions);
   }
   pushMulti("brand", "Marque", [], getBrandName);
-  pushMulti("stock", "Disponibilité", stockOptions, (value) =>
-    stockStatusLabels[value as keyof typeof stockStatusLabels] ?? value,
+  pushMulti(
+    "stock",
+    "Disponibilité",
+    stockOptions,
+    (value) => stockOptions.find((option) => option.value === value)?.label ?? value,
   );
   pushMulti("stockLocation", "Dépôt", stockLocationOptions, (value) =>
     stockLocationLabels[value as keyof typeof stockLocationLabels] ?? value,
