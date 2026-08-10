@@ -1,8 +1,22 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { CataloguePageClient } from "@/components/catalogue/catalogue-page-client";
 import { ShopLayout } from "@/components/layout/shop-layout";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { getPublicCatalogueData } from "@/lib/services/public-catalogue";
+
+export const metadata: Metadata = {
+  title: "Catalogue complet",
+  description:
+    "Tout le matériel Nahda Smart : PC portables et bureau, réseau, vidéosurveillance, télécommunication et accessoires. Prix, stock et fiches détaillées.",
+  alternates: { canonical: "/catalogue" },
+  openGraph: {
+    title: "Catalogue complet | Nahda Smart",
+    description:
+      "PC, réseau, sécurité et accessoires : parcourez tout le catalogue Nahda Smart.",
+    url: "/catalogue",
+  },
+};
 
 type CataloguePageProps = {
   searchParams: Promise<{

@@ -23,6 +23,9 @@ import { BrandMark } from "@/components/shop/brand-mark";
 import { CategoryCard } from "@/components/shop/category-card";
 import { NewsletterForm } from "@/components/shop/newsletter-form";
 import { SectionCarousel } from "@/components/shop/section-carousel";
+import { JsonLd } from "@/components/seo/json-ld";
+import { absoluteUrl } from "@/lib/seo";
+import { getSiteSettings } from "@/lib/settings";
 import { getPublicHomeData } from "@/lib/services/public-catalogue";
 
 const trustBlocks = [
@@ -60,10 +63,32 @@ const heroStats = ["Solutions fiables", "Livraison Maroc", "Support expert"];
 export const revalidate = 300;
 
 export default async function Home() {
-  const homeData = await getPublicHomeData();
+  const [homeData, settings] = await Promise.all([
+    getPublicHomeData(),
+    getSiteSettings(),
+  ]);
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    name: settings.companyName,
+    description:
+      "Matériel informatique, réseau, télécommunication et sécurité au Maroc.",
+    url: absoluteUrl("/"),
+    telephone: settings.phone,
+    email: settings.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: settings.addressPrimary,
+      addressCountry: "MA",
+    },
+    openingHours: settings.openingHours,
+    sameAs: [settings.facebookUrl, settings.instagramUrl].filter(Boolean),
+  };
 
   return (
     <ShopLayout>
+      <JsonLd data={organizationSchema} />
       <main className="bg-background">
         <section className="relative overflow-hidden bg-nahda-ink text-white">
           <div className="absolute inset-0">
