@@ -63,8 +63,13 @@ export const globalFilterGroups: FilterGroup[] = [
     attributes: [
       systemAttribute("category", "Catégorie", "search-list", 1),
       systemAttribute("brand", "Marque", "search-list", 2, { searchable: true }),
+      // showEmptyOptions : la disponibilite est un etat binaire, le visiteur
+      // s'attend a voir les deux choix en permanence. Masquer "Rupture" les
+      // jours ou tout est en stock donnait un filtre a une seule case,
+      // incomprehensible.
       systemAttribute("stock", "Disponibilité", "checkbox", 3, {
         options: stockOptions,
+        showEmptyOptions: true,
       }),
     ],
   }),
@@ -619,6 +624,7 @@ function systemAttribute(
     order,
     options: toDynamicOptions(slug, options.options ?? []),
     defaultOpen: options.defaultOpen ?? false,
+    showEmptyOptions: options.showEmptyOptions ?? false,
     source: "system",
     paramKey: slug,
   };
