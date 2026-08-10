@@ -9,7 +9,6 @@ import {
   purchaseTypeOptions,
   rangeOptions,
   seriesOptions,
-  stockLocationOptions,
   stockOptions,
   usageOptions,
   warrantyOptions,
@@ -76,9 +75,10 @@ export const globalFilterGroups: FilterGroup[] = [
     defaultOpen: false,
     isAdvanced: true,
     attributes: [
-      systemAttribute("stockLocation", "Stock par dépôt / magasin", "checkbox", 1, {
-        options: stockLocationOptions,
-      }),
+      // Le filtre "Stock par depot / magasin" a ete retire : l'organisation
+      // logistique interne n'interesse pas le visiteur, qui veut seulement
+      // savoir si le produit est disponible. Le filtre "Disponibilite"
+      // (Disponible / Rupture) couvre ce besoin.
       systemAttribute("deliveryMode", "Livraison / retrait", "checkbox", 2, {
         options: deliveryModeOptions,
       }),

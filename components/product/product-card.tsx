@@ -5,7 +5,14 @@ import type { MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeftRight, Eye, Heart, ShoppingCart, Star } from "lucide-react";
+import {
+  ArrowLeftRight,
+  Eye,
+  Heart,
+  PackageX,
+  ShoppingCart,
+  Star,
+} from "lucide-react";
 import { useCart } from "@/components/cart/cart-provider";
 import { useCompare } from "@/components/compare/compare-provider";
 import { useFavorites } from "@/components/favorites/favorites-provider";
@@ -179,21 +186,27 @@ export function ProductCard({ product }: ProductCardProps) {
           ) : null}
         </div>
         <div className="mt-4 grid grid-cols-[1fr_42px_42px_42px] gap-2">
-          <Button
-            aria-label={`Ajouter ${product.name} au panier`}
-            onClick={handleAddToCart}
-            variant={added && feedback ? "secondary" : "primary"}
-            disabled={product.status === "out_of_stock"}
-          >
-            <ShoppingCart size={17} />
-            <span className="hidden sm:inline">
-              {product.status === "out_of_stock"
-                ? "Rupture"
-                : added
-                  ? "Ajouté"
-                  : "Panier"}
-            </span>
-          </Button>
+          {product.status === "out_of_stock" ? (
+            // Un bouton desactive laissait le client sans issue : on l'oriente
+            // vers la fiche produit, ou la commande sur demande est proposee.
+            <Link
+              href={`/produit/${product.slug}`}
+              aria-label={`${product.name} en rupture, commander sur demande`}
+              className="focus-ring inline-flex h-11 items-center justify-center gap-2 rounded-control bg-nahda-olive px-3 text-sm font-black text-white transition hover:bg-nahda-olive-dark"
+            >
+              <PackageX size={17} />
+              <span className="hidden sm:inline">Sur commande</span>
+            </Link>
+          ) : (
+            <Button
+              aria-label={`Ajouter ${product.name} au panier`}
+              onClick={handleAddToCart}
+              variant={added && feedback ? "secondary" : "primary"}
+            >
+              <ShoppingCart size={17} />
+              <span className="hidden sm:inline">{added ? "Ajouté" : "Panier"}</span>
+            </Button>
+          )}
           <Button
             variant="outline"
             size="icon"

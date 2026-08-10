@@ -11,6 +11,7 @@ import {
   MessageCircle,
   Minus,
   PackageCheck,
+  PackageX,
   Plus,
   ShieldCheck,
   ShoppingCart,
@@ -277,14 +278,31 @@ export function ProductDetailClient({
                   <Plus size={16} />
                 </button>
               </div>
-              <Button
-                size="lg"
-                onClick={handleAddToCart}
-                disabled={!canAddToCart}
-              >
-                <ShoppingCart size={19} />
-                {canAddToCart ? "Ajouter au panier" : "Produit en rupture"}
-              </Button>
+              {canAddToCart ? (
+                <Button size="lg" onClick={handleAddToCart}>
+                  <ShoppingCart size={19} />
+                  Ajouter au panier
+                </Button>
+              ) : (
+                // Rupture : plutot qu'un bouton desactive qui laisse le client
+                // sans issue, on affiche l'etat et on ouvre une commande sur
+                // demande. La vente n'est pas perdue, elle passe par l'equipe.
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="inline-flex h-12 items-center gap-2 rounded-control bg-[#fde8e8] px-4 text-sm font-black text-[#a11212]">
+                    <PackageX size={18} />
+                    Rupture de stock
+                  </span>
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-control bg-nahda-olive px-5 text-sm font-black text-white transition hover:bg-nahda-olive-dark"
+                  >
+                    <MessageCircle size={18} />
+                    Sur commande
+                  </a>
+                </div>
+              )}
             </div>
 
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
