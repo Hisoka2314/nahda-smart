@@ -84,7 +84,10 @@ export function prismaProductToCatalogProduct(
     isPromo: product.isPromo || Boolean(product.promoPrice),
     isNew: product.isNew,
     isBestSeller: product.isBestSeller,
-    rating: Number(product.rating ?? fallback?.rating ?? 4.6),
+    // 0 quand le produit n'a aucun avis approuve : l'ancien repli sur 4.6
+    // affichait une note inventee, et le nombre d'avis annonce ne
+    // correspondait a rien de reel.
+    rating: Number(product.rating ?? 0),
     reviewCount: product.reviewCount,
     specs: buildSpecs(product, attributes, fallback),
     attributes,

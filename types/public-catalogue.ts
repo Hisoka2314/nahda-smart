@@ -5,10 +5,7 @@ import type {
 } from "@/types/catalogue";
 import type { Product, ProductCategory } from "@/types/product";
 
-export type PublicDataSource = "prisma" | "mock";
-
 export type PublicCatalogueData = {
-  source: PublicDataSource;
   products: CatalogProduct[];
   categories: CatalogCategory[];
   filterGroups: FilterGroup[];
@@ -23,7 +20,6 @@ export type PublicBrandMark = {
 };
 
 export type PublicHomeData = {
-  source: PublicDataSource;
   categories: ProductCategory[];
   featuredProducts: Product[];
   recommendedProducts: Product[];
@@ -32,7 +28,6 @@ export type PublicHomeData = {
 };
 
 export type PublicProductPageData = {
-  source: PublicDataSource;
   product: CatalogProduct | null;
   relatedProducts: Product[];
   accessoryProducts: Product[];
@@ -40,7 +35,6 @@ export type PublicProductPageData = {
 };
 
 export type PublicSearchData = {
-  source: PublicDataSource;
   query: string;
   products: CatalogProduct[];
 };

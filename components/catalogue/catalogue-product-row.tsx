@@ -138,11 +138,19 @@ export function CatalogueProductRow({ product }: CatalogueProductRowProps) {
         >
           {product.name}
         </Link>
-        <div className="mt-2 flex items-center gap-2 text-sm font-bold text-neutral-600">
-          <Star size={15} className="fill-[#f7b500] text-[#f7b500]" />
-          <span>{product.rating.toFixed(1)}</span>
-          <span className="text-neutral-400">({product.reviewCount} avis)</span>
-        </div>
+        {product.reviewCount > 0 ? (
+          <div className="mt-2 flex items-center gap-2 text-sm font-bold text-neutral-600">
+            <Star size={15} className="fill-[#f7b500] text-[#f7b500]" />
+            <span>{product.rating.toFixed(1)}</span>
+            <span className="text-neutral-400">
+              ({product.reviewCount} avis)
+            </span>
+          </div>
+        ) : (
+          <p className="mt-2 text-sm font-bold text-neutral-400">
+            Pas encore d&apos;avis
+          </p>
+        )}
         <div className="mt-4 flex flex-wrap gap-1.5">
           {product.specs.slice(0, 6).map((spec) => (
             <span

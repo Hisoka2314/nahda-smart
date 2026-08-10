@@ -191,11 +191,17 @@ export function ProductDetailClient({
           </h1>
 
           <div className="mt-3 flex flex-wrap items-center gap-3 text-sm font-bold text-neutral-600">
-            <span className="inline-flex items-center gap-1.5">
-              <Star size={16} className="fill-[#f7b500] text-[#f7b500]" />
-              {product.rating.toFixed(1)}
-            </span>
-            <span>({product.reviewCount} avis)</span>
+            {product.reviewCount > 0 ? (
+              <>
+                <span className="inline-flex items-center gap-1.5">
+                  <Star size={16} className="fill-[#f7b500] text-[#f7b500]" />
+                  {product.rating.toFixed(1)}
+                </span>
+                <span>({product.reviewCount} avis)</span>
+              </>
+            ) : (
+              <span className="text-neutral-400">Pas encore d&apos;avis</span>
+            )}
             <button
               type="button"
               className="text-nahda-olive-dark underline-offset-4 transition hover:underline"

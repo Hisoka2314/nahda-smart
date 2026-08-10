@@ -413,8 +413,6 @@ async function seedProducts(
         isNew: product.isNew,
         isRecommended: product.isRecommended,
         isBestSeller: product.isBestSeller,
-        rating: product.rating,
-        reviewCount: product.reviewCount,
       },
       create: {
         name: product.name,
@@ -436,8 +434,8 @@ async function seedProducts(
         isNew: product.isNew,
         isRecommended: product.isRecommended,
         isBestSeller: product.isBestSeller,
-        rating: product.rating,
-        reviewCount: product.reviewCount,
+        // rating / reviewCount volontairement non semes : ils sont calcules
+        // depuis les avis reellement approuves (syncProductRatingFromReviews).
         seoTitle: product.name,
         seoDescription: product.specs.join(", "),
       },
