@@ -164,7 +164,7 @@ export default async function AdminProductAnalyticsPage({
                   <th className="px-3 py-3">Produit</th>
                   <th className="px-3 py-3">Categorie</th>
                   <th className="px-3 py-3">Tickets</th>
-                  <th className="px-3 py-3">Taux SAV</th>
+                  <th className="px-3 py-3">Tickets SAV / vente</th>
                 </tr>
               </AdminTableHead>
               <tbody className="divide-y divide-white/10">

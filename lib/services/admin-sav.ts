@@ -217,7 +217,10 @@ export async function updateAdminServiceTicketStatus({
       where: { id: ticketId },
       data: {
         status,
-        closedAt: status === "CLOSED" ? new Date() : undefined,
+        // null et non undefined : undefined laissait la date de cloture en
+        // place quand un ticket cloture etait rouvert, et il restait compte
+        // comme clos dans les statistiques SAV.
+        closedAt: status === "CLOSED" ? new Date() : null,
       },
       select: { id: true, ticketNumber: true, customerId: true, status: true },
     });

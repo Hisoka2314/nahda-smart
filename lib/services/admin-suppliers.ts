@@ -481,6 +481,28 @@ export async function receiveAdminSupplierPurchase({
       throw new Error("Seuls les achats brouillons peuvent etre recus ici.");
     }
 
+    const status = normalizePurchaseStatus(
+      "RECEIVED",
+      Number(purchase.paid),
+      Number(purchase.total),
+    );
+
+    // Verrou optimiste pose AVANT toute ecriture de stock : on revendique la
+    // transition DRAFT -> RECEIVED. Si un autre appel (double clic, second
+    // admin) l'a deja prise, count vaut 0 et la transaction est annulee. Sans
+    // cette garde, les deux appels passaient le test de statut ci-dessus et
+    // le stock etait incremente deux fois, avec un CMUP recalcule deux fois.
+    const claimed = await tx.supplierPurchase.updateMany({
+      where: { id: purchase.id, status: "DRAFT" },
+      data: { status, receivedAt: new Date() },
+    });
+
+    if (claimed.count !== 1) {
+      throw new Error(
+        "Cet achat vient d'etre receptionne par un autre utilisateur. Rechargez la page.",
+      );
+    }
+
     for (const item of purchase.items) {
       // CMUP d'abord (il se base sur le stock d'avant reception).
       await applyCmupForReception({
@@ -500,16 +522,11 @@ export async function receiveAdminSupplierPurchase({
       });
     }
 
-    const status = normalizePurchaseStatus(
-      "RECEIVED",
-      Number(purchase.paid),
-      Number(purchase.total),
-    );
-    const updated = await tx.supplierPurchase.update({
-      where: { id: purchase.id },
-      data: { status, receivedAt: new Date() },
-      select: { id: true, supplierId: true, status: true },
-    });
+    const updated = {
+      id: purchase.id,
+      supplierId: purchase.supplierId,
+      status,
+    };
 
     await tx.adminLog.create({
       data: {
@@ -577,11 +594,28 @@ export async function addAdminSupplierPayment({
       },
     });
 
-    const updated = await tx.supplierPurchase.update({
-      where: { id: purchase.id },
+    // Verrou optimiste sur le montant lu : deux paiements simultanes lisaient
+    // le meme "paid" et le second ecrasait le premier, faisant disparaitre un
+    // reglement du solde fournisseur alors que sa ligne SupplierPayment
+    // existait bien. On n'ecrit que si "paid" n'a pas bouge entre-temps.
+    const claimed = await tx.supplierPurchase.updateMany({
+      where: { id: purchase.id, paid: purchase.paid },
       data: { paid: nextPaid, remaining, status },
-      select: { id: true, supplierId: true, paid: true, remaining: true, status: true },
     });
+
+    if (claimed.count !== 1) {
+      throw new Error(
+        "Un autre paiement vient d'etre enregistre sur cet achat. Rechargez la page.",
+      );
+    }
+
+    const updated = {
+      id: purchase.id,
+      supplierId: purchase.supplierId,
+      paid: nextPaid,
+      remaining,
+      status,
+    };
 
     await tx.adminLog.create({
       data: {
@@ -616,11 +650,24 @@ export async function cancelAdminSupplierPurchase({
       throw new Error("Seul un achat brouillon sans paiement peut etre annule.");
     }
 
-    const updated = await tx.supplierPurchase.update({
-      where: { id: purchase.id },
+    // Meme verrou : l'achat ne doit etre annule que s'il est toujours
+    // brouillon et sans reglement au moment de l'ecriture.
+    const claimed = await tx.supplierPurchase.updateMany({
+      where: { id: purchase.id, status: "DRAFT", paid: purchase.paid },
       data: { status: "CANCELLED" },
-      select: { id: true, supplierId: true, status: true },
     });
+
+    if (claimed.count !== 1) {
+      throw new Error(
+        "Cet achat vient d'etre modifie par un autre utilisateur. Rechargez la page.",
+      );
+    }
+
+    const updated = {
+      id: purchase.id,
+      supplierId: purchase.supplierId,
+      status: "CANCELLED" as const,
+    };
 
     await tx.adminLog.create({
       data: {

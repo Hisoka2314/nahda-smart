@@ -68,7 +68,7 @@ export default async function AdminDashboardPage() {
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <AdminStatCard
-            label="CA total"
+            label="CA du mois"
             value={kpi.stats.totalRevenueLabel}
             helper={kpi.rangeLabel}
             icon={<TrendingUp size={20} />}

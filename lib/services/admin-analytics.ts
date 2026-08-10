@@ -485,8 +485,13 @@ export async function getSavAnalytics({
     .map((row) => ({
       ...row,
       rate: row.soldLines ? row.tickets / row.soldLines : row.tickets,
+      // Un produit peut cumuler plusieurs tickets pour une meme vente (ou des
+      // tickets rattaches a des ventes hors periode) : le ratio depasse alors
+      // 1 et l'afficher en pourcentage donnait des "200%" incomprehensibles.
       rateLabel: row.soldLines
-        ? `${Math.round((row.tickets / row.soldLines) * 100)}%`
+        ? `${(row.tickets / row.soldLines).toLocaleString("fr-FR", {
+            maximumFractionDigits: 1,
+          })} par vente`
         : "N/A",
     }))
     .sort((a, b) => b.tickets - a.tickets);

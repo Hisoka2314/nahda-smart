@@ -82,18 +82,31 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       orderBy: { createdAt: "desc" },
       take: 5,
     }),
+    // Meme perimetre que l'analytics produits : les commandes annulees ou
+    // retournees ne sont pas des ventes et ne doivent pas classer un produit.
     db.orderItem.groupBy({
       by: ["productId"],
+      where: {
+        order: { status: { notIn: [OrderStatus.CANCELLED, OrderStatus.RETURNED] } },
+      },
       _sum: { quantity: true, totalPrice: true },
       orderBy: { _sum: { quantity: "desc" } },
       take: 5,
     }),
+    // Filtre en SQL (seuil par ligne via reference de champ) : un simple
+    // take() suivi d'un filtre JS laissait passer des ruptures des que le
+    // nombre de lignes de stock depassait la fenetre chargee.
     db.stock.findMany({
+      where: {
+        quantity: { lte: db.stock.fields.lowStockThreshold },
+        product: { status: { not: ProductStatus.ARCHIVED } },
+      },
       include: {
         product: { select: { name: true, sku: true, status: true } },
         depot: { select: { name: true } },
       },
-      take: 80,
+      orderBy: { quantity: "asc" },
+      take: 6,
     }),
   ]);
 
@@ -136,20 +149,13 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       quantity: item._sum.quantity ?? 0,
       revenueLabel: formatMoney(Number(item._sum.totalPrice ?? 0)),
     })),
-    lowStockAlerts: stocks
-      .filter(
-        (stock) =>
-          stock.product.status !== ProductStatus.ARCHIVED &&
-          stock.quantity <= stock.lowStockThreshold,
-      )
-      .slice(0, 6)
-      .map((stock) => ({
-        id: stock.id,
-        productName: stock.product.name,
-        sku: stock.product.sku,
-        depotName: stock.depot.name,
-        quantity: stock.quantity,
-        threshold: stock.lowStockThreshold,
-      })),
+    lowStockAlerts: stocks.map((stock) => ({
+      id: stock.id,
+      productName: stock.product.name,
+      sku: stock.product.sku,
+      depotName: stock.depot.name,
+      quantity: stock.quantity,
+      threshold: stock.lowStockThreshold,
+    })),
   };
 }
