@@ -78,7 +78,7 @@ async function getClientsExport(): Promise<AdminExportDefinition> {
     rows: clients.map((client) => ({
       reference: client.reference,
       name: client.name,
-      phone: client.phone,
+      phone: client.phone ?? "",
       email: client.email ?? "",
       type: customerTypeLabels[client.type],
       level: customerLevelLabels[client.level],
@@ -226,7 +226,7 @@ async function getOrdersExport(): Promise<AdminExportDefinition> {
       date: formatShortDate(order.createdAt),
       customerReference: order.customer.reference,
       customer: order.customer.name,
-      phone: order.customer.phone,
+      phone: order.customer.phone ?? "",
       status: orderStatusLabels[order.status],
       quantity: order.items.reduce((sum, item) => sum + item.quantity, 0),
       total: moneyNumber(order.total),

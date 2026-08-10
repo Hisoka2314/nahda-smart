@@ -19,6 +19,7 @@ export async function updateSiteSettingsAction(formData: FormData) {
     facebookUrl: formData.get("facebookUrl") ?? "",
     instagramUrl: formData.get("instagramUrl") ?? "",
     openingHours: formData.get("openingHours"),
+    deliveryFee: formData.get("deliveryFee"),
   });
 
   if (!parsed.success) {

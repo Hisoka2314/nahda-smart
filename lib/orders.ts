@@ -205,8 +205,11 @@ export function isProfessionalCustomerType(type: CustomerType) {
   return professionalCustomerTypes.has(type);
 }
 
-export function getDeliveryFee(method: DeliveryMethod) {
-  return method === "home_delivery" ? 30 : 0;
+// Le tarif vient des reglages du site (SiteSetting.deliveryFee) et transite
+// par le composant : ce module s'execute cote client et ne peut pas lire la
+// base. Le montant fait foi cote serveur dans createWebsiteOrder.
+export function getDeliveryFee(method: DeliveryMethod, homeDeliveryFee: number) {
+  return method === "home_delivery" ? homeDeliveryFee : 0;
 }
 
 export function calculateCartSubtotal(items: CartItem[]) {
@@ -219,6 +222,7 @@ export function calculateCartSubtotal(items: CartItem[]) {
 export function createMockOrder(
   values: CheckoutValidatedValues,
   items: CartItem[],
+  homeDeliveryFee: number,
 ): MockOrder {
   if (items.length === 0) {
     throw new Error("Votre panier est vide.");
@@ -232,7 +236,7 @@ export function createMockOrder(
 
   const orders = readMockOrders();
   const subtotal = calculateCartSubtotal(normalizedItems);
-  const deliveryFee = getDeliveryFee(values.deliveryMethod);
+  const deliveryFee = getDeliveryFee(values.deliveryMethod, homeDeliveryFee);
   const order: MockOrder = {
     orderNumber: generateDocumentNumber("CMD", orders.length + 1),
     customer: {

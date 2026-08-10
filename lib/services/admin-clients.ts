@@ -267,9 +267,12 @@ export async function getAdminClientById(id: string) {
 
   const contactMessages = await db.contactMessage.findMany({
     where: {
+      // Sans telephone ni email, aucun rapprochement : un OR vide
+      // remonterait tous les messages du site.
       OR: [
-        { phone: customer.phone },
+        ...(customer.phone ? [{ phone: customer.phone }] : []),
         ...(customer.email ? [{ email: customer.email }] : []),
+        { id: "" },
       ],
     },
     orderBy: { createdAt: "desc" },
@@ -654,7 +657,7 @@ function toAdminClientListItem(customer: CustomerWithOrders): AdminClientListIte
     id: customer.id,
     reference: customer.reference,
     name: customer.name,
-    phone: customer.phone,
+    phone: customer.phone ?? "",
     email: customer.email ?? undefined,
     city: customer.city ?? undefined,
     type: customer.type,
@@ -773,7 +776,7 @@ function toAdminClientDetail(
 function toAdminClientFormData(customer: {
   id: string;
   name: string;
-  phone: string;
+  phone: string | null;
   email: string | null;
   city: string | null;
   address: string | null;
@@ -788,7 +791,7 @@ function toAdminClientFormData(customer: {
   return {
     id: customer.id,
     name: customer.name,
-    phone: customer.phone,
+    phone: customer.phone ?? undefined,
     email: customer.email ?? undefined,
     city: customer.city ?? undefined,
     address: customer.address ?? undefined,

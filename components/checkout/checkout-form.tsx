@@ -43,7 +43,7 @@ type OrderApiResponse =
 
 export function CheckoutForm() {
   const router = useRouter();
-  const { items, clearCart } = useCart();
+  const { items, clearCart, homeDeliveryFee } = useCart();
   const [values, setValues] = useState<CheckoutFormValues>(
     getInitialCheckoutValues,
   );
@@ -52,7 +52,7 @@ export function CheckoutForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const subtotal = useMemo(() => calculateCartSubtotal(items), [items]);
-  const deliveryFee = getDeliveryFee(values.deliveryMethod);
+  const deliveryFee = getDeliveryFee(values.deliveryMethod, homeDeliveryFee);
   const total = subtotal + deliveryFee;
   const showOrganizationField = isProfessionalCustomerType(values.customerType);
 

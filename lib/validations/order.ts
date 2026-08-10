@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  moroccanPhoneSchema,
   nonNegativeMoneySchema,
   optionalTextSchema,
   positiveQuantitySchema,
@@ -80,13 +81,7 @@ export const websiteOrderSchema = z
   .object({
     customer: z.object({
       fullName: z.string().trim().min(2, "Le nom complet est obligatoire."),
-      phone: z
-        .string()
-        .trim()
-        .min(1, "Le téléphone est obligatoire.")
-        .regex(/^(?:0[5-8]\d{8}|\+?212[5-8]\d{8})$/, {
-          message: "Téléphone marocain invalide.",
-        }),
+      phone: moroccanPhoneSchema,
       email: z
         .string()
         .trim()
@@ -139,13 +134,7 @@ export const orderTrackingSchema = z.object({
     .trim()
     .min(4, "Le numéro de commande est obligatoire.")
     .max(40, "Le numéro de commande est trop long."),
-  phone: z
-    .string()
-    .trim()
-    .min(1, "Le téléphone est obligatoire.")
-    .regex(/^(?:0[5-8]\d{8}|\+?212[5-8]\d{8})$/, {
-      message: "Téléphone marocain invalide.",
-    }),
+  phone: moroccanPhoneSchema,
 });
 
 export type WebsiteOrderInput = z.infer<typeof websiteOrderSchema>;

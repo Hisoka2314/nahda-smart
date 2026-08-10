@@ -16,6 +16,8 @@ type CartContextValue = {
   cartCount: number;
   subtotal: number;
   deliveryFee: number;
+  /** Tarif livraison a domicile configure, pour recalculer selon le mode choisi. */
+  homeDeliveryFee: number;
   total: number;
   addItem: (product: CartProduct, quantity?: number) => CartAddResult;
   updateQuantity: (productId: string, quantity: number) => void;
@@ -27,7 +29,13 @@ const CartContext = createContext<CartContextValue | null>(null);
 const CART_CHANGE_EVENT = "nahda-smart-cart-change";
 const EMPTY_CART_SNAPSHOT = "[]";
 
-export function CartProvider({ children }: { children: ReactNode }) {
+export function CartProvider({
+  children,
+  deliveryFee: configuredDeliveryFee = 0,
+}: {
+  children: ReactNode;
+  deliveryFee?: number;
+}) {
   const cartSnapshot = useSyncExternalStore(
     subscribeToCartStorage,
     getStoredCartSnapshot,
@@ -116,20 +124,31 @@ export function CartProvider({ children }: { children: ReactNode }) {
       (total, item) => total + item.product.price * item.quantity,
       0,
     );
-    const deliveryFee = items.length > 0 ? 30 : 0;
+    // Estimation "livraison a domicile" affichee dans le panier, avant que le
+    // client ait choisi son mode de retrait. Le montant vient des reglages du
+    // site et non plus d'une constante ecrite en dur.
+    const deliveryFee = items.length > 0 ? configuredDeliveryFee : 0;
 
     return {
       items,
       cartCount,
       subtotal,
       deliveryFee,
+      homeDeliveryFee: configuredDeliveryFee,
       total: subtotal + deliveryFee,
       addItem,
       updateQuantity,
       removeItem,
       clearCart,
     };
-  }, [addItem, clearCart, items, removeItem, updateQuantity]);
+  }, [
+    addItem,
+    clearCart,
+    configuredDeliveryFee,
+    items,
+    removeItem,
+    updateQuantity,
+  ]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

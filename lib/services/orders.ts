@@ -17,6 +17,8 @@ import {
   type StockReservationItem,
 } from "@/lib/services/stock";
 import { roundMoney } from "@/lib/utils";
+import { getSiteSettings, resolveDeliveryFee } from "@/lib/settings";
+import { normalizeMoroccanPhone } from "@/lib/validations/common";
 import {
   orderTrackingSchema,
   websiteOrderSchema,
@@ -103,7 +105,8 @@ const paymentMethodLabels: Record<PrismaPaymentMethod, string> = {
 export async function createWebsiteOrder(input: WebsiteOrderInput) {
   const db = getPrismaClient();
   const data = websiteOrderSchema.parse(input);
-  const deliveryFee = data.deliveryMethod === "home_delivery" ? 30 : 0;
+  const settings = await getSiteSettings();
+  const deliveryFee = resolveDeliveryFee(settings, data.deliveryMethod);
   const aggregatedItems = aggregateWebsiteOrderItems(data.items);
   let orderedProductIds: string[] = [];
 
@@ -233,6 +236,10 @@ export async function trackPublicOrder(input: OrderTrackingInput) {
 
   if (!order) return null;
 
+  // Fiche client sans telephone (import Sage) : aucun suivi possible, et
+  // surtout aucune comparaison ne doit reussir par defaut.
+  if (!order.customer.phone) return null;
+
   if (normalizePhone(order.customer.phone) !== normalizePhone(data.phone)) {
     return null;
   }
@@ -263,7 +270,10 @@ async function findOrCreateWebsiteCustomer(
   tx: Prisma.TransactionClient,
   customer: WebsiteOrderInput["customer"],
 ) {
-  const normalizedPhone = customer.phone.trim();
+  // Stockage sous forme canonique 212XXXXXXXXX : la recherche ci-dessous et le
+  // suivi de commande comparent sur la meme base, quel que soit le format
+  // saisi par le client.
+  const normalizedPhone = normalizeMoroccanPhone(customer.phone);
   const data = {
     name: customer.fullName.trim(),
     phone: normalizedPhone,
@@ -340,6 +350,4 @@ function emptyToUndefined(value?: string) {
   return value?.trim() ? value.trim() : undefined;
 }
 
-function normalizePhone(phone: string) {
-  return phone.replace(/[^\d+]/g, "").replace(/^\+/, "");
-}
+const normalizePhone = normalizeMoroccanPhone;

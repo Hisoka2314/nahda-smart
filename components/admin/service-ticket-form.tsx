@@ -19,7 +19,7 @@ type ServiceTicketFormData = {
   customers: Array<{
     id: string;
     name: string;
-    phone: string;
+    phone: string | null;
     organizationName: string | null;
   }>;
   products: Array<{ id: string; name: string; sku: string }>;

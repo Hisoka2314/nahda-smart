@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  moroccanPhoneSchema,
   nonNegativeMoneySchema,
   optionalTextSchema,
   positiveQuantitySchema,
@@ -58,13 +59,7 @@ export const publicQuoteNeedSchema = z.enum([
 export const websiteQuoteSchema = z
   .object({
     fullName: z.string().trim().min(2, "Le nom complet est obligatoire."),
-    phone: z
-      .string()
-      .trim()
-      .min(1, "Le téléphone est obligatoire.")
-      .regex(/^(?:0[5-8]\d{8}|\+?212[5-8]\d{8})$/, {
-        message: "Téléphone marocain invalide.",
-      }),
+    phone: moroccanPhoneSchema,
     email: z
       .string()
       .trim()

@@ -40,6 +40,10 @@ export const siteSettingsSchema = z.object({
   facebookUrl: optionalUrl,
   instagramUrl: optionalUrl,
   openingHours: requiredText("Horaires d'ouverture"),
+  deliveryFee: z.coerce
+    .number()
+    .nonnegative("Les frais de livraison ne peuvent pas être négatifs.")
+    .max(10000, "Frais de livraison irréalistes."),
 });
 
 export type SiteSettingsInput = z.infer<typeof siteSettingsSchema>;

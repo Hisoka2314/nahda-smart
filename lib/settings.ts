@@ -1,5 +1,8 @@
 import { cache } from "react";
+import type { SiteSetting } from "@prisma/client";
 import { getPrismaClient } from "@/lib/db";
+
+type SiteSettingRow = SiteSetting;
 
 export const SITE_SETTING_ID = "site";
 
@@ -14,7 +17,18 @@ export type SiteSettings = {
   facebookUrl: string;
   instagramUrl: string;
   openingHours: string;
+  deliveryFee: number;
 };
+
+// Source unique du tarif de livraison. Le montant etait auparavant ecrit en
+// dur dans le service commande, dans lib/orders.ts et dans le panier, ce
+// dernier l'appliquant meme au retrait en magasin.
+export function resolveDeliveryFee(
+  settings: Pick<SiteSettings, "deliveryFee">,
+  deliveryMethod: "home_delivery" | "store_pickup",
+): number {
+  return deliveryMethod === "home_delivery" ? settings.deliveryFee : 0;
+}
 
 // Valeurs par defaut : servent de fallback tant que la ligne n'existe pas
 // (ou si la base est indisponible), pour que le site public ne casse jamais.
@@ -29,9 +43,12 @@ export const defaultSiteSettings: SiteSettings = {
   facebookUrl: "",
   instagramUrl: "",
   openingHours: "Lun - Sam : 9h00 - 18h00",
+  deliveryFee: 30,
 };
 
-function toSiteSettings(row: Record<keyof SiteSettings, string>): SiteSettings {
+// Mappeur unique partage avec le back-office : il etait duplique dans
+// admin-site-settings.ts, ce qui laissait les deux versions diverger.
+export function toSiteSettings(row: SiteSettingRow): SiteSettings {
   return {
     companyName: row.companyName,
     email: row.email,
@@ -43,6 +60,7 @@ function toSiteSettings(row: Record<keyof SiteSettings, string>): SiteSettings {
     facebookUrl: row.facebookUrl,
     instagramUrl: row.instagramUrl,
     openingHours: row.openingHours,
+    deliveryFee: Number(row.deliveryFee),
   };
 }
 

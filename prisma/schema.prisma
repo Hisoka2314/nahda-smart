@@ -449,7 +449,11 @@ model Customer {
   id                 String                     @id @default(cuid())
   reference          String                     @unique @default(dbgenerated())
   name               String
-  phone              String
+  // Optionnel depuis l'import du fichier client Sage : une large part des
+  // fiches historiques n'a qu'une raison sociale. NULL et non chaine vide,
+  // pour qu'une recherche par telephone ne puisse jamais rattacher par
+  // erreur une commande site a une fiche sans contact.
+  phone              String?
   email              String?
   city               String?
   address            String?
@@ -897,6 +901,9 @@ model SiteSetting {
   facebookUrl      String   @default("")
   instagramUrl     String   @default("")
   openingHours     String   @default("Lun - Sam : 9h00 - 18h00")
+  // Frais de livraison a domicile, editables depuis le back-office : la valeur
+  // etait codee en dur a trois endroits du code applicatif.
+  deliveryFee      Decimal  @default(30) @db.Decimal(12, 2)
   updatedAt        DateTime @updatedAt
 
   @@map("site_settings")

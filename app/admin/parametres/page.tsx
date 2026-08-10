@@ -133,6 +133,20 @@ export default async function AdminSettingsPage({
                 required
               />
             </AdminField>
+            <AdminField
+              label="Frais de livraison à domicile (DH)"
+              hint="Appliqués au panier et à toute nouvelle commande. Le retrait en magasin reste gratuit."
+            >
+              <AdminTextInput
+                name="deliveryFee"
+                type="number"
+                min="0"
+                step="0.01"
+                defaultValue={String(settings.deliveryFee)}
+                placeholder="30"
+                required
+              />
+            </AdminField>
 
             <div className="lg:col-span-2">
               <Button type="submit">Enregistrer les modifications</Button>
