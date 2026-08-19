@@ -17,6 +17,11 @@ export function absoluteUrl(path = "/"): string {
 // environnements de preversion, ni un serveur encore joignable par son IP
 // seule ne doivent concurrencer le site de production dans les resultats.
 export function isIndexable(): boolean {
+  // Interrupteur manuel : utile sur une adresse provisoire (sous-domaine
+  // gratuit en attendant l'achat du vrai domaine) pour eviter que Google ne
+  // reference une URL qui sera abandonnee. A definir avant "npm run build".
+  if (process.env.SEO_NOINDEX === "1") return false;
+
   let host: string;
 
   try {
