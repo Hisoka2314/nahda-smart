@@ -116,11 +116,31 @@ export function isSameOriginRequest(request: NextRequest): boolean {
 
   if (!origin) return true;
 
+  let originHost: string;
+
   try {
-    return new URL(origin).host === request.nextUrl.host;
+    originHost = new URL(origin).host.toLowerCase();
   } catch {
     return false;
   }
+
+  // Derriere un reverse proxy, nextUrl.host peut refleter l'adresse interne
+  // (127.0.0.1:3000) et non le domaine public : la comparaison echouait alors
+  // pour toutes les requetes legitimes, rendant commande, devis, contact et
+  // suivi inutilisables. On accepte donc aussi l'hote transmis par le proxy.
+  //
+  // Sans danger pour la protection CSRF visee : sur une requete inter-site,
+  // c'est le navigateur qui fixe Host au domaine cible tandis qu'Origin porte
+  // le domaine de l'attaquant. Les deux ne peuvent pas coincider.
+  const knownHosts = [
+    request.nextUrl.host,
+    request.headers.get("x-forwarded-host"),
+    request.headers.get("host"),
+  ]
+    .filter((value): value is string => Boolean(value))
+    .map((value) => value.toLowerCase());
+
+  return knownHosts.includes(originHost);
 }
 
 export function publicMutationRateLimit(
