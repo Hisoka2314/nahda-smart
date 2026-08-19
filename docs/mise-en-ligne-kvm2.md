@@ -153,7 +153,7 @@ chmod 600 /var/www/nahda/app/.env && chown nahda:nahda /var/www/nahda/app/.env
 ## Étape 7 — Installer, migrer, construire
 
 ```bash
-cd /var/www/nahda/app && sudo -u nahda npm ci && sudo -u nahda npx prisma generate && sudo -u nahda npx prisma migrate deploy && sudo -u nahda npm run build
+cd /var/www/nahda/app && sudo -u nahda npm install --no-audit --no-fund && sudo -u nahda npx prisma generate && sudo -u nahda npx prisma migrate deploy && sudo -u nahda npm run build
 ```
 
 **Vérification** : le build se termine par `Compiled successfully` et génère les
@@ -325,7 +325,7 @@ l'en-tête HSTS présent, et `307` sur `/admin` sans session.
 ## Mettre à jour le site plus tard
 
 ```bash
-cd /var/www/nahda/app && sudo -u nahda npm run backup:db && sudo -u nahda git pull && sudo -u nahda npm ci && sudo -u nahda npx prisma migrate deploy && sudo -u nahda npm run build && systemctl restart nahda
+cd /var/www/nahda/app && sudo -u nahda npm run backup:db && sudo -u nahda git pull && sudo -u nahda npm install --no-audit --no-fund && sudo -u nahda npx prisma migrate deploy && sudo -u nahda npm run build && systemctl restart nahda
 ```
 
 Toujours la sauvegarde avant, et toujours `git pull` en place — jamais un clone
@@ -334,5 +334,33 @@ neuf, sinon relisez l'étape 5 sur les images.
 En cas de problème, revenir au commit précédent :
 
 ```bash
-cd /var/www/nahda/app && sudo -u nahda git reset --hard HEAD~1 && sudo -u nahda npm ci && sudo -u nahda npm run build && systemctl restart nahda
+cd /var/www/nahda/app && sudo -u nahda git reset --hard HEAD~1 && sudo -u nahda npm install --no-audit --no-fund && sudo -u nahda npm run build && systemctl restart nahda
 ```
+
+---
+
+## Notes techniques
+
+### Pourquoi `npm install` et non `npm ci`
+
+`npm ci` exige que `package-lock.json` corresponde exactement a ce que la
+version de npm installee sait resoudre. Or les dependances optionnelles liees a
+la plateforme (celles de `sharp`, pour le traitement des images) ne sont pas
+resolues de la meme facon d'une version mineure de npm a l'autre : un
+verrouillage genere sous Windows avec npm 11.6 est refuse par npm 11.17 sous
+Linux, avec un message du type `Missing: @emnapi/runtime from lock file`.
+
+`npm install` resout les dependances pour la plateforme cible et fonctionne
+quelle que soit la version de npm. On perd la reproductibilite stricte, on
+gagne un deploiement qui ne casse pas a chaque montee de version de npm.
+
+### Vulnerabilite `deepmerge-ts` acceptee
+
+`npm audit` signale une faille de severite haute dans `deepmerge-ts`,
+dependance interne de Prisma (epuisement de pile sur des objets recursifs). Le
+seul correctif propose par npm est une retrogradation de Prisma en version 6,
+soit un changement de rupture majeur.
+
+Elle n'est pas exploitable ici : la fusion concernee porte sur la configuration
+Prisma, alimentee par des fichiers statiques du depot, jamais par une donnee
+venant d'un visiteur. A lever des que Prisma publiera une version corrigee.
