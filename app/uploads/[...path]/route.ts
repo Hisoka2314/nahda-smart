@@ -1,11 +1,10 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { getUploadsRoot } from "@/lib/uploads-path";
 
 // Next.js ne sert que les fichiers public/ presents au build : les uploads
 // effectues a l'execution (logos, images produits) passent par cette route.
-const uploadsRoot = path.normalize(
-  path.join(process.cwd(), "public", "uploads"),
-);
+const uploadsRoot = getUploadsRoot();
 
 const contentTypes: Record<string, string> = {
   ".jpg": "image/jpeg",

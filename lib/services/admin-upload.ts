@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import { mkdir, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { getUploadsRoot } from "@/lib/uploads-path";
 
 type UploadKind = "products" | "brands" | "categories";
 
@@ -64,7 +65,7 @@ export async function saveAdminImageUpload(file: File, kind: UploadKind) {
     throw new Error("Le contenu du fichier ne correspond pas au format annonce.");
   }
 
-  const uploadsRoot = path.join(process.cwd(), "public", "uploads", config.directory);
+  const uploadsRoot = path.join(getUploadsRoot(), config.directory);
   const fileName = `${crypto.randomUUID()}.${extension}`;
   const diskPath = path.join(uploadsRoot, fileName);
 
@@ -77,9 +78,11 @@ export async function saveAdminImageUpload(file: File, kind: UploadKind) {
 export async function removeLocalPublicUpload(publicPath: string | null | undefined) {
   if (!publicPath?.startsWith("/uploads/")) return;
 
-  const diskPath = path.join(process.cwd(), "public", publicPath);
-  const uploadsRoot = path.normalize(path.join(process.cwd(), "public", "uploads"));
-  const normalized = path.normalize(diskPath);
+  const uploadsRoot = getUploadsRoot();
+  // publicPath vaut "/uploads/<kind>/<fichier>" : on retire le prefixe pour le
+  // rattacher a la racine reelle, qui n'est plus forcement dans public/.
+  const relative = publicPath.replace(/^\/uploads\//, "");
+  const normalized = path.normalize(path.join(uploadsRoot, relative));
 
   // Separateur final obligatoire : cf. app/uploads/[...path]/route.ts.
   if (!normalized.startsWith(uploadsRoot + path.sep)) return;

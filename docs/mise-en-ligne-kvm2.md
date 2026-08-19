@@ -99,13 +99,19 @@ sudo -u nahda git clone https://github.com/Hisoka2314/nahda-smart.git /var/www/n
 ```
 
 Les images téléversées depuis le back-office doivent survivre aux mises à jour :
-on les sort du dossier de code et on crée un lien.
+on les recopie hors du dossier de code.
 
 ```bash
-cd /var/www/nahda/app && sudo -u nahda cp -rn public/uploads/* /var/www/nahda/uploads/ 2>/dev/null; rm -rf public/uploads && sudo -u nahda ln -s /var/www/nahda/uploads public/uploads && ls -l public/uploads
+cd /var/www/nahda/app && sudo -H -u nahda cp -rn public/uploads/* /var/www/nahda/uploads/ 2>/dev/null; ls /var/www/nahda/uploads
 ```
 
-**Vérification** : affiche `public/uploads -> /var/www/nahda/uploads`
+**Vérification** : affiche `brands` et `products`
+
+> **N'utilisez pas de lien symbolique ici.** Turbopack refuse les liens qui
+> sortent de la racine du projet et le build échoue sur
+> `Symlink ... points out of the filesystem root`. C'est la variable
+> `UPLOADS_DIR` de l'étape 6 qui indique à l'application où lire et écrire les
+> images.
 
 ---
 
@@ -121,6 +127,7 @@ Collez ceci en remplaçant les valeurs :
 DATABASE_URL="postgresql://nahda:MOT_DE_PASSE_BASE@localhost:5432/nahda_smart?schema=public"
 NEXT_PUBLIC_SITE_URL="https://nahdasmart.ma"
 NEXT_PUBLIC_WHATSAPP_NUMBER="212XXXXXXXXX"
+UPLOADS_DIR="/var/www/nahda/uploads"
 BACKUP_DIR="/var/www/nahda/backups"
 EXPORT_DIR="/var/www/nahda/exports"
 MAINTENANCE_SECRET="inventez-une-longue-phrase-secrete-ici"
