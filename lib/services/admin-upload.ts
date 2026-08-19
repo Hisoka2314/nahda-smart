@@ -65,9 +65,16 @@ export async function saveAdminImageUpload(file: File, kind: UploadKind) {
     throw new Error("Le contenu du fichier ne correspond pas au format annonce.");
   }
 
-  const uploadsRoot = path.join(getUploadsRoot(), config.directory);
+  // turbopackIgnore : la racine vient de UPLOADS_DIR, donc inconnue a la
+  // compilation. Sans ce marqueur, Turbopack trace tout le projet et embarque
+  // les sources et le dossier public dans le bundle serveur. Le chemin est
+  // valide a l'execution, et la garde de traversee reste en place plus bas.
+  const uploadsRoot = path.join(
+    /* turbopackIgnore: true */ getUploadsRoot(),
+    config.directory,
+  );
   const fileName = `${crypto.randomUUID()}.${extension}`;
-  const diskPath = path.join(uploadsRoot, fileName);
+  const diskPath = path.join(/* turbopackIgnore: true */ uploadsRoot, fileName);
 
   await mkdir(uploadsRoot, { recursive: true });
   await writeFile(diskPath, buffer, { flag: "wx" });
