@@ -87,7 +87,10 @@ export function MobileHeader() {
           <Menu size={22} />
         </Button>
         <BrandLogo
-          className="w-[140px] max-w-full justify-self-center overflow-hidden"
+          // Pas de largeur fixe : la colonne centrale de la grille dispose
+          // deja de la place, et un w-[140px] combine a overflow-hidden
+          // rognait la derniere lettre de "Nahda Smart" sur telephone.
+          className="min-w-0 max-w-full justify-self-center"
           priority
           showTagline={false}
           size="mobile"
