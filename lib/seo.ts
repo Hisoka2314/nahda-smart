@@ -13,8 +13,25 @@ export function absoluteUrl(path = "/"): string {
   return new URL(path, `${getSiteUrl()}/`).toString();
 }
 
-// Le site n'est indexable que sur un domaine de production : les
-// environnements de preversion ne doivent pas concurrencer le vrai site.
+// Le site n'est indexable que sur un vrai nom de domaine : ni les
+// environnements de preversion, ni un serveur encore joignable par son IP
+// seule ne doivent concurrencer le site de production dans les resultats.
 export function isIndexable(): boolean {
-  return !/localhost|127\.0\.0\.1|\.local(?::|$)/.test(getSiteUrl());
+  let host: string;
+
+  try {
+    host = new URL(getSiteUrl()).hostname.toLowerCase();
+  } catch {
+    return false;
+  }
+
+  if (host === "localhost" || host.endsWith(".local")) return false;
+
+  // Adresse IP nue : cas d'un VPS mis en service avant le branchement du
+  // domaine. Le site tourne, mais il ne doit pas etre reference ainsi.
+  if (/^\d{1,3}(\.\d{1,3}){3}$/.test(host)) return false;
+  if (host.startsWith("[") || host.includes(":")) return false;
+
+  // Un domaine reel comporte au moins un point (exemple.ma).
+  return host.includes(".");
 }
