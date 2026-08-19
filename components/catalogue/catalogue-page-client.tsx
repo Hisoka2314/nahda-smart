@@ -706,23 +706,41 @@ export function CataloguePageClient({
     const renderTechnicalFilterGroup = (
       group: (typeof dynamicFilterGroups)[number],
     ) => {
+      // On ecarte les attributs qui n'afficheraient aucune option : sans cela
+      // le titre du groupe restait visible au-dessus du vide (catalogue sans
+      // produit, ou categorie dont aucun produit ne porte l'attribut), ce qui
+      // donne l'impression d'un filtre casse. Un tableau d'elements JSX est
+      // toujours "truthy", l'ancien filter(Boolean) ne retirait donc rien.
       const controls = group.attributes
         .filter((attribute) => attribute.source === "product-attribute")
-        .map((attribute) => (
-          <CountedCheckboxGroup
-            key={attribute.id}
-            title={attribute.label}
-            tone={group.isAdvanced ? "advanced" : "primary"}
-            defaultOpen={attribute.defaultOpen ?? group.defaultOpen}
-            searchable={attribute.searchable}
-            showEmptyOptions={attribute.showEmptyOptions}
-            options={attribute.options}
-            selected={getMulti(searchParams, `attr_${attribute.slug}`)}
-            counts={countAttributeOptions(baseProducts, attribute)}
-            onToggle={(value) => toggleMulti(`attr_${attribute.slug}`, value)}
-          />
-        ))
-        .filter(Boolean);
+        .map((attribute) => {
+          const selected = getMulti(searchParams, `attr_${attribute.slug}`);
+          const counts = countAttributeOptions(baseProducts, attribute);
+          const visible = getVisibleOptions(
+            attribute.options,
+            counts,
+            selected,
+            attribute.showEmptyOptions,
+          );
+
+          if (visible.length === 0) return null;
+
+          return (
+            <CountedCheckboxGroup
+              key={attribute.id}
+              title={attribute.label}
+              tone={group.isAdvanced ? "advanced" : "primary"}
+              defaultOpen={attribute.defaultOpen ?? group.defaultOpen}
+              searchable={attribute.searchable}
+              showEmptyOptions={attribute.showEmptyOptions}
+              options={attribute.options}
+              selected={selected}
+              counts={counts}
+              onToggle={(value) => toggleMulti(`attr_${attribute.slug}`, value)}
+            />
+          );
+        })
+        .filter((control) => control !== null);
 
       if (controls.length === 0) {
         return null;
