@@ -59,7 +59,14 @@ export function BrandLogo({
     >
       <span className={cn("relative shrink-0", styles.mark)}>
         <Image
-          src="/brand/logo-nahda-smart-mark.png"
+          // La lettre N du logo est noire : elle disparait sur les fonds
+          // sombres (en-tete mobile, pied de page, back-office). La variante
+          // "light" la passe en blanc, le S et l'orbite restant olive.
+          src={
+            isLight
+              ? "/brand/logo-nahda-smart-mark-light.png"
+              : "/brand/logo-nahda-smart-mark.png"
+          }
           alt=""
           fill
           priority={priority}
