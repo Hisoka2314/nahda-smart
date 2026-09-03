@@ -44,3 +44,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Fichiers televerses depuis le back-office : contenu du magasin, pas du code.
+# En production ils vivent hors du depot (UPLOADS_DIR).
+/public/uploads

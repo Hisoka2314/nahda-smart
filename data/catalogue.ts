@@ -214,6 +214,8 @@ export const usageOptions: Array<FilterOption & { value: ProductUsage }> = [
 ];
 
 export const warrantyOptions: FilterOption[] = [
+  { label: "1 mois", value: "1 mois" },
+  { label: "3 mois", value: "3 mois" },
   { label: "6 mois", value: "6 mois" },
   { label: "12 mois", value: "12 mois" },
   { label: "24 mois", value: "24 mois" },
