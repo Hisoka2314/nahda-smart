@@ -57,10 +57,11 @@ const dossier = option("--chemin");
 const appKey = option("--app-key", process.env.ICECAT_APP_KEY);
 const limite = Number(option("--limit", "0")) || Infinity;
 
-if (source !== "icecat" && source !== "dossier") {
+if (!["icecat", "constructeur", "dossier"].includes(source)) {
   console.error(
     "Usage :\n" +
       "  node scripts/import-product-images.mjs --source icecat [--apply] [--app-key CLE] [--limit N]\n" +
+      "  node scripts/import-product-images.mjs --source constructeur [--apply] [--limit N]\n" +
       "  node scripts/import-product-images.mjs --source dossier --chemin ./photos [--apply]",
   );
   process.exit(1);
@@ -381,6 +382,204 @@ async function traiterIcecat(client, produits) {
 }
 
 // ---------------------------------------------------------------------------
+// Source constructeur : le site de la marque, pas un index d'images.
+// ---------------------------------------------------------------------------
+//
+// Pour les marques absentes ou reservees chez Icecat, on va chercher la photo
+// sur le site du fabricant lui-meme. Le sitemap publie donne la page de chaque
+// modele, et le robots.txt du site autorise la lecture automatisee.
+//
+// C'est la meme legitimite que la mediatheque revendeur : la photo vient de
+// celui qui fabrique le produit, pas d'un tiers qui l'a photographie.
+
+const CONSTRUCTEURS = {
+  Hikvision: {
+    sitemap: "https://www.hikvision.com/en/sitemap.xml",
+    // Les references Hikvision sont explicites : DS-2CE16D0T-EXIF, DS-7204HGHI.
+    modele: /\b(I?DS-[A-Z0-9]+(?:-[A-Z0-9/]+)*)\b/,
+    hote: "assets.hikvision.com",
+  },
+};
+
+// Une page produit ne porte pas que la photo du produit : icones de
+// caracteristiques, schemas cotes, accessoires suggeres. On ecarte les trois.
+function estVisuelProduit(url) {
+  if (/\/specicon\//.test(url)) return false;
+  if (/Dimension/i.test(url)) return false;
+  if (/\/img\/brand\//.test(url)) return false;
+
+  // "....png.thumb.319.319.png" : vignette d'accessoire, trop petite.
+  const vignette = url.match(/\.thumb\.(\d+)\.(\d+)\./);
+  if (vignette && Number(vignette[1]) < 500) return false;
+
+  return true;
+}
+
+const sitemapsCharges = new Map();
+
+async function chargerSitemap(marque) {
+  if (sitemapsCharges.has(marque)) return sitemapsCharges.get(marque);
+
+  const config = CONSTRUCTEURS[marque];
+  const reponse = await fetch(config.sitemap, {
+    signal: AbortSignal.timeout(60000),
+    headers: { "user-agent": "nahda-smart-catalogue/1.0" },
+  });
+
+  const xml = await reponse.text();
+  const urls = xml.match(/https?:\/\/[^<\s]+/g) ?? [];
+  sitemapsCharges.set(marque, urls);
+
+  return urls;
+}
+
+// Un suffixe de reference peut designer une declinaison regionale ("-eur-",
+// "(C)") ou un modele different ("-4K", "-8P"). Seuls les premiers sont
+// acceptes : coller la photo d'un NVR 4K sur la fiche d'un NVR 8 ports PoE
+// serait aussi faux que prendre l'image d'une autre marque.
+const SUFFIXES_ACCEPTES = /^-(c|f|b|i|o|s|eur|uk|us|in|latam)-?$/;
+
+function pageDuModele(urls, modele) {
+  const cible = modele.toLowerCase().replace(/\//g, "-");
+  const exacte = urls.find((u) => u.toLowerCase().endsWith(`/${cible}/`));
+
+  if (exacte) return exacte;
+
+  for (const url of urls) {
+    const dernier = url.toLowerCase().replace(/\/$/, "").split("/").pop();
+    if (!dernier.startsWith(cible)) continue;
+    if (SUFFIXES_ACCEPTES.test(dernier.slice(cible.length))) return url;
+  }
+
+  return null;
+}
+
+function visuelsDeLaPage(html, hote) {
+  const brutes =
+    html.match(new RegExp(`https?://${hote.replace(/\./g, "\\.")}/[^"'\\s<>)]+`, "g")) ?? [];
+
+  const images = brutes.filter(
+    (u) => /\.(png|jpe?g|webp)(\?|$)/i.test(u) && estVisuelProduit(u),
+  );
+
+  // Les visuels du produit vivent tous sous le meme identifiant d'actif ; les
+  // accessoires suggeres sous un autre. On garde le groupe majoritaire.
+  const parGroupe = new Map();
+
+  for (const url of images) {
+    const groupe = url.match(/\/image\/(m\d+)\//)?.[1] ?? "sansgroupe";
+    if (!parGroupe.has(groupe)) parGroupe.set(groupe, []);
+    parGroupe.get(groupe).push(url);
+  }
+
+  const dominant = [...parGroupe.values()].sort((a, b) => b.length - a.length)[0] ?? [];
+
+  // Une meme photo est publiee en plusieurs tailles. On prend la plus grande
+  // de chaque, en preferant l'originale a une vignette.
+  const parPhoto = new Map();
+
+  for (const url of dominant) {
+    const base = url.replace(/\.thumb\.\d+\.\d+\.[a-z]+$/i, "").replace(/\.original\.[a-z]+$/i, "");
+    const taille = Number(url.match(/\.thumb\.(\d+)\./)?.[1] ?? 99999);
+    const actuel = parPhoto.get(base);
+
+    if (!actuel || taille > actuel.taille) parPhoto.set(base, { url, taille });
+  }
+
+  return [...parPhoto.values()].map((v) => v.url).slice(0, IMAGES_PAR_PRODUIT);
+}
+
+async function traiterConstructeur(client, produits) {
+  const stats = {
+    examines: 0,
+    apparies: 0,
+    sansModele: 0,
+    pageIntrouvable: 0,
+    sansVisuel: 0,
+    images: 0,
+    echecs: 0,
+  };
+  const reussites = [];
+
+  for (const produit of produits) {
+    if (stats.examines >= limite) break;
+    stats.examines += 1;
+
+    const config = CONSTRUCTEURS[produit.marque];
+    const modele = produit.name.toUpperCase().match(config.modele)?.[1];
+
+    if (!modele) {
+      stats.sansModele += 1;
+      continue;
+    }
+
+    let page;
+
+    try {
+      const urls = await chargerSitemap(produit.marque);
+      page = pageDuModele(urls, modele);
+    } catch {
+      stats.echecs += 1;
+      continue;
+    }
+
+    if (!page) {
+      stats.pageIntrouvable += 1;
+      continue;
+    }
+
+    let visuels = [];
+
+    try {
+      const reponse = await fetch(page, {
+        signal: AbortSignal.timeout(40000),
+        headers: { "user-agent": "nahda-smart-catalogue/1.0" },
+      });
+      visuels = visuelsDeLaPage(await reponse.text(), config.hote);
+    } catch {
+      stats.echecs += 1;
+      continue;
+    }
+
+    if (visuels.length === 0) {
+      stats.sansVisuel += 1;
+      continue;
+    }
+
+    const enregistrees = [];
+
+    for (const [rang, url] of visuels.entries()) {
+      try {
+        // Les noms de fichiers comportent parfois des caracteres non ASCII.
+        const donnees = await telecharger(encodeURI(url));
+        enregistrees.push(await enregistrerImage(donnees, produit, enregistrees.length));
+      } catch {
+        if (rang === 0) stats.echecs += 1;
+      }
+    }
+
+    if (enregistrees.length === 0) {
+      stats.sansVisuel += 1;
+      continue;
+    }
+
+    stats.apparies += 1;
+    stats.images += enregistrees.length;
+    reussites.push({
+      sku: produit.sku,
+      nom: produit.name,
+      modele,
+      page,
+      images: enregistrees.length,
+    });
+
+    if (apply) await ecrireImages(client, produit, enregistrees);
+  }
+
+  return { stats, reussites };
+}
+
+// ---------------------------------------------------------------------------
 // Source dossier.
 // ---------------------------------------------------------------------------
 
@@ -516,6 +715,28 @@ if (source === "icecat") {
     console.log(`Marques exigeant une cle Full Icecat : ${Array.from(marquesRestreintes).join(", ")}`);
     console.log("Relancer avec --app-key <cle> une fois le compte revendeur cree.");
   }
+} else if (source === "constructeur") {
+  const eligibles = produits.filter((p) => CONSTRUCTEURS[p.marque]);
+  console.log(`Marques couvertes    : ${Object.keys(CONSTRUCTEURS).join(", ")}`);
+  console.log(`Produits concernes   : ${eligibles.length}`);
+  console.log("Lecture des sitemaps constructeurs...");
+  console.log();
+
+  const { stats, reussites } = await traiterConstructeur(client, eligibles);
+
+  for (const r of reussites) {
+    console.log(`OK  ${r.sku.padEnd(18)} ${r.nom.slice(0, 40).padEnd(40)} [${r.modele}] ${r.images} visuel(s)`);
+    console.log(`    ${r.page}`);
+  }
+
+  console.log();
+  console.log(`Produits examines     : ${stats.examines}`);
+  console.log(`Fiches illustrees     : ${stats.apparies}`);
+  console.log(`Visuels enregistres   : ${stats.images}`);
+  console.log(`Sans reference modele : ${stats.sansModele}`);
+  console.log(`Page introuvable      : ${stats.pageIntrouvable}`);
+  console.log(`Page sans photo       : ${stats.sansVisuel}`);
+  console.log(`Erreurs reseau/image  : ${stats.echecs}`);
 } else {
   const { stats, inconnus } = await traiterDossier(client, produits);
 
