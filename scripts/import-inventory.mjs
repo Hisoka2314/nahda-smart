@@ -98,6 +98,8 @@ const MARQUES = [
   ["BENQ", "BenQ"], ["DELL", "Dell"], ["OMEGA", "Omega"],
   ["ANKER", "Anker"], ["HAVIT", "Havit"], ["TRUST", "Trust"],
   ["RAPOO", "Rapoo"], ["CISCO", "Cisco"], ["EATON", "Eaton"],
+  ["MERCURY", "Mercury"], ["EXTROM", "Extrom"], ["ADATA", "ADATA"],
+  ["TENDA", "Tenda"], ["REMAX", "Remax"], ["INTEX", "Intex"], ["HOCO", "Hoco"],
   ["MSI", "MSI"], ["AMD", "AMD"], ["APC", "APC"],
   ["JBL", "JBL"], ["LG", "LG"], ["WD", "Western Digital"], ["HP", "HP"],
 ];
@@ -127,6 +129,7 @@ const SIGLES = new Set([
   "UTP", "FTP", "STP", "SIM", "GSM", "VOIP", "PABX", "IPBX", "NFC",
   "SD", "MICROSD", "MMC", "AIO", "OEM", "AC", "DC", "UPS", "AVR",
   "PDF", "OCR", "ADF", "MFP",
+  "GT", "GTX", "RTX", "RX", "LPT",
 ]);
 
 // Casse d'affichage des mots de marque DANS LE NOM du produit. A ne pas
@@ -140,6 +143,7 @@ const CASSE_MOTS = new Map([
   ["APC", "APC"], ["AMD", "AMD"], ["WD", "WD"], ["SFP", "SFP"],
   ["HIKVISION", "Hikvision"], ["LENOVO", "Lenovo"], ["SAMSUNG", "Samsung"],
   ["LOGITECH", "Logitech"], ["KINGSTON", "Kingston"], ["TOSHIBA", "Toshiba"],
+  ["ADATA", "ADATA"], ["GHZ", "GHz"], ["MHZ", "MHz"], ["MAH", "mAh"],
 ]);
 
 // Les designations d'inventaire sont en majuscules : "CABLE HDMI 7M" devient
