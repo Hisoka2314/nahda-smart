@@ -109,7 +109,9 @@ export async function getPublicProducts(params: GetPublicProductsParams = {}) {
     skip: params.skip ?? 0,
   });
 
-  return products.map(prismaProductToCatalogProduct);
+  // Lambda explicite : passee en reference, Array.map fournirait l'index en
+  // second argument, donc un options invalide.
+  return products.map((product) => prismaProductToCatalogProduct(product));
 }
 
 export async function getPublicProductBySlug(slug: string) {
@@ -123,7 +125,7 @@ export async function getPublicProductBySlug(slug: string) {
     return null;
   }
 
-  return prismaProductToCatalogProduct(product);
+  return prismaProductToCatalogProduct(product, { includeDescription: true });
 }
 
 export async function getBestSellingProducts(take = 10) {

@@ -47,6 +47,7 @@ const conditionMap: Record<ProductCondition, UiProductCondition> = {
 
 export function prismaProductToCatalogProduct(
   product: PrismaPublicProduct,
+  options: { includeDescription?: boolean } = {},
 ): CatalogProduct {
   const attributes = buildAttributes(product);
   const price = Number(product.promoPrice ?? product.priceSell);
@@ -68,6 +69,12 @@ export function prismaProductToCatalogProduct(
     id: product.sku,
     name: product.name,
     slug: product.slug,
+    ...(options.includeDescription
+      ? {
+          description: product.description,
+          shortDescription: product.shortDescription ?? undefined,
+        }
+      : {}),
     categorySlug,
     brandSlug: product.brand.slug,
     brandName: product.brand.name,

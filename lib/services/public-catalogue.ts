@@ -32,6 +32,18 @@ type CatalogueDataParams = {
   query?: string;
 };
 
+// Le catalogue est filtre et trie cote client : tous les produits publies
+// doivent donc etre livres a la page, sinon les filtres ne portent que sur un
+// echantillon. L'ancienne borne de 120 passait inapercue tant que la base ne
+// contenait qu'une vitrine de demonstration ; avec l'inventaire du magasin
+// elle masquait la majorite du catalogue.
+//
+// Le cout reste modeste : la charge utile est d'environ 1,4 Ko par produit,
+// soit ~70 Ko compresses pour l'ensemble du catalogue, et le rendu est
+// progressif ("Charger plus"). La borne reste haute pour ne pas tronquer
+// silencieusement le jour ou l'inventaire grandit.
+const CATALOGUE_MAX_PRODUITS = 5000;
+
 // Aucun repli sur les donnees de demonstration : si la base est indisponible,
 // l'erreur remonte a app/error.tsx. Servir un catalogue fictif afficherait des
 // produits inexistants a des prix inventes, et le client ne s'en apercevait
@@ -44,7 +56,7 @@ export async function getPublicCatalogueData(
     getPublicProducts({
       categorySlug: params.categorySlug,
       search: params.query,
-      take: 120,
+      take: CATALOGUE_MAX_PRODUITS,
     }),
     getPublicCategories(),
     getPublicFiltersForCategories(selectedSlugs),

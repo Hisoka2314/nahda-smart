@@ -68,6 +68,13 @@ export function getProductHighlights(product: CatalogProduct) {
 }
 
 export function getProductDescription(product: CatalogProduct) {
+  // La fiche saisie en base prime toujours. Le texte genere ci-dessous ne
+  // differe d'un produit a l'autre que par le nom et la categorie : servi sur
+  // sept cents fiches, il donne autant de pages quasi identiques, sans valeur
+  // pour le visiteur ni pour le referencement. Il ne reste que pour les
+  // produits de demonstration, qui n'ont pas de description.
+  if (product.description?.trim()) return product.description.trim();
+
   const categoryName = getCategoryName(product.categorySlug).toLowerCase();
   const usages = product.usage.map((usage) => usageLabels[usage]).join(", ");
 

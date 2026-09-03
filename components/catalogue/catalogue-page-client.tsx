@@ -157,14 +157,24 @@ export function CataloguePageClient({
   }, [categorySlug, products, searchParams]);
 
   const brandOptions = useMemo(() => {
-    const slugs = Array.from(new Set(baseProducts.map((product) => product.brandSlug)));
+    // Le nom porte par le produit vient de la base : c'est la seule source qui
+    // connaisse les marques ajoutees depuis l'inventaire. Le repli sur le slug
+    // affichait "Msi", "Benq" ou "Generique" des qu'une marque manquait au
+    // catalogue statique, c'est-a-dire pour la quasi-totalite d'entre elles.
+    const parSlug = new Map<string, string>();
 
-    return slugs
-      .map((slug) => ({
-        label: brandSlugMap[slug]?.name ?? getBrandName(slug),
-        value: slug,
-      }))
-      .sort((first, second) => first.label.localeCompare(second.label, "fr"));
+    for (const product of baseProducts) {
+      if (!parSlug.has(product.brandSlug)) {
+        parSlug.set(
+          product.brandSlug,
+          product.brandName ?? brandSlugMap[product.brandSlug]?.name ?? getBrandName(product.brandSlug),
+        );
+      }
+    }
+
+    return Array.from(parSlug, ([value, label]) => ({ label, value })).sort(
+      (first, second) => first.label.localeCompare(second.label, "fr"),
+    );
   }, [baseProducts]);
 
   const categoryOptions = useMemo(

@@ -43,6 +43,11 @@ export type CatalogProduct = {
   id: string;
   name: string;
   slug: string;
+  // Fiche redigee, servie uniquement sur la page produit : l'inclure dans les
+  // listes alourdirait le catalogue de plusieurs centaines de kilo-octets sans
+  // qu'aucune carte ne l'affiche.
+  description?: string;
+  shortDescription?: string;
   categorySlug: string;
   brandSlug: string;
   brandName?: string;
