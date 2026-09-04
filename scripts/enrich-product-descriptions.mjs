@@ -54,14 +54,28 @@ const NOM_CATEGORIE = {
   "baies-reseau-cablage": "élément de câblage réseau",
 };
 
-// Les asterisques et mentions internes servent de marqueurs au magasin
-// ("*******exclu*******"). Elles n'ont rien a faire sur une fiche publique.
+// Mentions de gestion accolees a la designation : elles servent au magasin
+// ("*******exclu*******" signale un article exclu d'une operation) et n'ont
+// aucun sens pour un client. Retirer les asterisques ne suffisait pas : le mot
+// restait, et "Point Acces Tenda F3 Wireless N300 exclu" s'affichait tel quel
+// en boutique.
+const MENTIONS_INTERNES =
+  /(?:^|\s)(?:exclu(?:sion|sivite)?|hors\s*promo|ne\s*pas\s*vendre|reserve|bloque|a\s*verifier|dispo\s*\?)\s*$/i;
+
 function nettoyerNom(nom) {
-  return nom
+  let propre = nom
     .replace(/\*+/g, " ")
+    .replace(/[_]{2,}/g, " ")
     .replace(/\s{2,}/g, " ")
     .replace(/\s+([,.;:])/g, "$1")
     .trim();
+
+  // En boucle : "... exclu exclu" apparait sur quelques designations.
+  while (MENTIONS_INTERNES.test(propre)) {
+    propre = propre.replace(MENTIONS_INTERNES, "").trim();
+  }
+
+  return propre.replace(/[-–/,;]+$/, "").trim();
 }
 
 function extraireSpecs(texte) {
@@ -200,6 +214,8 @@ function extraireSpecs(texte) {
   return specs;
 }
 
+const SUFFIXE_SEO = " - Nahda Smart";
+
 function redigerFiche({ nom, categorieSlug, marque, garantie }) {
   const specs = extraireSpecs(nom);
   const nomCategorie = NOM_CATEGORIE[categorieSlug] ?? "produit";
@@ -232,7 +248,12 @@ function redigerFiche({ nom, categorieSlug, marque, garantie }) {
   return {
     shortDescription: resume.slice(0, 180),
     description: phrases.join(" "),
-    seoTitle: `${nom} - Nahda Smart`.slice(0, 70),
+    // On raccourcit le nom, jamais l'enseigne : couper la chaine entiere a 70
+    // signes produisait des titres finissant par "- Nahda Sma".
+    seoTitle:
+      nom.length + SUFFIXE_SEO.length <= 70
+        ? `${nom}${SUFFIXE_SEO}`
+        : `${nom.slice(0, 70 - SUFFIXE_SEO.length - 1).trimEnd()}…${SUFFIXE_SEO}`,
     seoDescription: (specs.length > 0
       ? `${nom}. ${specs.slice(0, 5).join(", ")}. Garantie ${garantie} mois, livraison partout au Maroc.`
       : `${nom}. Disponible chez Nahda Smart, garantie ${garantie} mois, livraison partout au Maroc.`
@@ -256,7 +277,7 @@ try {
   const filtre = tout
     ? `p.description = upper(p.description)
        OR upper(btrim(p.description)) = upper(btrim(p.name))
-       OR p."seoTitle" LIKE '%Nahda Smart'`
+       OR p.description LIKE '%vous conseiller avant l''achat.'`
     : `p.description = upper(p.description) OR upper(btrim(p.description)) = upper(btrim(p.name))`;
 
   const { rows } = await client.query(`

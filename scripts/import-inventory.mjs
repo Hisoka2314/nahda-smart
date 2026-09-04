@@ -43,40 +43,53 @@ if (!databaseUrl) {
 
 const FAMILLE_VERS_CATEGORIE = {
   LPT: "pc-portables", PTBL: "pc-portables", BAT: "pc-portables", CHG: "pc-portables",
+  AFF: "pc-portables",
   PC: "all-in-one",
   UC: "pc-bureau", MB: "pc-bureau", CPU: "pc-bureau", ALM: "pc-bureau",
-  BALM: "pc-bureau", CALM: "pc-bureau",
+  BALM: "pc-bureau", CALM: "pc-bureau", CM: "pc-bureau", BTG: "pc-bureau",
   ECR: "peripheriques", SRS: "peripheriques", CLV: "peripheriques",
   WCAM: "peripheriques", ACLV: "peripheriques", SCN: "peripheriques", KVM: "peripheriques",
   TNR: "impression", CRT: "impression", IMP: "impression", CIMP: "impression", FAX: "impression",
+  RP: "impression",
   TEL: "telephonie", CTEL: "telephonie", STEL: "telephonie", PB: "telephonie",
-  TAB: "telephonie", PN: "telephonie",
+  TAB: "telephonie",
   CRES: "baies-reseau-cablage", BNC: "baies-reseau-cablage", CBNC: "baies-reseau-cablage",
   RACK: "baies-reseau-cablage", PAT: "baies-reseau-cablage", CPL: "baies-reseau-cablage",
+  PBR: "baies-reseau-cablage",
   CAM: "securite-cameras", SCAM: "securite-cameras", ALR: "securite-cameras",
   DVR: "securite-cameras", CPTZ: "securite-cameras", VIR: "securite-cameras",
   CWIFI: "reseaux-connectivite", RTR: "reseaux-connectivite", SWCH: "reseaux-connectivite",
-  PAC: "reseaux-connectivite", ML: "reseaux-connectivite",
+  PAC: "reseaux-connectivite",
   DD: "stockage", BDD: "stockage", CSD: "stockage", CD: "stockage",
-  DVD: "stockage", CDS: "stockage",
+  DVD: "stockage", CDS: "stockage", SN: "stockage", LCT: "stockage",
+  CUSB: "stockage", CS: "stockage",
   HP: "multimedia", ECT: "multimedia", CSQ: "multimedia", TV: "multimedia",
   STV: "multimedia", TVB: "multimedia", VP: "multimedia", EVP: "multimedia",
   PLAY: "multimedia", BAR: "multimedia",
   SOFT: "logiciels",
   RAM: "accessoires", ADAP: "accessoires", PIL: "accessoires", VNT: "accessoires",
   CRTB: "accessoires", HUSB: "accessoires", RUSB: "accessoires", POT: "accessoires",
-  CS: "accessoires", EMB: "accessoires", ARM: "accessoires", ETG: "accessoires",
+  EMB: "accessoires", ARM: "accessoires", ETG: "accessoires",
   ACI: "accessoires", ACHG: "accessoires", CHDMI: "accessoires", CVGA: "accessoires",
-  CUSB: "accessoires", SHDMI: "accessoires", VGA: "accessoires", CAC: "accessoires",
-  CAPL: "accessoires", CHC: "accessoires", CCHG: "accessoires", CM: "accessoires",
-  CRU: "accessoires", LCT: "accessoires", MAT: "accessoires", RLG: "accessoires",
-  SN: "accessoires", VL: "accessoires", PRS: "accessoires", PBR: "accessoires",
+  SHDMI: "accessoires", VGA: "accessoires", CAC: "accessoires",
+  CAPL: "accessoires", CHC: "accessoires", CCHG: "accessoires",
+  CRU: "accessoires", MAT: "accessoires", RLG: "accessoires",
+  VL: "accessoires", PRS: "accessoires",
   MLD: "accessoires", ELEC: "accessoires", PCB: "accessoires", PLT: "accessoires",
-  PRA: "accessoires", LCM: "accessoires", AFF: "accessoires", BTG: "accessoires",
-  CALC: "accessoires", RP: "accessoires",
+  PRA: "accessoires", LCM: "accessoires",
+  CALC: "accessoires", PN: "accessoires",
 };
 
 const CATEGORIE_PAR_DEFAUT = "accessoires";
+
+// Familles qui n'ont pas leur place dans un catalogue informatique. ML regroupe
+// dix produits d'herboristerie du magasin (amlou, safran, huile d'olive,
+// eucalyptus, caroube...). Faute d'exclusion, ils etaient ranges en "Reseaux &
+// Connectivite" et se retrouvaient publies entre deux switches.
+//
+// Ils ne sont pas perdus pour autant : ils restent dans l'inventaire Sage. Pour
+// les vendre en ligne il faudrait leur creer une categorie a eux.
+const FAMILLES_IGNOREES = new Set(["ML"]);
 
 // Ordonnee du plus long au plus court : "TP-LINK" doit etre teste avant "TP".
 const MARQUES = [
@@ -220,6 +233,7 @@ const client = new pg.Client({ connectionString: databaseUrl });
 const stats = {
   lues: lignes.length,
   sansDesignation: 0,
+  famillesIgnorees: 0,
   sansReference: 0,
   doublonReference: 0,
   dejaEnBase: 0,
@@ -261,6 +275,11 @@ try {
 
     if (!designation) { stats.sansDesignation += 1; continue; }
 
+    if (FAMILLES_IGNOREES.has(ligne.famille?.trim().toUpperCase())) {
+      stats.famillesIgnorees += 1;
+      continue;
+    }
+
     let sku = ligne.reference?.trim().toUpperCase();
 
     if (!sku) { sku = `INV-${versSlug(designation).slice(0, 24).toUpperCase()}`; stats.sansReference += 1; }
@@ -300,6 +319,7 @@ try {
   console.log(apply ? "=== IMPORT INVENTAIRE ===" : "=== SIMULATION (ajoutez --apply pour ecrire) ===");
   console.log(`  Lignes lues                : ${stats.lues}`);
   console.log(`  Ignorees, sans designation : ${stats.sansDesignation}`);
+  console.log(`  Ignorees, famille hors IT  : ${stats.famillesIgnorees}`);
   console.log(`  Ignorees, doublon SKU      : ${stats.doublonReference}`);
   console.log(`  Ignorees, deja en base     : ${stats.dejaEnBase}`);
   console.log(`  A importer                 : ${stats.aImporter}`);
