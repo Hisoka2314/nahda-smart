@@ -8,6 +8,13 @@
 // Le CSV attendu a quatre colonnes : famille,reference,designation,quantite
 // (export de "Saisie d'inventaire", converti en CSV).
 //
+// Attention a la colonne quantite : le tableur d'inventaire en porte deux.
+// "Qtes" est le stock theorique de Sage, "QTE REEL" le comptage physique.
+// C'est le comptage qui fait foi des qu'il est renseigne, y compris a zero ;
+// une cellule vide signifie "non compte", pas "aucun". Prendre "Qtes" partout
+// declarait en ligne 4410 unites de plus que le magasin ne detenait, dont 113
+// produits comptes a zero.
+//
 // Regles appliquees :
 //   - Les produits sont crees en BROUILLON avec un prix a zero. Ils n'appa-
 //     raissent donc pas sur la boutique tant que les prix ne sont pas saisis
