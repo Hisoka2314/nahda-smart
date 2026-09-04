@@ -237,8 +237,17 @@ function buildSpecs(
   if (values.length > 0) return Array.from(new Set(values)).slice(0, 5);
   if (fallback?.specs.length) return fallback.specs;
 
+  // Le resume redige separe ses caracteristiques par une puce ; l'ancien
+  // decoupage sur la seule virgule rendait donc toute la ligne en un seul bloc,
+  // et "Ecran 24 pouces • Definition FHD • Connectique HDMI, VGA" s'affichait
+  // comme une unique etiquette illisible.
   return product.shortDescription
-    ? product.shortDescription.split(",").map((item) => item.trim()).slice(0, 4)
+    ? product.shortDescription
+        .split(/\s*•\s*/)
+        .flatMap((bloc) => (bloc.includes("•") ? [] : [bloc]))
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .slice(0, 5)
     : [getBrandName(product.brand.slug), getCategoryName(product.category.slug)];
 }
 

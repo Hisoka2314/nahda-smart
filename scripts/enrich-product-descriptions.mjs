@@ -176,9 +176,13 @@ function extraireSpecs(texte) {
   const ports = t.match(/\b(\d+)\s?PORTS?\b/);
   if (ports) ajouter(`${ports[1]} ports`);
 
-  const longueur = t.match(/\b(\d+(?:\.\d+)?)\s?(?:M|METRES?)\b/);
+  // Le M d'une reference constructeur n'est pas un metre : "OCD-114M" donnait
+  // un cable de 114 metres. On exige donc que le nombre ne prolonge pas une
+  // reference, et qu'il reste dans les longueurs qu'un magasin vend.
+  const longueur = t.match(/(?<![A-Z0-9-])(\d+(?:\.\d+)?)\s?(?:M|METRES?)\b/);
   if (longueur && /CABLE|CORDON|RALLONGE|BOBINE/.test(t)) {
-    ajouter(`Longueur ${longueur[1]} m`);
+    const metres = Number(longueur[1]);
+    if (metres > 0 && metres <= 305) ajouter(`Longueur ${longueur[1]} m`);
   }
 
   const batterie = t.match(/\b(\d{3,6})\s?MAH\b/);
@@ -197,6 +201,64 @@ function extraireSpecs(texte) {
 
   const categorieCable = t.match(/\bCAT\s?([56]E?)\b|\bCATEGORIE\s?([56])\b/);
   if (categorieCable) ajouter(`Catégorie ${(categorieCable[1] ?? categorieCable[2]).toUpperCase()}`);
+
+  // Connectique : c'est la premiere chose qu'un acheteur verifie sur un ecran,
+  // un adaptateur ou une carte mere. On la regroupe en une seule ligne plutot
+  // que d'aligner cinq etiquettes separees.
+  const CONNECTEURS = [
+    [/\bHDMI\b/, "HDMI"],
+    [/\bMINI[- ]?HDMI\b/, "Mini-HDMI"],
+    [/\bVGA\b/, "VGA"],
+    [/\bDVI\b/, "DVI"],
+    [/\bDISPLAY\s?PORT\b|\bDP\b/, "DisplayPort"],
+    [/\bTYPE[- ]?C\b|\bTYP[- ]?C\b|\bUSB[- ]?C\b/, "USB-C"],
+    [/\bUSB\s?3\.[01]\b/, "USB 3.0"],
+    [/\bUSB\s?2\.0\b/, "USB 2.0"],
+    [/\bUSB\b/, "USB"],
+    [/\bRJ45\b/, "RJ45"],
+    [/\bRJ11\b/, "RJ11"],
+    [/\bBNC\b/, "BNC"],
+    [/\bJACK\b|\bAUX\b|\b3\.5\s?MM\b/, "Jack 3,5 mm"],
+    [/\bRCA\b/, "RCA"],
+    [/\bTHUNDERBOLT\b/, "Thunderbolt"],
+    [/\bSATA\b/, "SATA"],
+    [/\bNVME\b|\bM\.?2\b/, "M.2 NVMe"],
+    [/\bMICRO\s?SD\b/, "microSD"],
+    [/\bSD\b(?!\s?CARD READER)/, "SD"],
+    [/\bOTG\b/, "OTG"],
+    [/\bPS\/?2\b/, "PS/2"],
+    [/\bLIGHTNING\b/, "Lightning"],
+    [/\bMICRO[- ]?USB\b/, "micro-USB"],
+  ];
+
+  const connectique = [];
+  for (const [motif, libelle] of CONNECTEURS) {
+    if (motif.test(t) && !connectique.includes(libelle)) connectique.push(libelle);
+  }
+
+  // "USB" seul n'apporte rien quand une version precise est deja citee.
+  const precise = connectique.some((x) => x.startsWith("USB ") || x === "USB-C");
+  const retenus = connectique.filter((x) => !(x === "USB" && precise));
+
+  if (retenus.length > 0) ajouter(`Connectique ${retenus.slice(0, 5).join(", ")}`);
+
+  for (const [motif, libelle] of [
+    [/\bINCURVE\b|\bCURVED\b/, "Écran incurvé"],
+    [/\bVESA\b/, "Fixation VESA"],
+    [/\bRECTO\s?VERSO\b|\bDUPLEX\b/, "Impression recto verso"],
+    [/\bMULTIFONCTION\b|\bMFP\b|\b3\s?EN\s?1\b/, "Multifonction"],
+    [/\bADF\b|\bCHARGEUR\s?AUTOMATIQUE\b/, "Chargeur automatique de documents"],
+    [/\bRETROECLAIRE\b|\bBACKLIT\b/, "Clavier rétroéclairé"],
+    [/\bANC\b|\bREDUCTION\s?(DE\s?)?BRUIT\b/, "Réduction de bruit"],
+    // "MICRO" seul designe un microphone ; accole, il qualifie un connecteur
+    // ("Micro-USB") ou un format de carte ("Micro SD").
+    [/\bMICRO\b(?![-\s]?(SD|USB|B\b))/, "Microphone intégré"],
+    [/\bRECHARGEABLE\b/, "Rechargeable"],
+    [/\bPLIABLE\b|\bFOLDABLE\b/, "Pliable"],
+    [/\bMONTABLE\s?EN\s?RACK\b|\bRACKABLE\b|\b19\s?POUCES?\s?RACK\b/, "Montage en baie 19\""],
+  ]) {
+    if (motif.test(t)) ajouter(libelle);
+  }
 
   for (const [motif, libelle] of [
     [/\bPOE\b/, "Alimentation PoE"],
