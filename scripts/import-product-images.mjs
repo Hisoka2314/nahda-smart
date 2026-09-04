@@ -429,6 +429,19 @@ async function chargerSitemap(marque) {
 
   const xml = await reponse.text();
   const urls = xml.match(/https?:\/\/[^<\s]+/g) ?? [];
+  const produits = urls.filter((u) => u.includes("/products/"));
+
+  // Sans ce compte-rendu, un sitemap servi vide ou redirige vers une autre
+  // region se traduisait par "page introuvable" sur chaque produit, sans dire
+  // que la faute venait du sitemap et non des references.
+  console.log(
+    `  sitemap ${marque} : HTTP ${reponse.status}, ${urls.length} adresses dont ${produits.length} fiches produit`,
+  );
+
+  if (produits.length === 0) {
+    console.log(`  -> aucune fiche produit dans ${reponse.url}`);
+  }
+
   sitemapsCharges.set(marque, urls);
 
   return urls;
