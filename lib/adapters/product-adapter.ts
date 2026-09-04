@@ -74,6 +74,7 @@ export function prismaProductToCatalogProduct(
           description: product.description,
           shortDescription: product.shortDescription ?? undefined,
           images: product.images.map((image) => image.url),
+          technicalSpecs: lireCaracteristiques(product.technicalDescription),
         }
       : {}),
     categorySlug,
@@ -123,6 +124,42 @@ export function prismaProductToCatalogProduct(
 
 export function prismaProductToProductCard(product: PrismaPublicProduct): Product {
   return toProductCardProduct(prismaProductToCatalogProduct(product));
+}
+
+// Les caracteristiques constructeur sont stockees en JSON dans
+// technicalDescription : le champ est libre, et un back-office peut y avoir
+// saisi du texte a la main. On ne rend donc quelque chose que si la forme
+// attendue est bien la.
+function lireCaracteristiques(
+  brut: string | null,
+): { groupe: string; lignes: [string, string][] }[] | undefined {
+  if (!brut?.trim().startsWith("[")) return undefined;
+
+  try {
+    const donnees: unknown = JSON.parse(brut);
+
+    if (!Array.isArray(donnees)) return undefined;
+
+    const groupes = donnees.flatMap((entree) => {
+      if (typeof entree !== "object" || entree === null) return [];
+
+      const { groupe, lignes } = entree as { groupe?: unknown; lignes?: unknown };
+
+      if (typeof groupe !== "string" || !Array.isArray(lignes)) return [];
+
+      const paires = lignes.flatMap((ligne) =>
+        Array.isArray(ligne) && ligne.length >= 2
+          ? [[String(ligne[0]), String(ligne[1])] as [string, string]]
+          : [],
+      );
+
+      return paires.length > 0 ? [{ groupe, lignes: paires }] : [];
+    });
+
+    return groupes.length > 0 ? groupes : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 function buildAttributes(product: PrismaPublicProduct) {

@@ -49,6 +49,9 @@ export type CatalogProduct = {
   description?: string;
   shortDescription?: string;
   images?: string[];
+  // Caracteristiques redigees par le constructeur, groupees par theme.
+  // Servies uniquement sur la page produit, comme la fiche et la galerie.
+  technicalSpecs?: { groupe: string; lignes: [string, string][] }[];
   categorySlug: string;
   // Nom venu de la base : le catalogue statique ne connait pas les categories
   // ajoutees depuis, et le repli sur le slug affichait "Ecrans Moniteurs".

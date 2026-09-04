@@ -152,7 +152,15 @@ export function buildWhatsappUrl(
 }
 
 export function getTechnicalSections(product: CatalogProduct): TechnicalSection[] {
+  // Les caracteristiques du constructeur passent devant : elles sont plus
+  // precises et plus completes que ce que l'on deduit d'une designation.
+  const constructeur = (product.technicalSpecs ?? []).map((bloc) => ({
+    title: bloc.groupe,
+    items: bloc.lignes.map(([label, value]) => ({ label, value })),
+  }));
+
   return [
+    ...constructeur,
     section("Général", [
       item("SKU", product.id.toUpperCase()),
       item("Marque", getBrandName(product.brandSlug)),
