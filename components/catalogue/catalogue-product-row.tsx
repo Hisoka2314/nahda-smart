@@ -129,7 +129,7 @@ export function CatalogueProductRow({ product }: CatalogueProductRowProps) {
         <div className="flex flex-wrap items-center gap-3">
           <BrandMark brand={brandMark} compact />
           <span className="rounded-[8px] bg-surface-muted px-2.5 py-1 text-xs font-black text-neutral-600">
-            {getCategoryName(product.categorySlug)}
+            {product.categoryName ?? getCategoryName(product.categorySlug)}
           </span>
           {product.isNew ? (
             <Badge variant="olive" className="normal-case">
@@ -243,7 +243,7 @@ export function CatalogueProductRow({ product }: CatalogueProductRowProps) {
           slug: product.slug,
           name: product.name,
           brand: getBrandName(product.brandSlug),
-          category: getCategoryName(product.categorySlug),
+          category: product.categoryName ?? getCategoryName(product.categorySlug),
           image: product.image,
           description: product.specs.join(" · "),
           specs: product.specs,

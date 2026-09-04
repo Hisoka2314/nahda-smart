@@ -40,7 +40,7 @@ export function catalogProductToCartProduct(product: CatalogProduct): CartProduc
     slug: product.slug,
     name: product.name,
     brand: getBrandName(product.brandSlug),
-    category: getCategoryName(product.categorySlug),
+    category: product.categoryName ?? getCategoryName(product.categorySlug),
     image: product.image,
     price: product.price,
     oldPrice: product.oldPrice,

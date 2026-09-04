@@ -30,6 +30,7 @@
 
 import { readFileSync } from "node:fs";
 import pg from "pg";
+import { categoriePourFamille, CATEGORIE_PAR_DEFAUT } from "./lib/familles.mjs";
 
 const [, , csvPath, ...flags] = process.argv;
 const apply = flags.includes("--apply");
@@ -48,46 +49,9 @@ if (!databaseUrl) {
   process.exit(1);
 }
 
-const FAMILLE_VERS_CATEGORIE = {
-  LPT: "pc-portables", PTBL: "pc-portables", BAT: "pc-portables", CHG: "pc-portables",
-  AFF: "pc-portables",
-  PC: "all-in-one",
-  UC: "pc-bureau", MB: "pc-bureau", CPU: "pc-bureau", ALM: "pc-bureau",
-  BALM: "pc-bureau", CALM: "pc-bureau", CM: "pc-bureau", BTG: "pc-bureau",
-  ECR: "peripheriques", SRS: "peripheriques", CLV: "peripheriques",
-  WCAM: "peripheriques", ACLV: "peripheriques", SCN: "peripheriques", KVM: "peripheriques",
-  TNR: "impression", CRT: "impression", IMP: "impression", CIMP: "impression", FAX: "impression",
-  RP: "impression",
-  TEL: "telephonie", CTEL: "telephonie", STEL: "telephonie", PB: "telephonie",
-  TAB: "telephonie",
-  CRES: "baies-reseau-cablage", BNC: "baies-reseau-cablage", CBNC: "baies-reseau-cablage",
-  RACK: "baies-reseau-cablage", PAT: "baies-reseau-cablage", CPL: "baies-reseau-cablage",
-  PBR: "baies-reseau-cablage",
-  CAM: "securite-cameras", SCAM: "securite-cameras", ALR: "securite-cameras",
-  DVR: "securite-cameras", CPTZ: "securite-cameras", VIR: "securite-cameras",
-  CWIFI: "reseaux-connectivite", RTR: "reseaux-connectivite", SWCH: "reseaux-connectivite",
-  PAC: "reseaux-connectivite",
-  DD: "stockage", BDD: "stockage", CSD: "stockage", CD: "stockage",
-  DVD: "stockage", CDS: "stockage", SN: "stockage", LCT: "stockage",
-  CUSB: "stockage", CS: "stockage",
-  HP: "multimedia", ECT: "multimedia", CSQ: "multimedia", TV: "multimedia",
-  STV: "multimedia", TVB: "multimedia", VP: "multimedia", EVP: "multimedia",
-  PLAY: "multimedia", BAR: "multimedia",
-  SOFT: "logiciels",
-  RAM: "accessoires", ADAP: "accessoires", PIL: "accessoires", VNT: "accessoires",
-  CRTB: "accessoires", HUSB: "accessoires", RUSB: "accessoires", POT: "accessoires",
-  EMB: "accessoires", ARM: "accessoires", ETG: "accessoires",
-  ACI: "accessoires", ACHG: "accessoires", CHDMI: "accessoires", CVGA: "accessoires",
-  SHDMI: "accessoires", VGA: "accessoires", CAC: "accessoires",
-  CAPL: "accessoires", CHC: "accessoires", CCHG: "accessoires",
-  CRU: "accessoires", MAT: "accessoires", RLG: "accessoires",
-  VL: "accessoires", PRS: "accessoires",
-  MLD: "accessoires", ELEC: "accessoires", PCB: "accessoires", PLT: "accessoires",
-  PRA: "accessoires", LCM: "accessoires",
-  CALC: "accessoires", PN: "accessoires",
-};
-
-const CATEGORIE_PAR_DEFAUT = "accessoires";
+// La cartographie famille -> categorie vit dans scripts/lib/familles.mjs :
+// le reclassement s'en sert aussi, et deux copies divergent au premier
+// ajustement.
 
 // Familles qui n'ont pas leur place dans un catalogue informatique. ML regroupe
 // dix produits d'herboristerie du magasin (amlou, safran, huile d'olive,
@@ -312,7 +276,7 @@ try {
       nom,
       designation,
       marque: detecterMarque(designation),
-      categorie: FAMILLE_VERS_CATEGORIE[ligne.famille?.toUpperCase()] ?? CATEGORIE_PAR_DEFAUT,
+      categorie: categoriePourFamille(ligne.famille),
       quantite: Math.max(0, quantite),
     });
   }

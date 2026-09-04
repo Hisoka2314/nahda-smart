@@ -77,6 +77,7 @@ export function prismaProductToCatalogProduct(
         }
       : {}),
     categorySlug,
+    categoryName: product.category.name,
     brandSlug: product.brand.slug,
     brandName: product.brand.name,
     brandLogoPath: product.brand.logoPath ?? undefined,

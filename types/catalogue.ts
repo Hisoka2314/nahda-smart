@@ -50,6 +50,9 @@ export type CatalogProduct = {
   shortDescription?: string;
   images?: string[];
   categorySlug: string;
+  // Nom venu de la base : le catalogue statique ne connait pas les categories
+  // ajoutees depuis, et le repli sur le slug affichait "Ecrans Moniteurs".
+  categoryName?: string;
   brandSlug: string;
   brandName?: string;
   brandLogoPath?: string;

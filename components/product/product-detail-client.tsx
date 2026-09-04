@@ -152,7 +152,7 @@ export function ProductDetailClient({
           href={`/categorie/${product.categorySlug}`}
           className="transition hover:text-nahda-olive"
         >
-          {getCategoryName(product.categorySlug)}
+          {product.categoryName ?? getCategoryName(product.categorySlug)}
         </Link>
         <span>/</span>
         <span className="text-nahda-ink">{product.name}</span>
@@ -189,7 +189,7 @@ export function ProductDetailClient({
           <div className="mt-4 flex items-center gap-3">
             <BrandMark brand={brandMark} compact />
             <span className="text-sm font-bold text-neutral-500">
-              {getCategoryName(product.categorySlug)}
+              {product.categoryName ?? getCategoryName(product.categorySlug)}
             </span>
           </div>
 
