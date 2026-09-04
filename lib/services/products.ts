@@ -125,7 +125,7 @@ export async function getPublicProductBySlug(slug: string) {
     return null;
   }
 
-  return prismaProductToCatalogProduct(product, { includeDescription: true });
+  return prismaProductToCatalogProduct(product, { includeDetails: true });
 }
 
 export async function getBestSellingProducts(take = 10) {

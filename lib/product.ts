@@ -40,6 +40,16 @@ export function getProductBySlug(slug: string) {
 }
 
 export function getProductGallery(product: CatalogProduct) {
+  // Les visuels du produit priment. Sans cette garde, la galerie completait la
+  // premiere photo avec la banniere de la categorie, son illustration puis une
+  // image d'accessoire generique : un produit livre avec quatre photos
+  // constructeur n'en montrait qu'une, suivie de trois images sans rapport.
+  if (product.images && product.images.length > 0) {
+    return Array.from(new Set(product.images)).slice(0, 6);
+  }
+
+  // Repli pour les produits de demonstration, qui n'ont pas de galerie : mieux
+  // vaut une vignette de categorie qu'un emplacement vide.
   const category = catalogueCategoryMap[product.categorySlug];
   const fallbackImages = [
     product.image,
