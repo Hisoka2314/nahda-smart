@@ -57,11 +57,12 @@ const dossier = option("--chemin");
 const appKey = option("--app-key", process.env.ICECAT_APP_KEY);
 const limite = Number(option("--limit", "0")) || Infinity;
 
-if (!["icecat", "constructeur", "dossier"].includes(source)) {
+if (!["icecat", "constructeur", "vignette", "dossier"].includes(source)) {
   console.error(
     "Usage :\n" +
       "  node scripts/import-product-images.mjs --source icecat [--apply] [--app-key CLE] [--limit N]\n" +
       "  node scripts/import-product-images.mjs --source constructeur [--apply] [--limit N]\n" +
+      "  node scripts/import-product-images.mjs --source vignette [--apply] [--limit N]\n" +
       "  node scripts/import-product-images.mjs --source dossier --chemin ./photos [--apply]",
   );
   process.exit(1);
@@ -653,6 +654,141 @@ async function traiterDossier(client, produits) {
 }
 
 // ---------------------------------------------------------------------------
+// Source vignette : visuel d'attente genere.
+// ---------------------------------------------------------------------------
+//
+// Pour les produits dont aucune photo n'existe (cables, supports, materiel
+// generique), on compose une vignette aux couleurs du magasin portant la
+// marque, le nom et un pictogramme de categorie.
+//
+// Ce n'est volontairement pas une fausse photo : mettre l'image d'un autre
+// article tromperait le client sur ce qu'il achete. La vignette montre ce
+// qu'on sait reellement du produit, et se remplace par une vraie prise de vue
+// des qu'elle existe : --source dossier ecrase la vignette.
+
+const OLIVE = "#55720f";
+const OLIVE_SOMBRE = "#314507";
+const ENCRE = "#111710";
+
+// Pictogrammes simples, traces sur une grille de 100x100.
+const PICTOGRAMMES = {
+  "pc-portables": "M20 30h60v34H20z M12 70h76l-6 8H18z",
+  "pc-bureau": "M28 20h44v60H28z M38 30h24v8H38z M38 46h24v4H38z M38 56h24v4H38z",
+  "all-in-one": "M16 22h68v44H16z M44 66h12v10H44z M32 78h36v4H32z",
+  peripheriques: "M14 26h72v40H14z M40 66h20v8H40z M30 76h40v4H30z",
+  impression: "M24 24h52v18H24z M14 42h72v28H14z M28 70h44v14H28z",
+  "securite-cameras": "M18 36h44v22H18z M62 40l18-8v26l-18-8z M32 58v14h6V58z",
+  "reseaux-connectivite": "M12 54h76v18H12z M22 62h6v4h-6z M36 62h6v4h-6z M50 62h6v4h-6z M64 62h6v4h-6z M46 24h8v22h-8z",
+  "baies-reseau-cablage": "M20 14h60v72H20z M28 24h44v10H28z M28 40h44v10H28z M28 56h44v10H28z",
+  telephonie: "M32 12h36v76H32z M42 20h16v4H42z M44 78h12v4H44z",
+  stockage: "M18 32h64v36H18z M28 42h10v6H28z M62 42h12v6H62z M28 56h44v4H28z",
+  multimedia: "M14 24h72v44H14z M36 76h28v4H36z M44 40l16 10-16 10z",
+  logiciels: "M20 20h60v60H20z M32 34h36v6H32z M32 48h24v6H32z M32 60h30v6H32z",
+  accessoires: "M42 14h6v18h-6z M56 14h6v18h-6z M34 32h36v22H34z M46 54h12v14H46z M40 68h24v18H40z",
+  "onduleurs-energie": "M28 16h44v68H28z M52 30l-14 24h12l-2 18 16-26H52z",
+};
+
+function couperTexte(texte, maxCaracteres, maxLignes) {
+  const mots = texte.split(/\s+/);
+  const lignes = [];
+  let courante = "";
+
+  for (const mot of mots) {
+    const essai = courante ? `${courante} ${mot}` : mot;
+
+    if (essai.length <= maxCaracteres) {
+      courante = essai;
+      continue;
+    }
+
+    if (courante) lignes.push(courante);
+    courante = mot.length > maxCaracteres ? `${mot.slice(0, maxCaracteres - 1)}…` : mot;
+
+    if (lignes.length === maxLignes) break;
+  }
+
+  if (courante && lignes.length < maxLignes) lignes.push(courante);
+
+  return lignes.slice(0, maxLignes);
+}
+
+function echapper(texte) {
+  return texte
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function composerVignette({ nom, marque, categorieSlug, categorieNom }) {
+  const picto = PICTOGRAMMES[categorieSlug] ?? PICTOGRAMMES.accessoires;
+  const lignes = couperTexte(nom, 26, 4);
+  const hauteurTexte = lignes.length * 68;
+  const departTexte = 760 - hauteurTexte / 2;
+  const afficherMarque = marque && marque !== "Générique";
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <defs>
+    <linearGradient id="fond" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#edf4de"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#fond)"/>
+  <rect x="0" y="0" width="1200" height="10" fill="${OLIVE}"/>
+  <g transform="translate(360 200) scale(4.8)" fill="${OLIVE}" fill-opacity="0.22" fill-rule="evenodd">
+    <path d="${picto}"/>
+  </g>
+  ${
+    afficherMarque
+      ? `<text x="600" y="150" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
+        font-size="44" font-weight="700" letter-spacing="6" fill="${OLIVE_SOMBRE}">${echapper(marque.toUpperCase())}</text>`
+      : ""
+  }
+  ${lignes
+    .map(
+      (ligne, i) =>
+        `<text x="600" y="${departTexte + i * 68}" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
+        font-size="54" font-weight="700" fill="${ENCRE}">${echapper(ligne)}</text>`,
+    )
+    .join("\n  ")}
+  <text x="600" y="1080" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
+        font-size="38" font-weight="600" letter-spacing="3" fill="${OLIVE}">${echapper(categorieNom.toUpperCase())}</text>
+  <text x="600" y="1140" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
+        font-size="30" fill="#7a8a68">Photo en cours de préparation</text>
+</svg>`;
+
+  return Buffer.from(svg);
+}
+
+async function traiterVignettes(client, produits) {
+  const stats = { generees: 0, echecs: 0 };
+
+  for (const produit of produits) {
+    if (stats.generees >= limite) break;
+
+    try {
+      const svg = composerVignette({
+        nom: produit.name,
+        marque: produit.marque,
+        categorieSlug: produit.categorieSlug,
+        categorieNom: produit.categorieNom,
+      });
+
+      const image = await enregistrerImage(svg, produit, 0);
+      stats.generees += 1;
+
+      if (apply) await ecrireImages(client, produit, [image]);
+    } catch (erreur) {
+      stats.echecs += 1;
+      console.error(`  ${produit.sku} : ${erreur.message}`);
+    }
+  }
+
+  return stats;
+}
+
+// ---------------------------------------------------------------------------
 
 async function ecrireImages(client, produit, images) {
   // Les visuels du magasin remplacent ceux deja presents : c'est le sens de
@@ -676,9 +812,11 @@ await client.connect();
 // Seuls les produits sans visuel sont concernes : le script est relancable
 // sans ecraser un travail deja fait.
 const { rows: produits } = await client.query(`
-  SELECT p.id, p.sku, p.name, b.name AS marque
+  SELECT p.id, p.sku, p.name, p.status AS statut, b.name AS marque,
+         c.slug AS "categorieSlug", c.name AS "categorieNom"
     FROM "Product" p
     JOIN "Brand" b ON b.id = p."brandId"
+    JOIN "Category" c ON c.id = p."categoryId"
    WHERE p.status <> 'ARCHIVED'
      AND NOT EXISTS (SELECT 1 FROM "ProductImage" i WHERE i."productId" = p.id)
    ORDER BY p.name`);
@@ -737,6 +875,17 @@ if (source === "icecat") {
   console.log(`Page introuvable      : ${stats.pageIntrouvable}`);
   console.log(`Page sans photo       : ${stats.sansVisuel}`);
   console.log(`Erreurs reseau/image  : ${stats.echecs}`);
+} else if (source === "vignette") {
+  // Seuls les produits en ligne meritent une vignette : un brouillon n'est
+  // visible de personne.
+  const eligibles = produits.filter((p) => p.statut === "PUBLISHED");
+  console.log(`Produits en ligne sans visuel : ${eligibles.length}`);
+  console.log();
+
+  const stats = await traiterVignettes(client, eligibles);
+
+  console.log(`Vignettes generees   : ${stats.generees}`);
+  console.log(`Echecs               : ${stats.echecs}`);
 } else {
   const { stats, inconnus } = await traiterDossier(client, produits);
 

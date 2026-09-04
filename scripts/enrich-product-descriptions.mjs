@@ -76,7 +76,12 @@ function extraireSpecs(texte) {
     }
   };
 
-  const processeur = t.match(/\bI([3579])\b[- ]?(\d{4,5}[A-Z]{0,2})?/);
+  // "I7" seul ne suffit pas : "Pochette iPhone 7G/I7" designe un modele de
+  // telephone, pas un processeur. On exige donc soit le mot CORE, soit un
+  // numero de modele accole (I7-8550U), soit la mention d'une generation.
+  const processeur = /\bCORE\b|\bI[3579]-|\bI[3579]\s?\d{4,5}[A-Z]{0,2}\b|\bI[3579]\b(?=.*\bEME\b)/.test(t)
+    ? t.match(/\bI([3579])\b[- ]?(\d{4,5}[A-Z]{0,2})?/)
+    : null;
   if (processeur) {
     ajouter(`Processeur Intel Core i${processeur[1]}${processeur[2] ? ` ${processeur[2]}` : ""}`);
   } else if (/\bCELERON\b/.test(t)) ajouter("Processeur Intel Celeron");
@@ -121,8 +126,26 @@ function extraireSpecs(texte) {
   const ddr = t.match(/\bDDR([2-5])\b/);
   if (ddr) ajouter(`Mémoire DDR${ddr[1]}`);
 
-  const ecran = t.match(/(\d{1,2}(?:\.\d)?)\s?(?:"|POUCES?|''|”)/);
-  if (ecran) ajouter(`Écran ${ecran[1]} pouces`);
+  // Un pouce n'est pas toujours une diagonale d'ecran : 2.5" et 3.5" designent
+  // le format d'un disque, et un boitier de disque n'a pas d'ecran. En dessous
+  // de dix pouces on parle donc de format, au-dessus d'ecran.
+  const pouces = t.match(/(\d{1,2}(?:\.\d)?)\s?(?:"|POUCES?|''|”)/);
+  if (pouces) {
+    const valeur = Number(pouces[1]);
+    // Un support d'ecran n'a pas d'ecran : la mesure annonce ce qu'il accepte.
+    // "40"-80"" est une plage, on la restitue telle quelle.
+    const support = /\bSUPPORT\b|\bBRAS\b|\bFIXATION\b|\bPIED\b/.test(t);
+    const plage = t.match(/(\d{1,2})\s?(?:"|POUCES?)\s?[-–/]\s?(\d{1,2})\s?(?:"|POUCES?)/);
+
+    if (support) {
+      ajouter(
+        plage
+          ? `Compatible écrans ${plage[1]} à ${plage[2]} pouces`
+          : `Compatible écrans ${pouces[1]} pouces`,
+      );
+    } else if (valeur >= 10) ajouter(`Écran ${pouces[1]} pouces`);
+    else if (valeur > 0) ajouter(`Format ${pouces[1]} pouces`);
+  }
 
   const definition = t.match(/\b(4K|2K|3K|UHD|FHD|QHD|FULL HD)\b/);
   if (definition) ajouter(`Définition ${definition[1].replace("FULL HD", "Full HD")}`);
@@ -150,8 +173,13 @@ function extraireSpecs(texte) {
   const puissance = t.match(/\b(\d+)\s?W\b/);
   if (puissance) ajouter(`Puissance ${puissance[1]} W`);
 
+  // "DDR4 2666V" annonce une frequence, pas 2666 volts. Le materiel du magasin
+  // va de la pile 1,5 V a l'onduleur 240 V : au-dela, ce n'est pas une tension.
   const tension = t.match(/\b(\d+(?:[.,]\d+)?)\s?V\b(?!GA)/);
-  if (tension) ajouter(`Tension ${tension[1].replace(",", ".")} V`);
+  if (tension) {
+    const volts = Number(tension[1].replace(",", "."));
+    if (volts > 0 && volts <= 250) ajouter(`Tension ${tension[1].replace(",", ".")} V`);
+  }
 
   const categorieCable = t.match(/\bCAT\s?([56]E?)\b|\bCATEGORIE\s?([56])\b/);
   if (categorieCable) ajouter(`Catégorie ${(categorieCable[1] ?? categorieCable[2]).toUpperCase()}`);
