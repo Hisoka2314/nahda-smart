@@ -36,7 +36,7 @@
 // photos appartiennent alors au magasin.
 
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import pg from "pg";
@@ -821,6 +821,32 @@ async function ecrireImages(client, produit, images) {
 
 const client = new pg.Client({ connectionString: databaseUrl });
 await client.connect();
+
+// Un fichier efface du disque laisse sa ligne en base : le produit passe alors
+// pour illustre, aucune source ne le reprend, et la boutique affiche une image
+// cassee. On repart donc d'une base coherente avec le disque.
+const { rows: enBase } = await client.query(
+  `SELECT id, url FROM "ProductImage" WHERE url LIKE '/uploads/%'`,
+);
+
+const orphelines = enBase.filter(
+  (i) => !existsSync(path.join(racineUploads, i.url.replace(/^\/uploads\//, ""))),
+);
+
+if (orphelines.length > 0) {
+  console.log(`Visuels sans fichier sur le disque : ${orphelines.length}`);
+
+  if (apply) {
+    await client.query(`DELETE FROM "ProductImage" WHERE id = ANY($1)`, [
+      orphelines.map((i) => i.id),
+    ]);
+    console.log("Lignes retirees : les produits concernes redeviennent a illustrer.");
+  } else {
+    console.log("Elles seront retirees avec --apply.");
+  }
+
+  console.log();
+}
 
 // Seuls les produits sans visuel sont concernes : le script est relancable
 // sans ecraser un travail deja fait.
