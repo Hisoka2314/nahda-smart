@@ -408,11 +408,22 @@ const TYPES = [
     "La clé est fournie à l'achat. Vérifiez le nombre de postes couverts et la durée."],
 ];
 
+// Une machine ne peut pas etre annoncee par un nom qui commence par un
+// accessoire : "Cable Alimentation PC Portable" est un cordon POUR portable,
+// et la fiche le presentait comme un ordinateur.
+const MACHINES = /^(Ordinateur|Téléviseur|Tablette|Imprimante|Scanner|Écran d)/;
+const ACCESSOIRE_EN_TETE =
+  /^(CABLE|CORDON|RALLONGE|CHARGEUR|BATTERIE|SAC|CARTABLE|POCHETTE|HOUSSE|COQUE|SUPPORT|AFFICHEUR|DALLE|NAPPE|BOITIER|ADAPTATEUR|CONNECTEUR|FICHE|VIS|KIT|PROTECTION|GLASS|FILTRE|COFFRET)\b/;
+
 function typeDeProduit(nom) {
   const t = nom.toUpperCase();
+  const accessoire = ACCESSOIRE_EN_TETE.test(t);
 
   for (const [motif, nature, usage] of TYPES) {
-    if (motif.test(t)) return { nature, usage };
+    if (!motif.test(t)) continue;
+    if (accessoire && MACHINES.test(nature)) continue;
+
+    return { nature, usage };
   }
 
   return null;

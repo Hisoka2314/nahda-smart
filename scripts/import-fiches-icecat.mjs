@@ -48,12 +48,19 @@ await client.connect();
 
 // On ne repasse pas sur les fiches deja renseignees : le script est
 // relancable, et une fiche corrigee a la main ne doit pas etre ecrasee.
+//
+// --refaire leve cette garde, pour retrouver le texte constructeur quand une
+// reecriture generale des descriptions l'a recouvert.
+const refaire = flags.includes("--refaire");
+
 const { rows: produits } = await client.query(`
   SELECT p.id, p.sku, p.name, p."warrantyMonths", b.name AS marque
     FROM "Product" p JOIN "Brand" b ON b.id = p."brandId"
    WHERE p.status <> 'ARCHIVED'
      AND b.name <> 'Générique'
-     AND (p."technicalDescription" IS NULL OR p."technicalDescription" = '')
+     AND ${refaire
+       ? `p."technicalDescription" IS NOT NULL AND p."technicalDescription" <> ''`
+       : `(p."technicalDescription" IS NULL OR p."technicalDescription" = '')`}
    ORDER BY p."priceSell" DESC, p.name`);
 
 console.log(apply ? "=== IMPORT APPLIQUE ===" : "=== SIMULATION (ajouter --apply pour ecrire) ===");
@@ -110,7 +117,10 @@ try {
     if (longue && longue.length > 80) {
       // Le texte constructeur finit rarement par un point : "Quantite: 1
       // piece(s)" suivi de notre phrase donnait une seule phrase illisible.
-      const ponctue = /[.!?]$/.test(longue) ? longue : `${longue}.`;
+      // Il contient aussi des suites de points ("(RFC1577/2225),....") qu'on
+      // ramene a des points de suspension.
+      const propre = longue.replace(/,?\s*\.{2,}/g, "…").replace(/\s{2,}/g, " ").trim();
+      const ponctue = /[.!?…]$/.test(propre) ? propre : `${propre}.`;
 
       champs.push(
         `${ponctue} Garantie ${produit.warrantyMonths} mois. Livraison partout au Maroc, ` +
