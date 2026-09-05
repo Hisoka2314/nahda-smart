@@ -10,10 +10,12 @@
 //
 // Attention a la colonne quantite : le tableur d'inventaire en porte deux.
 // "Qtes" est le stock theorique de Sage, "QTE REEL" le comptage physique.
-// C'est le comptage qui fait foi des qu'il est renseigne, y compris a zero ;
-// une cellule vide signifie "non compte", pas "aucun". Prendre "Qtes" partout
-// declarait en ligne 4410 unites de plus que le magasin ne detenait, dont 113
-// produits comptes a zero.
+//
+// Seul le comptage fait foi : un article non compte est declare a zero, donc
+// en rupture sur la boutique. C'est le choix du magasin, et il est prudent -
+// mieux vaut annoncer une rupture sur un article present que vendre un article
+// absent. Sur l'inventaire de juillet, 476 references ont ete comptees et 752
+// ne l'ont pas ete.
 //
 // Regles appliquees :
 //   - Les produits sont crees en BROUILLON avec un prix a zero. Ils n'appa-
