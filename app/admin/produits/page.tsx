@@ -133,8 +133,9 @@ export default async function AdminProductsPage({
                 </option>
               ))}
             </AdminSelect>
-            <AdminSelect name="stock" defaultValue={filters.stock}>
-              <option value="">Stock</option>
+            <AdminSelect name="stock" defaultValue={filters.stock ?? "in"}>
+              <option value="in">En stock</option>
+              <option value="tous">Tous les stocks</option>
               <option value="low">Stock faible</option>
               <option value="out">Rupture</option>
             </AdminSelect>
@@ -300,9 +301,18 @@ function getEnum<T extends Record<string, string>>(
     : undefined;
 }
 
-function getStockFilter(value: string | string[] | undefined): "low" | "out" | undefined {
+// La liste s'ouvre sur les produits reellement en stock : c'est ce que le
+// magasin gere au quotidien. "tous" leve le filtre, les references en rupture
+// restant accessibles pour les remettre en vente.
+function getStockFilter(
+  value: string | string[] | undefined,
+): "in" | "low" | "out" | undefined {
   const single = getSingleQuery(value);
-  return single === "low" || single === "out" ? single : undefined;
+
+  if (single === "tous") return undefined;
+  if (single === "in" || single === "low" || single === "out") return single;
+
+  return "in";
 }
 
 function getSort(

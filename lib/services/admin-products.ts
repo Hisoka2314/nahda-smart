@@ -28,7 +28,7 @@ export type AdminProductFilters = {
   brandId?: string;
   status?: ProductStatus;
   condition?: ProductCondition;
-  stock?: "low" | "out";
+  stock?: "in" | "low" | "out";
   promo?: boolean;
   isNew?: boolean;
   isBestSeller?: boolean;
@@ -389,10 +389,15 @@ function buildProductWhere(filters: AdminProductFilters): Prisma.ProductWhereInp
   if (filters.isBestSeller) where.isBestSeller = true;
   if (filters.isRecommended) where.isRecommended = true;
 
+  if (filters.stock === "in") {
+    where.stocks = { some: { quantity: { gt: 0 } } };
+  }
   if (filters.stock === "low") {
     where.stocks = { some: { quantity: { lte: 3 } } };
   }
   if (filters.stock === "out") {
+    // "every" est vrai sur une relation vide : un produit sans ligne de stock
+    // compte donc comme en rupture, ce qui est le cas.
     where.stocks = { every: { quantity: { lte: 0 } } };
   }
 
