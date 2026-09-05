@@ -108,8 +108,12 @@ try {
     // ou le notre se contentait de rappeler la marque et la garantie.
     const longue = resume.LongSummaryDescription?.trim();
     if (longue && longue.length > 80) {
+      // Le texte constructeur finit rarement par un point : "Quantite: 1
+      // piece(s)" suivi de notre phrase donnait une seule phrase illisible.
+      const ponctue = /[.!?]$/.test(longue) ? longue : `${longue}.`;
+
       champs.push(
-        `${longue} Garantie ${produit.warrantyMonths} mois. Livraison partout au Maroc, ` +
+        `${ponctue} Garantie ${produit.warrantyMonths} mois. Livraison partout au Maroc, ` +
           `retrait possible en magasin.`,
       );
       sql += `, description = $${champs.length}`;

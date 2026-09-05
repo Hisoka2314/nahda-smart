@@ -278,20 +278,166 @@ function extraireSpecs(texte) {
 
 const SUFFIXE_SEO = " - Nahda Smart";
 
+// Ce qu'est le produit, et a quoi il sert.
+//
+// Ce savoir porte sur le TYPE d'article, pas sur l'exemplaire : un cable CAT6
+// tient le Gigabit sur cent metres, quelle qu'en soit la marque. C'est donc
+// verifiable, contrairement aux caracteristiques d'une machine d'occasion,
+// que seul le magasin connait.
+//
+// L'ordre compte : le premier motif qui correspond gagne, du plus precis au
+// plus general.
+const TYPES = [
+  [/\bCHARGEUR\b.*\b(PC|PORTABLE|LAPTOP)\b|\bADP-/, "Chargeur secteur pour ordinateur portable",
+    "Vérifiez la tension, l'ampérage et la forme de l'embout avant de commander : un chargeur mal apparié n'alimente pas la machine, ou l'abîme."],
+  [/\bCHARGEUR\b.*\bCAMERA\b|\bCOFFRET ALIMENTATION\b/, "Alimentation pour caméras de surveillance",
+    "Alimente plusieurs caméras depuis un point unique, ce qui évite un transformateur par poste."],
+  [/\bCHARGEUR\b/, "Chargeur", "Contrôlez le connecteur et la puissance délivrée avant l'achat."],
+  [/\bBATTERIE\b.*\b(PC|PORTABLE)\b/, "Batterie de remplacement pour ordinateur portable",
+    "La référence est propre au modèle : relevez celle inscrite sur la batterie d'origine avant de commander."],
+  [/\bPOWER BANK\b/, "Batterie externe",
+    "Recharge téléphone ou tablette en déplacement. La capacité en mAh donne le nombre de charges possibles."],
+  [/\bPILE?\b|\bBATTERIE\b/, "Pile", "Vérifiez le format et la tension indiqués sur la pile à remplacer."],
+
+  // Les composants passent avant les machines : "RAM 8 GO DDR4 PC Portable"
+  // est une barrette POUR portable, et non un ordinateur portable.
+  [/\bRAM\b|\bMEMOIRE\b.*\bDDR\b/, "Barrette de mémoire vive",
+    "La génération DDR et le format doivent correspondre à la carte mère : une DDR4 n'entre pas dans un support DDR3."],
+  [/\bCARTE MERE\b|\bMOTHERBOARD\b/, "Carte mère", ""],
+  [/\bCARTE GRAPHIQUE\b/, "Carte graphique",
+    "Vérifiez la longueur de la carte et la puissance de l'alimentation avant l'achat."],
+  [/\bBOITIER\b.*\b(GAMER|ATX)\b/, "Boîtier d'ordinateur", ""],
+  [/\bPROCESSEUR\b|\bCPU\b/, "Processeur", "Le socket doit correspondre à celui de la carte mère."],
+  [/\bAFFICHEUR\b|\bDALLE\b/, "Dalle d'écran de remplacement",
+    "Relevez la référence de la dalle d'origine : la taille seule ne suffit pas, le connecteur et le nombre de broches doivent correspondre."],
+
+  [/\bPC PORTABLE\b|\bLPT\b|\bZBOOK\b|\bELITEBOOK\b|\bTHINKPAD\b|\bIDEAPAD\b|\bLATITUDE\b|\bPROBOOK\b/,
+    "Ordinateur portable", "Convient au travail bureautique, à la navigation et aux usages professionnels courants."],
+  [/\bALL IN ONE\b|\bAIO\b/, "Ordinateur tout-en-un",
+    "L'unité centrale est intégrée à l'écran : un seul câble d'alimentation, et un bureau dégagé."],
+  [/\bPC BUREAU\b|\bUC\b|\bELITEDESK\b|\bOPTIPLEX\b|\bTHINKCENTRE\b/, "Ordinateur de bureau",
+    "Se raccorde à un écran, un clavier et une souris, vendus séparément."],
+
+  [/\bECRAN\b|\bMONITEUR\b/, "Écran d'ordinateur",
+    "Vérifiez que votre unité centrale dispose de la même connectique que l'écran, ou prévoyez l'adaptateur."],
+  [/\bCLAVIER\b.*\bSOURIS\b|\bSOURIS\b.*\bCLAVIER\b/, "Ensemble clavier et souris",
+    "Livré avec un seul récepteur sur les modèles sans fil, ce qui libère un port USB."],
+  [/\bCLAVIER\b/, "Clavier", "Vérifiez la disposition des touches : AZERTY, QWERTY ou arabe."],
+  [/\bSOURIS\b/, "Souris", "Les modèles sans fil demandent un port USB libre pour leur récepteur."],
+  [/\bWEB ?CAM\b/, "Webcam", "Se branche en USB, sans pilote à installer sur les systèmes récents."],
+  [/\bSCAN(N)?ER\b/, "Scanner", "Numérise documents et photos vers l'ordinateur."],
+
+  [/\bTONER\b/, "Cartouche de toner pour imprimante laser",
+    "Vérifiez la référence exigée par votre imprimante : une cartouche non compatible n'est pas reconnue."],
+  [/\bCARTOUCHE\b|\bENCRE\b/, "Cartouche d'encre",
+    "Vérifiez la référence attendue par votre imprimante avant de commander."],
+  [/\bIMPRIMANTE\b/, "Imprimante", "Vérifiez le coût des consommables autant que le prix de la machine."],
+  [/\bROULEAU\b.*\bTHERMIQUE\b|\bETIQUETTES?\b.*\bTHERMIQUE\b/, "Consommable thermique",
+    "Pour imprimante de tickets ou d'étiquettes : contrôlez la largeur du rouleau."],
+
+  [/\bCABLE RESEAU\b|\bCABLE UTP\b|\bJARRETIERE\b|\bCABLE RJ45\b/, "Câble réseau RJ45",
+    "Relie un poste, une caméra IP ou un point d'accès à votre switch. Le CAT6 tient le Gigabit jusqu'à cent mètres."],
+  [/\bCABLE HDMI\b|\bEXTENDER HDMI\b/, "Câble HDMI",
+    "Transporte l'image et le son en numérique vers un écran ou un vidéoprojecteur."],
+  [/\bCABLE VGA\b/, "Câble VGA",
+    "Liaison analogique vers un écran ou un vidéoprojecteur. Il transporte l'image seule : le son passe par un autre câble."],
+  [/\bCABLE BNC\b|\bCONNECTEUR BNC\b|\bFICHE BNC\b/, "Connectique BNC pour vidéosurveillance analogique",
+    "Utilisée par les caméras analogiques et les enregistreurs DVR."],
+  [/\bCABLE\b.*\b(IPHONE|APPLE|LIGHTNING)\b/, "Câble de charge et de synchronisation pour appareil Apple", ""],
+  [/\bRALLONGE USB\b|\bCABLE RALLONGE\b/, "Rallonge USB",
+    "Éloigne un périphérique de l'unité centrale. Au-delà de cinq mètres, une rallonge active est préférable."],
+  [/\bADAPTATEUR\b|\bCONVERTISSEUR\b/, "Adaptateur de connectique",
+    "Permet de relier deux appareils dont les ports diffèrent. Vérifiez le sens de conversion : tous ne fonctionnent pas dans les deux sens."],
+  [/\bCABLE ALIMENTATION\b|\bCORDON\b/, "Câble d'alimentation", ""],
+  [/\bCABLE\b/, "Câble", ""],
+
+  [/\bCLE WIFI\b|\bADAPTATEUR WIFI\b/, "Clé Wi-Fi USB",
+    "Ajoute le Wi-Fi à un poste fixe, ou remplace une carte défaillante sur un portable."],
+  [/\bPOINT ACCES\b|\bPOINT D'ACCES\b/, "Point d'accès Wi-Fi",
+    "Étend la couverture sans fil d'un réseau existant. Il se raccorde au réseau filaire, contrairement à un répéteur."],
+  [/\bSWITCH\b|\bCOMMUTATEUR\b/, "Switch réseau",
+    "Raccorde plusieurs appareils en filaire. Les modèles PoE alimentent caméras et bornes par le câble réseau."],
+  [/\bROUTEUR\b|\bROUTER\b/, "Routeur", "Distribue la connexion internet vers les postes du réseau, en filaire et en Wi-Fi."],
+  [/\bPOWERLINE\b|\bCPL\b/, "Adaptateur CPL",
+    "Fait passer le réseau par le câblage électrique, quand tirer un câble réseau n'est pas envisageable."],
+  [/\bPANNEAU BRASSAGE\b|\bPATCH PANEL\b/, "Panneau de brassage",
+    "Regroupe les arrivées réseau à l'entrée d'une baie et facilite le repérage."],
+  [/\bBAIE\b|\bARMOIRE\b.*\bRESEAU\b|\bRACK\b/, "Baie de brassage",
+    "Abrite switches, panneaux et enregistreurs. La hauteur se compte en U, un U valant 4,4 cm."],
+
+  [/\bCAMERA\b/, "Caméra de vidéosurveillance",
+    "Vérifiez la compatibilité avec votre enregistreur : une caméra IP ne se branche pas sur un DVR analogique."],
+  [/\bDVR\b|\bNVR\b|\bENREGISTREUR\b/, "Enregistreur de vidéosurveillance",
+    "Le nombre de voies fixe le nombre de caméras raccordables. Le disque dur est souvent vendu à part."],
+  [/\bSUPPORT\b.*\bCAMERA\b/, "Support de caméra", "Fixation murale ou plafond."],
+  [/\bALARME\b|\bSIRENE\b|\bDETECTEUR\b/, "Équipement d'alarme", ""],
+  [/\bPOINTEUSE\b|\bCONTROLE D'ACCES\b|\bSERRURE\b/, "Contrôle d'accès et de présence", ""],
+
+  [/\bDISQUE DUR\b.*\bSSD\b|\bSSD\b/, "Disque SSD",
+    "Bien plus rapide qu'un disque mécanique : c'est le remplacement qui rajeunit le plus une machine ancienne."],
+  [/\bDISQUE DUR\b/, "Disque dur", "Vérifiez le format et l'interface attendus par votre machine."],
+  [/\bBOITIER\b.*\bDISQUE\b/, "Boîtier pour disque dur",
+    "Transforme un disque interne en disque externe USB. Le format du boîtier doit correspondre à celui du disque."],
+  [/\bCLE USB\b/, "Clé USB", ""],
+  [/\bMICRO ?SD\b|\bCARTE MEMOIRE\b/, "Carte mémoire", "Vérifiez la classe de vitesse exigée par votre appareil."],
+  [/\bNAS\b/, "Serveur de stockage en réseau", "Partage et sauvegarde les fichiers de plusieurs postes."],
+
+  [/\bCASQUE\b|\bECOUTEUR\b|\bAIRPODS\b/, "Audio personnel", ""],
+  [/\bHAUT ?PARLEUR\b|\bSPEAKER\b|\bENCEINTE\b|\bBARRE DE SON\b/, "Enceinte", ""],
+  [/\bTELEVISION\b|\bTV\b(?!.*SUPPORT)/, "Téléviseur", ""],
+  [/\bSUPPORT\b.*\bTV\b/, "Support de téléviseur",
+    "Vérifiez la norme VESA et le poids maximal supporté avant la pose."],
+  [/\bVIDEOPROJECTEUR\b|\bPROJECTEUR\b/, "Vidéoprojecteur", ""],
+
+  [/\bGLASS\b|\bVERRE TREMPE\b|\bPROTECTION ECRAN\b/, "Protection d'écran en verre trempé",
+    "Se pose sur l'écran du téléphone et absorbe les chocs à sa place."],
+  [/\bPOCHETTE\b|\bCOQUE\b|\bHOUSSE\b|\bCOVER\b/, "Protection pour téléphone ou tablette", ""],
+  [/\bTELEPHONE\b|\bSIP-\b|\bIP PHONE\b/, "Téléphone", ""],
+  [/\bTABLETTE\b/, "Tablette", ""],
+
+  [/\bCARTABLE\b|\bSAC A DOS\b|\bSACOCHE\b/, "Sacoche pour ordinateur portable",
+    "Vérifiez la taille annoncée en pouces, elle correspond à la diagonale de l'écran."],
+  [/\bONDULEUR\b|\bUPS\b/, "Onduleur",
+    "Maintient l'alimentation le temps d'éteindre proprement, et protège des surtensions."],
+  [/\bRALLONGE\b|\bMULTIPRISE\b|\bPRISE\b/, "Rallonge électrique", ""],
+  [/\bLAMPE\b|\bLED\b.*\b(GU10|TABLE)\b/, "Éclairage LED", ""],
+  [/\bVENTILATEUR\b|\bCLIMATISEUR\b/, "Ventilation", ""],
+  [/\bLECTEUR CODE\b|\bDOUCHETTE\b/, "Lecteur de code-barres",
+    "Se branche en USB et se comporte comme un clavier : aucun logiciel particulier n'est requis."],
+  [/\bLICENCE\b|\bANTIVIRUS\b|\bWINDOWS\b|\bOFFICE\b/, "Licence logicielle",
+    "La clé est fournie à l'achat. Vérifiez le nombre de postes couverts et la durée."],
+];
+
+function typeDeProduit(nom) {
+  const t = nom.toUpperCase();
+
+  for (const [motif, nature, usage] of TYPES) {
+    if (motif.test(t)) return { nature, usage };
+  }
+
+  return null;
+}
+
 function redigerFiche({ nom, categorieSlug, marque, garantie }) {
   const specs = extraireSpecs(nom);
   const nomCategorie = NOM_CATEGORIE[categorieSlug] ?? "produit";
   const marqueConnue = marque && marque !== "Générique";
+  const type = typeDeProduit(nom);
 
+  // On annonce ce que le produit EST avant de le decrire : "Cable reseau RJ45"
+  // renseigne le client, "accessoire informatique" ne lui apprend rien.
+  const nature = type ? type.nature : nomCategorie;
   const accroche = marqueConnue
-    ? `${nom} : ${nomCategorie} ${marque} disponible chez Nahda Smart.`
-    : `${nom} : ${nomCategorie} disponible chez Nahda Smart.`;
+    ? `${nom} — ${nature} de marque ${marque}.`
+    : `${nom} — ${nature}.`;
 
   const phrases = [accroche];
 
   if (specs.length > 0) {
     phrases.push(`Caractéristiques principales : ${specs.join(", ")}.`);
   }
+
+  if (type?.usage) phrases.push(type.usage);
 
   phrases.push(
     `Garantie ${garantie} mois. Livraison partout au Maroc, retrait possible en magasin. ` +
@@ -300,12 +446,13 @@ function redigerFiche({ nom, categorieSlug, marque, garantie }) {
 
   // shortDescription alimente les cartes du catalogue : elle doit tenir sur
   // deux lignes. On prend les specs si on en a, sinon une phrase courte.
+  const repli = type ? type.nature : `${nomCategorie.charAt(0).toUpperCase()}${nomCategorie.slice(1)}`;
   const resume =
     specs.length > 0
-      ? specs.slice(0, 4).join(" • ")
+      ? [type ? type.nature : null, ...specs].filter(Boolean).slice(0, 4).join(" • ")
       : marqueConnue
-        ? `${nomCategorie.charAt(0).toUpperCase()}${nomCategorie.slice(1)} ${marque}`
-        : `${nomCategorie.charAt(0).toUpperCase()}${nomCategorie.slice(1)}`;
+        ? `${repli} ${marque}`
+        : repli;
 
   return {
     shortDescription: resume.slice(0, 180),
