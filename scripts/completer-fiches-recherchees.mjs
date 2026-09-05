@@ -12,6 +12,9 @@
 // Le tableau ci-dessous s'etoffe au fil des recherches. Relancer le script
 // reecrit le bloc "Caracteristiques" sans toucher aux groupes Icecat.
 
+import { readFileSync } from "node:fs";
+import pg from "pg";
+
 const FICHES = {
   "LHO-840G6I78256": [
     ["Processeur", "Intel Core i7 de 8e génération"],
@@ -56,6 +59,49 @@ const FICHES = {
     ["Écran", "21,5 pouces, 1920 x 1080 (Full HD), dalle IPS, 250 cd/m², contraste 1000:1, angles 178°"],
     ["Connectique", "DisplayPort, 1x USB 3.1 Gen 1, entrée microphone"],
     ["Pied", "Inclinaison -5° à +30°, pivot 45° de chaque côté, réglage en hauteur sur 150 mm, rotation en portrait"],
+  ],
+  VGA1030: [
+    ["Processeur graphique", "NVIDIA GeForce GT 1030, 384 cœurs CUDA"],
+    ["Mémoire", "2 Go GDDR5, interface 64 bits, 6008 MHz"],
+    ["Fréquences", "1252 MHz de base, 1506 MHz en Boost (1278 / 1531 MHz en mode OC)"],
+    ["Connectique", "1x HDMI 2.0b, 1x DVI-D single link"],
+    ["Interface", "PCI Express 3.0"],
+    ["Définition maximale", "4096 x 2160"],
+    ["Alimentation", "30 W ; bloc de 300 W recommandé"],
+    ["Compatibilité", "OpenGL 4.5, HDCP 2.2"],
+  ],
+  VGMSI1030: [
+    ["Processeur graphique", "NVIDIA GeForce GT 1030, 384 cœurs CUDA"],
+    ["Mémoire", "2 Go GDDR5, interface 64 bits"],
+    ["Interface", "PCI Express 3.0"],
+    ["Définition maximale", "4096 x 2160"],
+    ["Alimentation", "30 W ; bloc de 300 W recommandé"],
+    ["Format", "Aero ITX, format court pour boîtier compact"],
+  ],
+  "IDS-7204HQHI-M1/T": [
+    ["Type", "Enregistreur numérique 4 voies, série AcuSense"],
+    ["Voies", "4 caméras analogiques"],
+    ["Compression", "H.265 Pro+, H.265 Pro, H.265, H.264+, H.264"],
+    ["Sorties vidéo", "1x HDMI, 1x VGA, 1x BNC"],
+    ["Stockage", "1 emplacement SATA, jusqu'à 10 To (disque non inclus)"],
+    ["Analyse", "Détection de mouvement par apprentissage profond, distinction personne / véhicule"],
+    ["Format", "Boîtier 1U"],
+  ],
+  "IEN-L3250": [
+    ["Type", "Imprimante jet d'encre couleur multifonction à réservoirs rechargeables : impression, copie, numérisation"],
+    ["Vitesse d'impression", "33 pages/min en noir et 15 en couleur ; 10 et 5 pages/min en norme ISO"],
+    ["Résolution", "5760 x 1440 ppp en impression, 1200 x 2400 ppp en numérisation"],
+    ["Encre", "4 réservoirs séparés (noir, cyan, magenta, jaune)"],
+    ["Autonomie", "Jusqu'à 8 100 pages en noir et 6 500 en couleur avec l'encre fournie"],
+    ["Sans fil / réseau", "Wi-Fi, Wi-Fi Direct, USB"],
+    ["Bac papier", "100 feuilles"],
+  ],
+  "LHN-RV9": [
+    ["Type", "Lecteur de codes-barres sans fil, 1D et 2D"],
+    ["Codes lus", "1D (UPC, EAN) et 2D (QR Code, Data Matrix)"],
+    ["Capteur", "CMOS 1 mégapixel, 1280 x 800, 60 images par seconde"],
+    ["Sans fil / réseau", "Bluetooth jusqu'à 20 m, radio 2,4 GHz de 50 à 100 m"],
+    ["Batterie", "Lithium amovible 600 mAh"],
   ],
   "PHN-300G3C30836": [
     ["Processeur", "Intel Core i3-8100, 4 cœurs, 3,6 GHz, 6 Mo de cache"],
