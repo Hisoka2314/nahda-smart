@@ -7,6 +7,13 @@
 //
 // Le CSV attendu porte deux colonnes : reference,quantite
 //
+// Attention en le produisant depuis le tableur d'inventaire : une reference
+// peut y figurer sur plusieurs lignes, chacune ne portant qu'une partie de
+// l'information. PNE1 avait son stock theorique sur une ligne et son comptage
+// physique sur une autre : garder la premiere occurrence perdait le comptage
+// et declarait l'article en rupture. Il faut fusionner les lignes d'une meme
+// reference, pas en choisir une.
+//
 // A jouer apres chaque comptage mensuel. Contrairement a l'import
 // d'inventaire, ce script ne cree aucun produit : il ne fait que corriger les
 // quantites des references qu'il reconnait.
