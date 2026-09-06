@@ -1,14 +1,25 @@
 // Creation des categories manquantes et reclassement des produits importes.
 //
 // Utilisation :
-//   node scripts/reclasser-catalogue.mjs <inventaire.csv> [--apply]
+//   node scripts/reclasser-catalogue.mjs [inventaire.csv] [--apply]
 //
 // Sans --apply, le script se contente d'un rapport : aucune ecriture.
 //
-// Le CSV fournit le code famille et la designation de chaque reference ; la
-// cartographie de scripts/lib/familles.mjs dit dans quelle categorie elle
-// tombe, et la table de scripts/lib/marques.mjs quelle marque lui revient. Le
-// script ne cree ni ne supprime aucun produit : il ne fait que les ranger.
+// Le code famille de chaque reference dit dans quelle categorie elle tombe
+// (scripts/lib/familles.mjs), et sa designation quelle marque lui revient
+// (scripts/lib/marques.mjs). Le script ne cree ni ne supprime aucun produit :
+// il ne fait que les ranger.
+//
+// Le CSV est facultatif. Sans lui, le script lit les familles dans
+// scripts/lib/classement.mjs, qui est versionne, et prend le nom du produit
+// en base comme designation. C'est ce qui lui permet de tourner sur le
+// serveur : le CSV d'inventaire ne quitte pas le poste du magasin, et le
+// deploiement echouait sur un ENOENT.
+//
+// Les deux sources donnent le meme resultat -- verifie sur les 364 references
+// en stock, zero ecart. Passer le CSV reste utile juste apres un inventaire,
+// quand des references viennent d'apparaitre et que classement.mjs n'a pas
+// encore ete regenere.
 //
 // A relancer apres toute modification de l'une ou l'autre table.
 
@@ -20,14 +31,11 @@ import {
   categoriePourFamille,
 } from "./lib/familles.mjs";
 import { detecterMarque } from "./lib/marques.mjs";
+import { FAMILLE_PAR_REFERENCE } from "./lib/classement.mjs";
 
-const [, , csvPath, ...flags] = process.argv;
-const apply = flags.includes("--apply");
-
-if (!csvPath) {
-  console.error("Usage : node scripts/reclasser-catalogue.mjs <inventaire.csv> [--apply]");
-  process.exit(1);
-}
+const arguments_ = process.argv.slice(2);
+const apply = arguments_.includes("--apply");
+const csvPath = arguments_.find((a) => !a.startsWith("--"));
 
 const databaseUrl =
   process.env.DATABASE_URL ??
@@ -59,22 +67,37 @@ function decouperLigneCsv(ligne) {
   return cellules;
 }
 
-const lignes = readFileSync(csvPath, "utf8").replace(/^﻿/, "").split(/\r?\n/).filter(Boolean);
-const entetes = decouperLigneCsv(lignes[0]).map((h) => h.trim().toLowerCase());
-
 const inventaire = new Map();
-for (const ligne of lignes.slice(1)) {
-  const cellules = decouperLigneCsv(ligne);
-  const e = Object.fromEntries(entetes.map((h, i) => [h, (cellules[i] ?? "").trim()]));
-  // La designation est retenue avec la famille : quelques references ne se
-  // classent que par leur libelle (voir AJUSTEMENTS_PAR_DESIGNATION).
-  if (e.reference) {
-    inventaire.set(e.reference.toUpperCase(), {
-      famille: e.famille,
-      designation: e.designation ?? "",
-    });
+
+if (csvPath) {
+  const lignes = readFileSync(csvPath, "utf8").replace(/^﻿/, "").split(/\r?\n/).filter(Boolean);
+  const entetes = decouperLigneCsv(lignes[0]).map((h) => h.trim().toLowerCase());
+
+  for (const ligne of lignes.slice(1)) {
+    const cellules = decouperLigneCsv(ligne);
+    const e = Object.fromEntries(entetes.map((h, i) => [h, (cellules[i] ?? "").trim()]));
+    // La designation est retenue avec la famille : quelques references ne se
+    // classent que par leur libelle (voir AJUSTEMENTS_PAR_DESIGNATION).
+    if (e.reference) {
+      inventaire.set(e.reference.toUpperCase(), {
+        famille: e.famille,
+        designation: e.designation ?? "",
+      });
+    }
+  }
+} else {
+  // Pas de CSV : les familles viennent du module versionne, et la designation
+  // sera le nom du produit en base, renseigne plus bas.
+  for (const [reference, famille] of Object.entries(FAMILLE_PAR_REFERENCE)) {
+    inventaire.set(reference, { famille, designation: null });
   }
 }
+
+console.log(
+  csvPath
+    ? `Familles lues dans ${csvPath} (${inventaire.size} references).`
+    : `Familles lues dans scripts/lib/classement.mjs (${inventaire.size} references).`,
+);
 
 const client = new pg.Client({ connectionString: databaseUrl });
 await client.connect();
@@ -135,13 +158,18 @@ try {
       continue;
     }
 
+    // Sans CSV, le nom du produit tient lieu de designation : l'import l'a
+    // tire de la designation d'inventaire, et le classement y lit la meme
+    // chose.
+    const designation = article.designation ?? produit.name;
+
     // --- marque ------------------------------------------------------------
     //
     // Meme raison que la categorie : la designation la porte, et la table qui
     // la lit a evolue. Une cartouche Podium annoncee de marque HP est une
     // affirmation fausse sur une fiche produit, il faut pouvoir la rattraper
     // sans reimporter.
-    const marqueVoulue = detecterMarque(article.designation);
+    const marqueVoulue = detecterMarque(designation);
 
     if (marqueVoulue !== produit.marque_actuelle) {
       const cible = parMarque.get(marqueVoulue.toUpperCase());
@@ -161,7 +189,7 @@ try {
       }
     }
 
-    const voulue = categoriePourFamille(article.famille, article.designation);
+    const voulue = categoriePourFamille(article.famille, designation);
 
     if (voulue === produit.actuelle) {
       stats.inchanges += 1;

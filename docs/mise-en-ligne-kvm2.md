@@ -338,6 +338,28 @@ cd /var/www/nahda/app && sudo -u nahda npm run backup:db && sudo -u nahda git pu
 Toujours la sauvegarde avant, et toujours `git pull` en place — jamais un clone
 neuf, sinon relisez l'étape 5 sur les images.
 
+### Rejouer le classement et les fiches produit
+
+Le code déployé ne suffit pas quand la mise à jour touche le rangement du
+catalogue ou la rédaction des fiches : ces textes vivent en base, pas dans le
+dépôt. Les quatre scripts se relancent sans risque, ils sont idempotents.
+
+```bash
+cd /var/www/nahda/app && sudo -u nahda node scripts/reclasser-catalogue.mjs --apply && sudo -u nahda node scripts/enrich-product-descriptions.mjs --tout --apply && sudo -u nahda node scripts/completer-fiches-recherchees.mjs && sudo -u nahda node scripts/fiches-generiques.mjs --apply && systemctl restart nahda
+```
+
+Aucun ne demande le tableur d'inventaire : `reclasser-catalogue` lit les
+familles dans `scripts/lib/classement.mjs`, qui est versionné, et les trois
+autres travaillent depuis la base. Le CSV, lui, ne quitte pas le poste du
+magasin.
+
+Après un nouvel inventaire, regénérer ce module **sur le poste du magasin**,
+puis le commiter, sinon les références nouvelles resteront dans « Accessoires » :
+
+```bash
+node scripts/generer-classement.mjs tmp/inventaire.csv
+```
+
 En cas de problème, revenir au commit précédent :
 
 ```bash
