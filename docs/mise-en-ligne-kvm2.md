@@ -380,12 +380,22 @@ scp "tmp/inventaire.csv" root@nahdasmart.com:/var/www/nahda/app/tmp/inventaire.c
 ```
 
 ```bash
-cd /var/www/nahda/app && sudo -u nahda node scripts/import-inventory.mjs tmp/inventaire.csv --apply && sudo -u nahda node scripts/maj-stock.mjs tmp/inventaire.csv --apply
+cd /var/www/nahda/app && sudo -u nahda node scripts/import-inventory.mjs tmp/inventaire.csv --comptes-seulement --apply && sudo -u nahda node scripts/maj-stock.mjs tmp/inventaire.csv --apply
 ```
 
 Puis rejouer le classement et les fiches ci-dessus. L'import ne réécrit jamais
 un produit existant : il ne fait que recréer les références manquantes, en
 brouillon et à prix zéro, à ressaisir depuis le back-office.
+
+> **`--comptes-seulement` n'est pas facultatif ici.** Sans lui, l'import
+> recrée *toutes* les références du tableur, y compris les 752 comptées à
+> zéro qu'une purge avait retirées. C'est arrivé en septembre 2026 : 888
+> produits ressuscités, dont 697 remis en ligne par l'import des prix, soit
+> plus de trois cents articles en vente que le magasin n'avait pas. Le
+> rattrapage a été `purger-hors-stock.mjs --apply`.
+>
+> L'import complet, sans le drapeau, n'a de sens qu'une seule fois : au
+> premier peuplement du catalogue.
 
 En cas de problème, revenir au commit précédent :
 

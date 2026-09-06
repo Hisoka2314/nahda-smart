@@ -1,7 +1,7 @@
 // Import de l'inventaire magasin vers le catalogue.
 //
 // Utilisation :
-//   node scripts/import-inventory.mjs <fichier.csv> [--apply]
+//   node scripts/import-inventory.mjs <fichier.csv> [--apply] [--comptes-seulement]
 //
 // Sans --apply, le script se contente d'un rapport : aucune ecriture.
 //
@@ -29,6 +29,10 @@
 //   - Le stock est place dans le depot principal.
 //   - Le script est idempotent : un SKU deja present est ignore, jamais
 //     ecrase. Relancable apres un nouvel inventaire.
+//   - --comptes-seulement saute les references comptees a zero. A utiliser
+//     pour tout rattrapage : l'import complet a sa place la premiere fois,
+//     quand il faut peupler le catalogue, mais rejoue plus tard il ressuscite
+//     tout ce qu'une purge avait retire.
 
 import { readFileSync } from "node:fs";
 import pg from "pg";
@@ -37,9 +41,12 @@ import { detecterMarque, MARQUE_GENERIQUE } from "./lib/marques.mjs";
 
 const [, , csvPath, ...flags] = process.argv;
 const apply = flags.includes("--apply");
+const comptesSeulement = flags.includes("--comptes-seulement");
 
 if (!csvPath) {
-  console.error("Usage : node scripts/import-inventory.mjs <fichier.csv> [--apply]");
+  console.error(
+    "Usage : node scripts/import-inventory.mjs <fichier.csv> [--apply] [--comptes-seulement]",
+  );
   process.exit(1);
 }
 
@@ -175,6 +182,7 @@ const stats = {
   famillesIgnorees: 0,
   sansReference: 0,
   doublonReference: 0,
+  nonComptes: 0,
   dejaEnBase: 0,
   aImporter: 0,
   importes: 0,
@@ -234,9 +242,23 @@ try {
     if (!slug) slug = versSlug(sku);
     if (slugsConnus.has(slug)) slug = `${slug}-${versSlug(sku)}`.slice(0, 90);
 
-    slugsConnus.add(slug);
-
     const quantite = Number.parseInt(ligne.quantite || "0", 10) || 0;
+
+    // --comptes-seulement : n'importer que les references reellement comptees.
+    //
+    // L'import complet a sa place la premiere fois, quand il faut peupler le
+    // catalogue. Il est dangereux pour un rattrapage : rejoue en septembre
+    // 2026 pour recuperer 34 references perdues, il en a recree 888, dont les
+    // 752 comptees a zero, et l'import des prix en a publie 697. La boutique
+    // s'est retrouvee avec 336 articles en ligne que le magasin n'avait pas.
+    //
+    // Ce drapeau rend le rattrapage sur : seul ce qui est compte revient.
+    if (comptesSeulement && quantite <= 0) {
+      stats.nonComptes += 1;
+      continue;
+    }
+
+    slugsConnus.add(slug);
 
     candidats.push({
       sku,
@@ -260,6 +282,7 @@ try {
   console.log(`  Ignorees, sans designation : ${stats.sansDesignation}`);
   console.log(`  Ignorees, famille hors IT  : ${stats.famillesIgnorees}`);
   console.log(`  Ignorees, doublon SKU      : ${stats.doublonReference}`);
+  console.log(`  Ignorees, comptees a zero  : ${stats.nonComptes}`);
   console.log(`  Ignorees, deja en base     : ${stats.dejaEnBase}`);
   console.log(`  A importer                 : ${stats.aImporter}`);
   console.log(`  Reference absente, generee : ${stats.sansReference}`);
