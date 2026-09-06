@@ -444,15 +444,319 @@ function ficheBatterie(nom) {
   ];
 }
 
+// --- liaison sans fil, commune aux peripheriques ---------------------------
+
+function liaison(t) {
+  if (/\bBLUETOOTH\b|\bB\.?T\b/.test(t)) return "Bluetooth";
+  if (/\bWIRELESS\b|\bSANS FIL\b/.test(t)) return "Radio 2,4 GHz par récepteur USB, sans pilote à installer";
+  if (/\bAVEC FIL\b|\bUSB\b|\bFILAIRE\b/.test(t)) return "Câble USB";
+  return null;
+}
+
+// --- souris et claviers ----------------------------------------------------
+
+function fichePointage(nom) {
+  const t = nom.toUpperCase();
+  const souris = /\bSOURIS\b/.test(t);
+  const clavier = /\bCLAVIER\b/.test(t);
+  if (!souris && !clavier) return null;
+  if (/\bAUTOCOLLANT\b/.test(t)) return null;
+
+  const gamer = /\bGAMER\b|\bGAMING\b/.test(t);
+  const lien = liaison(t);
+
+  const type =
+    souris && clavier
+      ? "Ensemble clavier et souris"
+      : souris
+        ? "Souris"
+        : "Clavier";
+
+  const lignes = [["Type", gamer ? `${type} pour le jeu` : type]];
+
+  if (lien) lignes.push(["Liaison", lien]);
+
+  if (souris && clavier && lien && !lien.startsWith("Câble")) {
+    lignes.push(["Récepteur", "Un seul récepteur pour les deux appareils, un port USB occupé"]);
+  }
+
+  if (lien && !lien.startsWith("Câble")) {
+    lignes.push([
+      "Alimentation",
+      /\bRECHARGEABLE\b/.test(t) ? "Batterie rechargeable intégrée" : "Pile",
+    ]);
+  }
+
+  if (clavier) {
+    lignes.push([
+      "À vérifier avant l'achat",
+      "La disposition des touches : AZERTY, QWERTY ou arabe.",
+    ]);
+  } else if (gamer) {
+    lignes.push([
+      "Pour le jeu",
+      "Capteur à sensibilité réglable et boutons supplémentaires, là où une souris de bureau se limite au strict nécessaire",
+    ]);
+  } else {
+    lignes.push(["Usage", "Poste fixe comme portable, sans installation"]);
+  }
+
+  return lignes.length >= 3 ? lignes : null;
+}
+
+// --- audio -----------------------------------------------------------------
+
+function ficheAudio(nom) {
+  const t = nom.toUpperCase();
+  const ecouteurs = /\bECOUTEURS?\b|\bAIRPODS\b|\bEARBUDS?\b/.test(t);
+  const casque = /\bCASQUE\b|\bHELMET\b/.test(t);
+  const enceinte = /\bHAUT ?-?PARLEUR\b|\bSPEAKE?A?R\b|\bENCEINTE\b/.test(t);
+  if (!ecouteurs && !casque && !enceinte) return null;
+
+  const lien = liaison(t);
+  const sansFil = lien !== null && !lien.startsWith("Câble");
+  const puissance = t.match(/(\d+)\s*W\b/)?.[1];
+  const version = t.match(/\bV\s?(\d\.\d)\b/)?.[1];
+
+  const lignes = [];
+
+  if (enceinte) {
+    lignes.push(["Type", sansFil ? "Enceinte portable sans fil" : "Enceinte"]);
+    if (puissance) lignes.push(["Puissance", `${puissance} W`]);
+    if (/\bSOLAIRE\b|\bSOLAR\b/.test(t)) {
+      lignes.push([
+        "Recharge",
+        "Panneau solaire intégré, en complément de la charge par câble : d'appoint, il ne remplace pas une prise",
+      ]);
+    }
+    if (/\bMICRO(?:PHONE)?\b/.test(t)) {
+      lignes.push(["Micro", "Fourni, pour la prise de parole ou le karaoké"]);
+    }
+  } else {
+    lignes.push([
+      "Type",
+      casque
+        ? sansFil ? "Casque sans fil" : "Casque filaire"
+        : sansFil ? "Écouteurs sans fil" : "Écouteurs filaires",
+    ]);
+  }
+
+  if (lien) lignes.push(["Liaison", version ? `${lien} ${version}` : lien]);
+
+  if (sansFil) {
+    lignes.push(["Alimentation", "Batterie rechargeable intégrée"]);
+  }
+
+  // "Ai Translation" est une promesse du fabricant, pas une caracteristique
+  // mesurable : l'annoncer comme telle serait la garantir.
+  if (/\bAI TRANSLATION\b|\bTRADUCTION\b/.test(t)) {
+    lignes.push([
+      "Traduction annoncée",
+      "Le fabricant annonce une fonction de traduction, qui passe par son application sur le téléphone et par une connexion internet",
+    ]);
+  }
+
+  return lignes.length >= 3 ? lignes : null;
+}
+
+// --- ventilation -----------------------------------------------------------
+
+// L'ordre compte : "Spray Mini Fan" est d'abord un brumisateur, "Clip Fan"
+// d'abord un ventilateur a pince.
+const VENTILATEURS = [
+  [/\bPHONE\b|\bSEMI ?CONDUCTOR\b|\bHEAT ?SINK\b/, "Refroidisseur pour téléphone, à fixer au dos de l'appareil"],
+  [/\bSPRAY\b|\bBRUMISATEUR\b/, "Ventilateur brumisateur : un réservoir d'eau rafraîchit l'air soufflé"],
+  [/\bCLIP\b/, "Ventilateur à pince, à fixer sur un bord de table, une poussette ou un lit"],
+  [/\bAIR CIRCULATION\b|\bCIRCULATION\b/, "Brasseur d'air, pour faire circuler l'air d'une pièce"],
+  [/\bHAND\b|\bPORTABLE\b|\bMINI\b/, "Ventilateur de poche, rechargeable"],
+];
+
+function ficheVentilation(nom) {
+  const t = nom.toUpperCase();
+  if (!/\bVENTILATEUR\b|\bFAN\b/.test(t)) return null;
+
+  let nature = "Ventilateur";
+  for (const [motif, libelle] of VENTILATEURS) {
+    if (motif.test(t)) { nature = libelle; break; }
+  }
+
+  const lignes = [["Type", nature]];
+
+  if (/\bUSB\b|\bRECHARGEABLE\b|\bMINI\b|\bHAND\b|\bCLIP\b/.test(t)) {
+    lignes.push(["Alimentation", "Batterie rechargeable par USB"]);
+  } else {
+    lignes.push(["Alimentation", "Secteur"]);
+  }
+
+  if (/\bMAGNETIC\b/.test(t)) {
+    lignes.push(["Fixation", "Aimantée, pour les téléphones compatibles"]);
+  }
+
+  lignes.push([
+    "À savoir",
+    "Un ventilateur brasse l'air, il ne le refroidit pas : il rafraîchit la peau, pas la pièce.",
+  ]);
+
+  return lignes;
+}
+
+// --- webcams ---------------------------------------------------------------
+
+function ficheWebcam(nom) {
+  const t = nom.toUpperCase();
+  if (!/\bWEB ?CAM\b/.test(t)) return null;
+
+  const definition = t.match(/\b(1080|720|480)\s*P\b/)?.[1];
+
+  const lignes = [["Type", "Webcam USB"]];
+  if (definition) {
+    lignes.push([
+      "Définition",
+      definition === "1080" ? "1920 x 1080 (Full HD)" : definition === "720" ? "1280 x 720 (HD)" : "640 x 480",
+    ]);
+  }
+  lignes.push(["Connexion", "USB, reconnue sans pilote sur les systèmes récents"]);
+  lignes.push(["Usage", "Visioconférence, cours en ligne, surveillance d'un poste"]);
+
+  return lignes.length >= 3 ? lignes : null;
+}
+
+// --- cables de charge pour telephone ---------------------------------------
+
+const EMBOUTS = [
+  [/\bTYPE ?-?C\b|\bTYP-?C\b/, "USB-C"],
+  [/\bMICRO ?-?USB\b|\bV8\b/, "micro-USB"],
+  [/\bIPHONE\b|\bLIGHTNING\b/, "Lightning (iPhone)"],
+];
+
+function ficheCableTelephone(nom) {
+  const t = nom.toUpperCase();
+  if (!/\bCABLE\b/.test(t)) return null;
+  if (!/\bTYPE ?-?C\b|\bTYP-?C\b|\bMICRO ?-?USB\b|\bIPHONE\b|\bLIGHTNING\b|\bV8\b|\bJACK\b/.test(t)) return null;
+  if (/\bHDMI\b|\bVGA\b|\bRESEAU\b|\bRJ45\b/.test(t)) return null;
+
+  if (/\bJACK\b/.test(t)) {
+    return [
+      ["Type", "Câble audio jack 3,5 mm"],
+      ["Usage", "Relier un téléphone, un ordinateur ou une tablette à une enceinte, un autoradio ou un casque"],
+      ["Transporte", "Le son analogique, en stéréo"],
+    ];
+  }
+
+  const embouts = EMBOUTS.filter(([motif]) => motif.test(t)).map(([, nom_]) => nom_);
+  const courant = t.match(/(\d+(?:[.,]\d+)?)\s*A\b/)?.[1]?.replace(".", ",");
+  const puissance = t.match(/(?:PD)?\s*(\d+)\s*W\b/)?.[1];
+  const enUn = t.match(/(\d)\s*-?\s*IN\s*-?\s*1/)?.[1];
+
+  const lignes = [["Type", "Câble de charge et de transfert"]];
+
+  if (enUn) {
+    lignes.push(["Embouts", `${enUn} connecteurs en un seul câble`]);
+  } else if (embouts.length > 0) {
+    lignes.push(["Connecteur", embouts.join(" et ")]);
+  }
+
+  if (courant) lignes.push(["Courant maximal", `${courant} A`]);
+  if (puissance) lignes.push(["Puissance", `${puissance} W en Power Delivery`]);
+
+  lignes.push([
+    "À vérifier avant l'achat",
+    "La charge rapide n'est atteinte que si le chargeur et le téléphone la prennent en charge tous les deux.",
+  ]);
+
+  return lignes.length >= 3 ? lignes : null;
+}
+
+// --- reseau actif ----------------------------------------------------------
+
+function ficheReseau(nom) {
+  const t = nom.toUpperCase();
+
+  if (/\bSWITCH HDMI\b/.test(t)) {
+    const ports = t.match(/(\d+)\s*PORTS?\b/)?.[1];
+    const lignes = [["Type", "Sélecteur HDMI"]];
+    if (ports) lignes.push(["Entrées", `${ports} sources vers un seul écran`]);
+    if (/\b4K\b/.test(t)) lignes.push(["Définition", "4K Ultra HD"]);
+    lignes.push([
+      "Usage",
+      "Brancher plusieurs appareils sur un téléviseur qui manque de prises, et basculer de l'un à l'autre",
+    ]);
+    return lignes.length >= 3 ? lignes : null;
+  }
+
+  if (/\bSWITCH\b|\bCOMMUTATEUR\b/.test(t)) {
+    const ports = t.match(/(\d+)\s*PORTS?\b/)?.[1];
+    const lignes = [["Type", "Commutateur réseau non administrable"]];
+    if (ports) {
+      lignes.push([
+        "Ports",
+        `${ports} ports RJ45 ${/\bGIGABIT\b|\b10\/100\/1000\b/.test(t) ? "10/100/1000 Mbit/s" : "10/100 Mbit/s"}`,
+      ]);
+    }
+    lignes.push(["Installation", "Aucune configuration : se branche et fonctionne"]);
+    lignes.push(["Usage", "Ajouter des prises réseau filaires à un bureau, une salle ou une baie"]);
+    return lignes.length >= 3 ? lignes : null;
+  }
+
+  if (/\bROUTEUR\b|\bPOINT D?'?\s?ACCES\b/.test(t)) {
+    const debit = t.match(/(\d{2,4})\s*(?:MBPS|N)\b/)?.[1];
+    const reseaux = [...t.matchAll(/\b([34])G\b/g)].map((m) => m[1]);
+    const mobile = reseaux.length > 1 ? reseaux.join("G et ") : reseaux[0];
+    const acces = /\bPOINT D?'?\s?ACCES\b/.test(t);
+
+    const lignes = [["Type", acces ? "Point d'accès Wi-Fi" : "Routeur Wi-Fi"]];
+    if (debit) lignes.push(["Débit sans fil", `${debit} Mbit/s en 2,4 GHz`]);
+    if (mobile) {
+      lignes.push([
+        "Connexion internet",
+        `Réseau mobile ${mobile}G par carte SIM ou clé USB, là où il n'y a pas de ligne fixe`,
+      ]);
+    }
+    lignes.push([
+      "Usage",
+      acces
+        ? "Étend la couverture sans fil d'un réseau existant, auquel il se raccorde en filaire"
+        : "Distribue la connexion internet vers les postes, en filaire et en Wi-Fi",
+    ]);
+    return lignes.length >= 3 ? lignes : null;
+  }
+
+  return null;
+}
+
+// --- tablettes graphiques --------------------------------------------------
+
+function ficheTabletteGraphique(nom) {
+  if (!/\bTABLETTE GRAPHIQUE\b/i.test(nom)) return null;
+
+  return [
+    ["Type", "Tablette graphique à stylet"],
+    ["Connexion", "USB vers l'ordinateur"],
+    ["Usage", "Dessin, retouche photo, annotation de documents, signature manuscrite et cours en ligne"],
+    [
+      "À savoir",
+      "La tablette n'a pas d'écran : le tracé s'affiche sur celui de l'ordinateur. Les modèles à écran intégré sont une autre catégorie, plus coûteuse.",
+    ],
+    ["Stylet", "Sans pile sur la plupart des modèles : il se recharge par la tablette elle-même"],
+  ];
+}
+
 const REGLES = [
   ficheMemoire,
   fichePile,
   ficheCable,
+  ficheCableTelephone,
   ficheAdaptateur,
   ficheSupport,
   ficheChargeur,
   ficheStockage,
   ficheBatterie,
+  ficheTabletteGraphique,
+  fichePointage,
+  ficheAudio,
+  ficheVentilation,
+  ficheWebcam,
+  ficheReseau,
 ];
 
 // --- application -----------------------------------------------------------
