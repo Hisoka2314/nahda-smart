@@ -110,15 +110,18 @@ export async function SiteHeader() {
           <Grid2X2 size={16} className="text-nahda-olive" />
           Catalogue
         </Link>
-        <nav className="flex min-w-0 flex-1 items-center justify-center gap-5 text-sm font-bold text-neutral-700 xl:gap-8">
+        {/* La barre defile quand les rayons ne tiennent pas : sans cela, en
+            ajouter un poussait les derniers hors de l'ecran, sans moyen de les
+            atteindre. Elle reste centree tant qu'il y a la place. */}
+        <nav className="hide-scrollbar flex min-w-0 flex-1 items-center justify-start gap-5 overflow-x-auto text-sm font-bold text-neutral-700 xl:justify-center xl:gap-6">
           {mainNavigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={
                 item.highlight
-                  ? "text-nahda-orange"
-                  : "transition hover:text-nahda-olive"
+                  ? "shrink-0 whitespace-nowrap text-nahda-orange"
+                  : "shrink-0 whitespace-nowrap transition hover:text-nahda-olive"
               }
             >
               {item.label}
