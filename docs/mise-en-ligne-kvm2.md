@@ -360,6 +360,33 @@ puis le commiter, sinon les références nouvelles resteront dans « Accessoires
 node scripts/generer-classement.mjs tmp/inventaire.csv
 ```
 
+### Vérifier que le serveur porte bien tout le catalogue
+
+À lancer **sur les deux machines**, puis comparer les deux sorties :
+
+```bash
+cd /var/www/nahda/app && sudo -u nahda node scripts/diagnostic-catalogue.mjs
+```
+
+Les deux nombres qui comptent sont « en stock » et « publiés ». S'ils diffèrent,
+des produits que le magasin a réellement en stock manquent en ligne — c'est
+arrivé en septembre 2026, 34 références de vidéosurveillance dont huit publiées
+avec un prix, effacées par une purge jouée avant la mise à jour du stock.
+
+Le rattrapage demande le tableur d'inventaire sur le serveur :
+
+```bash
+scp "tmp/inventaire.csv" root@nahdasmart.com:/var/www/nahda/app/tmp/inventaire.csv
+```
+
+```bash
+cd /var/www/nahda/app && sudo -u nahda node scripts/import-inventory.mjs tmp/inventaire.csv --apply && sudo -u nahda node scripts/maj-stock.mjs tmp/inventaire.csv --apply
+```
+
+Puis rejouer le classement et les fiches ci-dessus. L'import ne réécrit jamais
+un produit existant : il ne fait que recréer les références manquantes, en
+brouillon et à prix zéro, à ressaisir depuis le back-office.
+
 En cas de problème, revenir au commit précédent :
 
 ```bash

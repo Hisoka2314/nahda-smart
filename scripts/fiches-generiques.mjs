@@ -556,16 +556,25 @@ function ficheAudio(nom) {
   const enceinte = /\bHAUT ?-?PARLEUR\b|\bSPEAKE?A?R\b|\bENCEINTE\b/.test(t);
   if (!ecouteurs && !casque && !enceinte) return null;
 
-  // Un ecouteur filaire se branche en jack, pas en USB : la liaison commune
-  // aux peripheriques ne convient pas ici.
-  const brut = liaison(t);
-  const lien = brut?.startsWith("Câble")
-    ? /\bIPHONE\b|\bLIGHTNING\b/.test(t)
-      ? "Câble à connecteur Lightning (iPhone)"
-      : "Câble à fiche jack 3,5 mm"
-    : brut;
+  // En audio grand public, "wireless" veut dire Bluetooth. Le recepteur USB
+  // 2,4 GHz de liaison() vient des souris et des claviers, ou il est la
+  // norme : annoncer un dongle sur une enceinte Bluetooth est faux.
+  //
+  // "TWS" (True Wireless Stereo) et "AirPods" disent deja le sans-fil, sans
+  // le mot : sans eux, des ecouteurs Bluetooth etaient presentes comme
+  // filaires.
+  const sansFilAudio =
+    /\bBLUETOOTH\b|\bB\.?T\b|\bWIRELESS\b|\bSANS FIL\b|\bTWS\b|\bAIRPODS\b/.test(t);
 
-  const sansFil = lien !== null && !lien.startsWith("Câble");
+  const lien = sansFilAudio
+    ? "Bluetooth"
+    : /\bAVEC FIL\b|\bFILAIRE\b|\bJACK\b|\bIPHONE\b|\bLIGHTNING\b/.test(t)
+      ? /\bIPHONE\b|\bLIGHTNING\b/.test(t)
+        ? "Câble à connecteur Lightning (iPhone)"
+        : "Câble à fiche jack 3,5 mm"
+      : null;
+
+  const sansFil = sansFilAudio;
   const puissance = t.match(/(\d+)\s*W\b/)?.[1];
   const version = t.match(/\bV\s?(\d\.\d)\b/)?.[1];
 
@@ -584,11 +593,15 @@ function ficheAudio(nom) {
       lignes.push(["Micro", "Fourni, pour la prise de parole ou le karaoké"]);
     }
   } else {
+    // Sans indice dans la designation, ne rien trancher : "Ecouteur HP
+    // DHH-1111" ne dit pas s'il est filaire, et l'annoncer tel quel serait
+    // une affirmation gratuite.
+    const nature = casque ? "Casque" : "Écouteurs";
+    const precision = sansFil ? " sans fil" : lien ? " filaires" : "";
+
     lignes.push([
       "Type",
-      casque
-        ? sansFil ? "Casque sans fil" : "Casque filaire"
-        : sansFil ? "Écouteurs sans fil" : "Écouteurs filaires",
+      casque && precision === " filaires" ? "Casque filaire" : `${nature}${precision}`,
     ]);
   }
 
