@@ -33,6 +33,7 @@
 import { readFileSync } from "node:fs";
 import pg from "pg";
 import { categoriePourFamille, CATEGORIE_PAR_DEFAUT } from "./lib/familles.mjs";
+import { detecterMarque, MARQUE_GENERIQUE } from "./lib/marques.mjs";
 
 const [, , csvPath, ...flags] = process.argv;
 const apply = flags.includes("--apply");
@@ -64,44 +65,9 @@ if (!databaseUrl) {
 // les vendre en ligne il faudrait leur creer une categorie a eux.
 const FAMILLES_IGNOREES = new Set(["ML"]);
 
-// Ordonnee du plus long au plus court : "TP-LINK" doit etre teste avant "TP".
-const MARQUES = [
-  ["HIKVISION", "Hikvision"], ["GRANDSTREAM", "Grandstream"], ["PANASONIC", "Panasonic"],
-  ["LOGITECH", "Logitech"], ["HONEYWELL", "Honeywell"], ["MICROSOFT", "Microsoft"],
-  ["KINGSTON", "Kingston"], ["VERBATIM", "Verbatim"], ["SAMSUNG", "Samsung"],
-  ["GIGABYTE", "Gigabyte"], ["UBIQUITI", "Ubiquiti"], ["TOSHIBA", "Toshiba"],
-  ["SANDISK", "SanDisk"], ["KYOCERA", "Kyocera"], ["LEXMARK", "Lexmark"],
-  ["SEAGATE", "Seagate"], ["BROTHER", "Brother"], ["PHILIPS", "Philips"],
-  ["SYLVANIA", "Sylvania"], ["TP-LINK", "TP-Link"], ["TPLINK", "TP-Link"],
-  ["D-LINK", "D-Link"], ["DLINK", "D-Link"], ["ZKTECO", "ZKTeco"],
-  ["LENOVO", "Lenovo"], ["YEALINK", "Yealink"], ["HUAWEI", "Huawei"],
-  ["XIAOMI", "Xiaomi"], ["ORAIMO", "Oraimo"], ["EZVIZ", "EZVIZ"],
-  ["ARCTIC", "Arctic"], ["CANON", "Canon"], ["EPSON", "Epson"],
-  ["DAHUA", "Dahua"], ["ZEBRA", "Zebra"], ["HENEX", "Henex"],
-  ["SYBEL", "Sybel"], ["MUTEX", "Mutex"], ["XEROX", "Xerox"],
-  ["APPLE", "Apple"], ["IPHONE", "Apple"], ["INTEL", "Intel"],
-  ["ASUS", "ASUS"], ["ACER", "Acer"], ["SONY", "Sony"],
-  ["BENQ", "BenQ"], ["DELL", "Dell"], ["OMEGA", "Omega"],
-  ["ANKER", "Anker"], ["HAVIT", "Havit"], ["TRUST", "Trust"],
-  ["RAPOO", "Rapoo"], ["CISCO", "Cisco"], ["EATON", "Eaton"],
-  ["MERCURY", "Mercury"], ["EXTROM", "Extrom"], ["ADATA", "ADATA"],
-  ["TENDA", "Tenda"], ["REMAX", "Remax"], ["INTEX", "Intex"], ["HOCO", "Hoco"],
-  ["MSI", "MSI"], ["AMD", "AMD"], ["APC", "APC"],
-  ["JBL", "JBL"], ["LG", "LG"], ["WD", "Western Digital"], ["HP", "HP"],
-];
-
-const MARQUE_GENERIQUE = "Générique";
-
-function detecterMarque(designation) {
-  const texte = designation.toUpperCase();
-
-  for (const [motif, nom] of MARQUES) {
-    const regex = new RegExp(`(?<![A-Z0-9])${motif.replace(/[-]/g, "\\-")}(?![A-Z0-9])`);
-    if (regex.test(texte)) return nom;
-  }
-
-  return MARQUE_GENERIQUE;
-}
+// La table des marques vit dans scripts/lib/marques.mjs, pour la meme
+// raison que la cartographie des familles : le reclassement s'en sert
+// aussi.
 
 // Sigles techniques a laisser en capitales : sans cette liste, la mise en
 // casse titre produit "Ram 8 Gb Ddr4 Ssd" au lieu de "RAM 8 GB DDR4 SSD".

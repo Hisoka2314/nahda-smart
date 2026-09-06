@@ -5,11 +5,12 @@
 //
 // Sans --apply, le script se contente d'un rapport : aucune ecriture.
 //
-// Le CSV fournit le code famille de chaque reference ; la cartographie de
-// scripts/lib/familles.mjs dit dans quelle categorie il tombe. Le script ne
-// cree ni ne supprime aucun produit : il ne fait que les ranger.
+// Le CSV fournit le code famille et la designation de chaque reference ; la
+// cartographie de scripts/lib/familles.mjs dit dans quelle categorie elle
+// tombe, et la table de scripts/lib/marques.mjs quelle marque lui revient. Le
+// script ne cree ni ne supprime aucun produit : il ne fait que les ranger.
 //
-// A relancer apres toute modification de la cartographie.
+// A relancer apres toute modification de l'une ou l'autre table.
 
 import { readFileSync } from "node:fs";
 import crypto from "node:crypto";
@@ -18,6 +19,7 @@ import {
   CATEGORIES_SUPPLEMENTAIRES,
   categoriePourFamille,
 } from "./lib/familles.mjs";
+import { detecterMarque } from "./lib/marques.mjs";
 
 const [, , csvPath, ...flags] = process.argv;
 const apply = flags.includes("--apply");
@@ -77,8 +79,9 @@ for (const ligne of lignes.slice(1)) {
 const client = new pg.Client({ connectionString: databaseUrl });
 await client.connect();
 
-const stats = { creees: 0, deplaces: 0, inchanges: 0, horsInventaire: 0 };
+const stats = { creees: 0, deplaces: 0, inchanges: 0, horsInventaire: 0, marquesCorrigees: 0 };
 const mouvements = new Map();
+const corrections = [];
 
 try {
   if (apply) await client.query("BEGIN");
@@ -114,9 +117,15 @@ try {
   const { rows: cats } = await client.query(`SELECT id, slug, name FROM "Category"`);
   const parSlug = new Map(cats.map((c) => [c.slug, c]));
 
+  const { rows: marques } = await client.query(`SELECT id, name FROM "Brand"`);
+  const parMarque = new Map(marques.map((m) => [m.name.toUpperCase(), m]));
+
   const { rows: produits } = await client.query(`
-    SELECT p.id, p.sku, p.name, c.slug AS actuelle, c.name AS actuelle_nom
-      FROM "Product" p JOIN "Category" c ON c.id = p."categoryId"`);
+    SELECT p.id, p.sku, p.name, c.slug AS actuelle, c.name AS actuelle_nom,
+           b.name AS marque_actuelle
+      FROM "Product" p
+      JOIN "Category" c ON c.id = p."categoryId"
+      LEFT JOIN "Brand" b ON b.id = p."brandId"`);
 
   for (const produit of produits) {
     const article = inventaire.get(produit.sku.toUpperCase());
@@ -124,6 +133,32 @@ try {
     if (article === undefined) {
       stats.horsInventaire += 1;
       continue;
+    }
+
+    // --- marque ------------------------------------------------------------
+    //
+    // Meme raison que la categorie : la designation la porte, et la table qui
+    // la lit a evolue. Une cartouche Podium annoncee de marque HP est une
+    // affirmation fausse sur une fiche produit, il faut pouvoir la rattraper
+    // sans reimporter.
+    const marqueVoulue = detecterMarque(article.designation);
+
+    if (marqueVoulue !== produit.marque_actuelle) {
+      const cible = parMarque.get(marqueVoulue.toUpperCase());
+
+      if (cible) {
+        stats.marquesCorrigees += 1;
+        corrections.push(
+          `${produit.sku.padEnd(18)} ${produit.marque_actuelle ?? "?"} -> ${marqueVoulue}`,
+        );
+
+        if (apply) {
+          await client.query(
+            `UPDATE "Product" SET "brandId" = $2, "updatedAt" = NOW() WHERE id = $1`,
+            [produit.id, cible.id],
+          );
+        }
+      }
     }
 
     const voulue = categoriePourFamille(article.famille, article.designation);
@@ -155,6 +190,12 @@ try {
   console.log(`Produits deplaces        : ${stats.deplaces}`);
   console.log(`Deja bien ranges         : ${stats.inchanges}`);
   console.log(`Hors inventaire (ignores): ${stats.horsInventaire}`);
+  console.log(`Marques corrigees        : ${stats.marquesCorrigees}`);
+
+  if (corrections.length > 0) {
+    console.log("\nMarques :");
+    corrections.forEach((c) => console.log(`   ${c}`));
+  }
 
   if (mouvements.size > 0) {
     console.log("\nDeplacements :");

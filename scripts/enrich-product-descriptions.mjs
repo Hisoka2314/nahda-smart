@@ -330,6 +330,11 @@ const TYPES = [
   [/\bWEB ?CAM\b/, "Webcam", "Se branche en USB, sans pilote à installer sur les systèmes récents."],
   [/\bSCAN(N)?ER\b/, "Scanner", "Numérise documents et photos vers l'ordinateur."],
 
+  // Avant la regle TONER : le magasin designe la CF219A comme un "Toner
+  // Podium CF219A" alors que c'est le tambour HP 19A. La fiche annoncait une
+  // cartouche d'encre, et le client repartait avec la mauvaise piece.
+  [/\bTAMBOUR\b|\bDRUM\b|\bCF219A\b|\bCF232A\b|\bDR-?\d{3,4}\b/, "Tambour d'imagerie pour imprimante laser",
+    "Le tambour ne contient pas d'encre : il dure bien plus longtemps que la cartouche, et se commande séparément."],
   [/\bTONER\b/, "Cartouche de toner pour imprimante laser",
     "Vérifiez la référence exigée par votre imprimante : une cartouche non compatible n'est pas reconnue."],
   [/\bCARTOUCHE\b|\bENCRE\b/, "Cartouche d'encre",
