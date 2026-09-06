@@ -231,7 +231,24 @@ function ficheAdaptateur(nom) {
     ];
   }
 
-  const coupe = t.split(/\bTO\b|\bVERS\b|\b2\b/);
+  // "Adaptateur DVI HDMI" n'a pas de "TO" : les deux ports se suivent, et le
+  // premier nomme est la source.
+  const coupe = /\bTO\b|\bVERS\b|\b2\b/.test(t)
+    ? t.split(/\bTO\b|\bVERS\b|\b2\b/)
+    : (() => {
+        // Couper juste apres le port cite en premier DANS LA CHAINE, et non
+        // en premier dans la table PORTS : dans "Adaptateur DVI HDMI", c'est
+        // le DVI qui ouvre, alors que la table nomme HDMI plus haut.
+        const positions = PORTS.map(([motif]) => t.search(motif)).filter((p) => p >= 0);
+        if (positions.length < 2) return [t];
+
+        const debut = Math.min(...positions);
+        const suivant = Math.min(...positions.filter((p) => p > debut));
+        if (!Number.isFinite(suivant)) return [t];
+
+        return [t.slice(0, suivant), t.slice(suivant)];
+      })();
+
   if (coupe.length < 2) return null;
 
   const source = nommerPort(coupe[0]);
@@ -253,7 +270,12 @@ function ficheAdaptateur(nom) {
   const lignes = [
     ["Type", "Adaptateur de connectique"],
     ["Entrée", `${source}, côté source (ordinateur, console, lecteur)`],
-    ["Sortie", `${destination}, côté écran ou périphérique`],
+    [
+      "Sortie",
+      destination.startsWith("RJ45")
+        ? `${destination} : il rend une prise réseau filaire à une machine qui n'en a plus`
+        : `${destination}, côté écran ou périphérique`,
+    ],
   ];
 
   if (/\bAUDIO\b/.test(t)) {
@@ -357,14 +379,26 @@ function ficheStockage(nom) {
     return lignes.length >= 3 ? lignes : null;
   }
 
-  if (/\bCLE USB\b/.test(t)) {
+  // "USB Type-C SanDisk Dual Drive 128GO" est une cle USB, meme si la
+  // designation ne commence pas par "CLE USB".
+  const doubleConnecteur = /\bDUAL DRIVE\b|\bDOUBLE CONNECTEUR\b/.test(t);
+
+  if (/\bCLE USB\b/.test(t) || doubleConnecteur) {
     const capacite = t.match(/(\d+)\s*G[OB]\b/)?.[1];
     if (!capacite) return null;
 
     const lignes = [
-      ["Type", "Clé USB"],
+      ["Type", doubleConnecteur ? "Clé USB à double connecteur" : "Clé USB"],
       ["Capacité", `${capacite} Go`],
     ];
+
+    if (doubleConnecteur) {
+      lignes.push([
+        "Connecteurs",
+        "USB-C et USB-A sur la même clé : elle se branche aussi bien sur un téléphone que sur un ordinateur",
+      ]);
+    }
+
     if (/\b3\.\d\b|\bUSB ?3\b/.test(t)) {
       lignes.push(["Interface", "USB 3.0, rétrocompatible USB 2.0"]);
     }
@@ -501,6 +535,15 @@ function fichePointage(nom) {
     lignes.push(["Usage", "Poste fixe comme portable, sans installation"]);
   }
 
+  // Une designation qui ne dit ni "sans fil" ni "USB" laisserait la fiche a
+  // deux lignes : le dire vaut mieux que de choisir a la place du magasin.
+  if (!lien) {
+    lignes.push([
+      "Liaison",
+      "Non précisée par la désignation : faites confirmer en magasin s'il s'agit d'un modèle filaire ou sans fil.",
+    ]);
+  }
+
   return lignes.length >= 3 ? lignes : null;
 }
 
@@ -513,7 +556,15 @@ function ficheAudio(nom) {
   const enceinte = /\bHAUT ?-?PARLEUR\b|\bSPEAKE?A?R\b|\bENCEINTE\b/.test(t);
   if (!ecouteurs && !casque && !enceinte) return null;
 
-  const lien = liaison(t);
+  // Un ecouteur filaire se branche en jack, pas en USB : la liaison commune
+  // aux peripheriques ne convient pas ici.
+  const brut = liaison(t);
+  const lien = brut?.startsWith("Câble")
+    ? /\bIPHONE\b|\bLIGHTNING\b/.test(t)
+      ? "Câble à connecteur Lightning (iPhone)"
+      : "Câble à fiche jack 3,5 mm"
+    : brut;
+
   const sansFil = lien !== null && !lien.startsWith("Câble");
   const puissance = t.match(/(\d+)\s*W\b/)?.[1];
   const version = t.match(/\bV\s?(\d\.\d)\b/)?.[1];
@@ -553,6 +604,27 @@ function ficheAudio(nom) {
     lignes.push([
       "Traduction annoncée",
       "Le fabricant annonce une fonction de traduction, qui passe par son application sur le téléphone et par une connexion internet",
+    ]);
+  }
+
+  // Beaucoup de designations ne disent ni la liaison ni la puissance. La
+  // fiche resterait a deux lignes : ces reperes-la valent pour le type.
+  lignes.push(
+    enceinte
+      ? [
+          "À vérifier avant l'achat",
+          "L'autonomie annoncée et la présence d'une entrée auxiliaire, si vous comptez y brancher une source par câble.",
+        ]
+      : [
+          "À vérifier avant l'achat",
+          "La présence d'un micro sur le câble ou sur l'écouteur, si vous prenez des appels.",
+        ],
+  );
+
+  if (!lien) {
+    lignes.push([
+      "Liaison",
+      "Non précisée par la désignation : faites-la confirmer en magasin.",
     ]);
   }
 
@@ -632,7 +704,13 @@ const EMBOUTS = [
 function ficheCableTelephone(nom) {
   const t = nom.toUpperCase();
   if (!/\bCABLE\b/.test(t)) return null;
-  if (!/\bTYPE ?-?C\b|\bTYP-?C\b|\bMICRO ?-?USB\b|\bIPHONE\b|\bLIGHTNING\b|\bV8\b|\bJACK\b/.test(t)) return null;
+  // Un cable "4-in-1" ne nomme aucun de ses embouts : c'est justement ce
+  // qu'il annonce.
+  if (
+    !/\bTYPE ?-?C\b|\bTYP-?C\b|\bMICRO ?-?USB\b|\bIPHONE\b|\bLIGHTNING\b|\bV8\b|\bJACK\b|\d\s*-?\s*IN\s*-?\s*1|\bPD\d/.test(t)
+  ) {
+    return null;
+  }
   if (/\bHDMI\b|\bVGA\b|\bRESEAU\b|\bRJ45\b/.test(t)) return null;
 
   if (/\bJACK\b/.test(t)) {
@@ -718,6 +796,15 @@ function ficheReseau(nom) {
         ? "Étend la couverture sans fil d'un réseau existant, auquel il se raccorde en filaire"
         : "Distribue la connexion internet vers les postes, en filaire et en Wi-Fi",
     ]);
+    // La bande n'est sure que sur les modeles Wi-Fi N : un modele AC ou AX
+    // est bi-bande, et l'affirmer a tort tromperait l'acheteur.
+    if (!/\bAC\d|\bAX\d|\b5\s?G(?:HZ)?\b|\bDUAL[- ]?BAND\b|\bBI-?BANDE\b/.test(t)) {
+      lignes.push([
+        "Bande",
+        "2,4 GHz, celle qui traverse le mieux les murs. Elle est aussi la plus encombrée en immeuble.",
+      ]);
+    }
+
     return lignes.length >= 3 ? lignes : null;
   }
 

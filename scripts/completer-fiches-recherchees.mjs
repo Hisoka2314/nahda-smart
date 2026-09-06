@@ -1463,6 +1463,164 @@ const FICHES = {
     ["Sans fil", "Wi-Fi 2,4 GHz"],
     ["Usage", "Surveiller une pièce, un commerce ou une entrée depuis son téléphone"],
   ],
+  CT200: [
+    ["Type", "Kit CPL Tenda P200 : deux adaptateurs, à brancher sur deux prises"],
+    ["Principe", "Le réseau passe par le câblage électrique du bâtiment, à la place d'un câble réseau à tirer"],
+    ["Débit", "200 Mbit/s en théorie sur la ligne électrique"],
+    ["Ports", "Une prise RJ45 10/100 Mbit/s sur chaque adaptateur"],
+    ["Portée", "Jusqu'à 300 m sur le même circuit électrique"],
+    [
+      "À savoir",
+      "Les deux adaptateurs doivent être sur le même compteur, et branchés directement au mur : une multiprise parafoudre filtre le signal et coupe la liaison.",
+    ],
+  ],
+  TCR01: [
+    ["Type", "Testeur de câble réseau, émetteur et récepteur"],
+    ["Vérifie", "L'ordre des huit fils d'un câble RJ45, paire par paire"],
+    ["Diagnostic", "Repère un fil coupé, inversé ou mal serti, sans démonter l'installation"],
+    ["Usage", "Contrôler une jarretière fabriquée sur place avant de la poser"],
+  ],
+  CG730: [
+    ["Type", "Carte graphique d'entrée de gamme NVIDIA GeForce GT 730"],
+    ["Interface", "PCI Express"],
+    ["Alimentation", "Aucun connecteur d'alimentation supplémentaire : le port PCIe suffit"],
+    ["Usage", "Rend la sortie vidéo à un poste dont le circuit graphique est en panne, ou ajoute un second écran"],
+    [
+      "À savoir",
+      "Ce n'est pas une carte de jeu : elle affiche et décode la vidéo, sans plus.",
+    ],
+    ["À vérifier avant l'achat", "La connectique de la carte livrée (HDMI, DVI, VGA) et la quantité de mémoire, qui varient selon la version."],
+  ],
+  PT01: [
+    ["Type", "Pâte thermique"],
+    ["Rôle", "S'applique en fine couche entre le processeur et son ventirad, pour évacuer la chaleur"],
+    ["Quand la refaire", "Quand la machine chauffe et ventile plus qu'avant : la pâte sèche et perd son efficacité au fil des années"],
+    ["Pose", "Une noisette au centre du processeur suffit ; en mettre trop nuit au refroidissement"],
+  ],
+  "CRN-T3-3100": [
+    ["Type", "Processeur AMD Ryzen 3 3100, en boîte"],
+    ["Cœurs", "4 cœurs et 8 threads"],
+    ["Fréquence", "3,6 GHz de base, jusqu'à 3,9 GHz en Boost"],
+    ["Cache", "16 Mo de cache L3"],
+    ["Socket", "AM4"],
+    ["Enveloppe thermique", "65 W ; ventirad Wraith Stealth fourni dans la boîte"],
+    [
+      "À savoir",
+      "Ce processeur n'a pas de circuit graphique intégré : une carte graphique est indispensable pour obtenir une image.",
+    ],
+  ],
+  CDO01: [
+    ["Type", "Câble DisplayPort"],
+    ["Transporte", "L'image et le son en numérique, comme le HDMI"],
+    ["Usage", "Relier un ordinateur à un écran : c'est la sortie vidéo la plus courante sur les cartes graphiques et les stations de travail"],
+    [
+      "À savoir",
+      "Le DisplayPort n'entre pas dans une prise HDMI : pour un téléviseur, il faut un adaptateur.",
+    ],
+  ],
+  "RSN-SC301": [
+    ["Type", "Boîtier multimédia Android, Senic SC-301"],
+    ["Sortie vidéo", "HDMI, jusqu'à 4K"],
+    ["Système", "Android : les applications s'installent depuis le magasin, comme sur un téléphone"],
+    ["Usage", "Rend un téléviseur ordinaire connecté, pour la lecture en ligne et les fichiers d'un disque USB"],
+    ["À vérifier avant l'achat", "Aucun abonnement n'est inclus : les services payants restent à souscrire séparément."],
+  ],
+  "RVN-R8": [
+    ["Type", "Boîtier multimédia Android, Venor R8"],
+    ["Sortie vidéo", "HDMI, jusqu'à 4K Ultra HD"],
+    ["Système", "Android : les applications s'installent depuis le magasin, comme sur un téléphone"],
+    ["Usage", "Rend un téléviseur ordinaire connecté, pour la lecture en ligne et les fichiers d'un disque USB"],
+    ["À vérifier avant l'achat", "Aucun abonnement n'est inclus : les services payants restent à souscrire séparément."],
+  ],
+  CBU01: [
+    ["Type", "Adaptateur Bluetooth USB"],
+    ["Format", "Miniature : il se laisse à demeure dans un port USB"],
+    ["Usage", "Ajoute le Bluetooth à un ordinateur qui n'en a pas, pour un casque, une souris, un clavier ou un téléphone"],
+    ["Installation", "Reconnu sans pilote sur les versions récentes de Windows"],
+  ],
+  "DSN-2IN1": [
+    ["Type", "Station d'accueil pour disques nus, deux baies"],
+    ["Formats acceptés", "3,5 et 2,5 pouces, en SATA"],
+    ["Principe", "Le disque se pose dans la baie sans boîtier ni visserie, comme un grille-pain"],
+    ["Usage", "Consulter, copier ou effacer plusieurs disques récupérés à la suite, sans les monter dans une machine"],
+    ["Alimentation", "Bloc secteur fourni : le 3,5 pouces demande plus que ce qu'un port USB peut donner"],
+  ],
+  "STN-C10": [
+    ["Type", "Stabilisateur motorisé pour téléphone, sur poignée"],
+    ["Rôle", "Compense les tremblements de la main pendant la prise de vue"],
+    ["Usage", "Vidéo en marchant, plans suivis, prises de vue à main levée"],
+    ["Alimentation", "Batterie rechargeable intégrée"],
+    ["À vérifier avant l'achat", "Le poids et la largeur de votre téléphone, coque comprise : la pince a des limites."],
+  ],
+  "VSN-6503": [
+    ["Type", "Lampe de bureau à LED"],
+    ["Réglage", "Trois niveaux d'intensité"],
+    ["Alimentation", "Par câble USB"],
+    ["Usage", "Éclairage d'appoint pour un bureau, une table de travail ou un plan de lecture"],
+  ],
+  "TN-3110": [
+    ["Type", "Trépied"],
+    ["Usage", "Stabiliser un téléphone ou un appareil photo pour une photo de nuit, une vidéo ou un appel"],
+    ["Réglage", "Pieds télescopiques et tête orientable"],
+    ["À vérifier avant l'achat", "La hauteur dépliée et la charge admise, ainsi que la présence d'un support de téléphone."],
+  ],
+  "TSN-3120A": [
+    ["Type", "Trépied"],
+    ["Usage", "Stabiliser un téléphone ou un appareil photo pour une photo de nuit, une vidéo ou un appel"],
+    ["Réglage", "Pieds télescopiques et tête orientable"],
+    ["À vérifier avant l'achat", "La hauteur dépliée et la charge admise, ainsi que la présence d'un support de téléphone."],
+  ],
+  SSK07: [
+    ["Type", "Perche à selfie faisant trépied"],
+    ["Deux usages", "Perche tenue à la main, ou trépied une fois les pieds dépliés"],
+    ["Déclenchement", "Télécommande sans fil, pour photographier sans toucher le téléphone"],
+    ["Rangement", "Se replie à la taille d'un stylo"],
+  ],
+  "BCN-001": [
+    ["Type", "Ferme-porte à glissière"],
+    ["Rôle", "Referme la porte seule après chaque passage, sans qu'elle claque"],
+    ["Bras à glissière", "Le bras coulisse dans un rail au lieu de dépasser : plus discret et moins exposé aux chocs qu'un bras à compas"],
+    ["À vérifier avant l'achat", "Le poids et la largeur du vantail : la taille du ferme-porte se choisit d'après eux."],
+  ],
+  "BCN-DR78": [
+    ["Type", "Ferme-porte Cledor FP-DR78"],
+    ["Rôle", "Referme la porte seule après chaque passage, sans qu'elle claque"],
+    ["Réglage", "Vitesse de fermeture et à-coup final réglables par vis"],
+    ["À vérifier avant l'achat", "Le poids et la largeur du vantail : la taille du ferme-porte se choisit d'après eux."],
+  ],
+  PNH01: [
+    ["Type", "Produit de nettoyage universel pour matériel informatique"],
+    ["Usage", "Écrans, claviers, coques et surfaces de bureau"],
+    [
+      "Précaution",
+      "À vaporiser sur le chiffon, jamais directement sur l'écran : le liquide s'infiltre par les bords de la dalle.",
+    ],
+    ["À éviter", "L'alcool ménager et les produits à vitres sur un écran traité antireflet, qu'ils décapent"],
+  ],
+  "TJN-001": [
+    ["Type", "Article de quincaillerie Jianzhong"],
+    [
+      "À vérifier avant l'achat",
+      "La désignation d'inventaire est trop abrégée pour décrire l'article avec certitude : demandez confirmation en magasin avant de commander.",
+    ],
+  ],
+  "TKN-001": [
+    ["Type", "Article de quincaillerie Katenai"],
+    [
+      "À vérifier avant l'achat",
+      "La désignation d'inventaire est trop abrégée pour décrire l'article avec certitude : demandez confirmation en magasin avant de commander.",
+    ],
+  ],
+  "CAN-001": [
+    ["Type", "Désodorisant pour voiture"],
+    ["Usage", "Se pose ou se suspend dans l'habitacle"],
+    ["Durée", "Variable selon la ventilation et la température de l'habitacle"],
+  ],
+  "CRN-002": [
+    ["Type", "Désodorisant pour voiture, en flacon"],
+    ["Contenance", "160 ml"],
+    ["Usage", "Se vaporise dans l'habitacle"],
+  ],
 };
 
 const url = readFileSync(".env", "utf8").match(/DATABASE_URL="([^"]+)"/)[1];
