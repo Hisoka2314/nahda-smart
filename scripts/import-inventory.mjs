@@ -37,7 +37,7 @@
 import { readFileSync } from "node:fs";
 import pg from "pg";
 import { categoriePourFamille, CATEGORIE_PAR_DEFAUT } from "./lib/familles.mjs";
-import { detecterMarque, MARQUE_GENERIQUE } from "./lib/marques.mjs";
+import { detecterMarque } from "./lib/marques.mjs";
 
 const [, , csvPath, ...flags] = process.argv;
 const apply = flags.includes("--apply");
