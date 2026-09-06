@@ -292,6 +292,9 @@ const TYPES = [
     "Vérifiez la tension, l'ampérage et la forme de l'embout avant de commander : un chargeur mal apparié n'alimente pas la machine, ou l'abîme."],
   [/\bCHARGEUR\b.*\bCAMERA\b|\bCOFFRET ALIMENTATION\b/, "Alimentation pour caméras de surveillance",
     "Alimente plusieurs caméras depuis un point unique, ce qui évite un transformateur par poste."],
+  // Avant la regle CAMERA, sans quoi un connecteur devient une camera.
+  [/\bCONNECTEUR ALIMENTATION\b|\bFICHE\b.*\bALIMENTATION\b/, "Connecteur d'alimentation",
+    "Se monte en bout de câble pour alimenter une caméra ou un petit équipement en 12 V."],
   [/\bCHARGEUR\b/, "Chargeur", "Contrôlez le connecteur et la puissance délivrée avant l'achat."],
   [/\bBATTERIE\b.*\b(PC|PORTABLE)\b/, "Batterie de remplacement pour ordinateur portable",
     "La référence est propre au modèle : relevez celle inscrite sur la batterie d'origine avant de commander."],
@@ -370,8 +373,17 @@ const TYPES = [
   [/\bDVR\b|\bNVR\b|\bENREGISTREUR\b/, "Enregistreur de vidéosurveillance",
     "Le nombre de voies fixe le nombre de caméras raccordables. Le disque dur est souvent vendu à part."],
   [/\bSUPPORT\b.*\bCAMERA\b/, "Support de caméra", "Fixation murale ou plafond."],
+  [/\bBARRIERE\b.*\bINFRAROUGE\b|\bBARRIERE IR\b/, "Barrière infrarouge",
+    "Deux colonnes se font face et déclenchent l'alarme dès qu'un faisceau est coupé. La portée annoncée vaut en extérieur dégagé."],
   [/\bALARME\b|\bSIRENE\b|\bDETECTEUR\b/, "Équipement d'alarme", ""],
-  [/\bPOINTEUSE\b|\bCONTROLE D'ACCES\b|\bSERRURE\b/, "Contrôle d'accès et de présence", ""],
+  // "SMART DOOR LOCK" et "DIGICODE" n'etaient reconnus par aucun motif : les
+  // fiches annoncaient un "equipement de videosurveillance".
+  [/\b(DOOR|SMART|E)[- ]?LOCK\b|\bSERRURE\b/, "Serrure connectée",
+    "S'ouvre par code, badge ou empreinte, et se pilote depuis un téléphone. Vérifiez l'épaisseur de porte admise avant la pose."],
+  [/\bPOINTEUSE\b|\bCONTROLE D'ACCES\b|\bDIGICODE\b/, "Contrôle d'accès et de présence",
+    "Autonome : les utilisateurs et les passages sont enregistrés dans l'appareil, sans ordinateur ni réseau."],
+  [/\bCARTE\b.*\bPOINTAGE\b|\bBADGE\b.*\b(RFID|PROXIMITE)\b/, "Badge de pointage sans contact",
+    "S'associe à une pointeuse ou à une centrale de contrôle d'accès. Vérifiez la fréquence attendue par votre lecteur."],
 
   [/\bDISQUE DUR\b.*\bSSD\b|\bSSD\b/, "Disque SSD",
     "Bien plus rapide qu'un disque mécanique : c'est le remplacement qui rajeunit le plus une machine ancienne."],
@@ -404,14 +416,27 @@ const TYPES = [
   [/\bVENTILATEUR\b|\bCLIMATISEUR\b/, "Ventilation", ""],
   [/\bLECTEUR CODE\b|\bDOUCHETTE\b/, "Lecteur de code-barres",
     "Se branche en USB et se comporte comme un clavier : aucun logiciel particulier n'est requis."],
-  [/\bLICENCE\b|\bANTIVIRUS\b|\bWINDOWS\b|\bOFFICE\b/, "Licence logicielle",
+  // "ANTI-VIRUS" s'ecrit avec un trait d'union dans l'inventaire : \bANTIVIRUS\b
+  // ne le voyait pas, et sept references Kaspersky sont restees sans nature.
+  [/\bLICENCE\b|\bANTI[- ]?VIRUS\b|\bKASPERSKY\b|\bWINDOWS\b|\bOFFICE\b/, "Licence logicielle",
     "La clé est fournie à l'achat. Vérifiez le nombre de postes couverts et la durée."],
+  [/\bPA[TS]?TE THERMIQUE\b/, "Pâte thermique",
+    "S'applique entre le processeur et son ventirad. À refaire quand la machine chauffe plus qu'avant."],
+  [/\bTESTEUR\b/, "Testeur de câble réseau",
+    "Vérifie l'ordre des paires d'un câble RJ45 et repère la paire coupée."],
+  [/\bTRIPOD\b|\bTREPIED\b/, "Trépied",
+    "Vérifiez le pas de vis et la charge admise avant d'y poser un appareil."],
+  [/\bFERME[- ]?PORTE\b|\bBRAS\b.*\bPORTE\b/, "Ferme-porte",
+    "Referme la porte seule après chaque passage. La taille se choisit selon le poids et la largeur du vantail."],
+  [/\bAUTOCOLLANT\b.*\bCLAVIER\b/, "Autocollants de clavier",
+    "Se collent sur les touches pour ajouter une disposition à un clavier existant."],
 ];
 
 // Une machine ne peut pas etre annoncee par un nom qui commence par un
 // accessoire : "Cable Alimentation PC Portable" est un cordon POUR portable,
 // et la fiche le presentait comme un ordinateur.
-const MACHINES = /^(Ordinateur|Téléviseur|Tablette|Imprimante|Scanner|Écran d)/;
+const MACHINES =
+  /^(Ordinateur|Téléviseur|Tablette|Imprimante|Scanner|Écran d|Caméra|Enregistreur)/;
 const ACCESSOIRE_EN_TETE =
   /^(CABLE|CORDON|RALLONGE|CHARGEUR|BATTERIE|SAC|CARTABLE|POCHETTE|HOUSSE|COQUE|SUPPORT|AFFICHEUR|DALLE|NAPPE|BOITIER|ADAPTATEUR|CONNECTEUR|FICHE|VIS|KIT|PROTECTION|GLASS|FILTRE|COFFRET)\b/;
 

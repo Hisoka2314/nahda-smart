@@ -64,7 +64,14 @@ const inventaire = new Map();
 for (const ligne of lignes.slice(1)) {
   const cellules = decouperLigneCsv(ligne);
   const e = Object.fromEntries(entetes.map((h, i) => [h, (cellules[i] ?? "").trim()]));
-  if (e.reference) inventaire.set(e.reference.toUpperCase(), e.famille);
+  // La designation est retenue avec la famille : quelques references ne se
+  // classent que par leur libelle (voir AJUSTEMENTS_PAR_DESIGNATION).
+  if (e.reference) {
+    inventaire.set(e.reference.toUpperCase(), {
+      famille: e.famille,
+      designation: e.designation ?? "",
+    });
+  }
 }
 
 const client = new pg.Client({ connectionString: databaseUrl });
@@ -112,14 +119,14 @@ try {
       FROM "Product" p JOIN "Category" c ON c.id = p."categoryId"`);
 
   for (const produit of produits) {
-    const famille = inventaire.get(produit.sku.toUpperCase());
+    const article = inventaire.get(produit.sku.toUpperCase());
 
-    if (famille === undefined) {
+    if (article === undefined) {
       stats.horsInventaire += 1;
       continue;
     }
 
-    const voulue = categoriePourFamille(famille);
+    const voulue = categoriePourFamille(article.famille, article.designation);
 
     if (voulue === produit.actuelle) {
       stats.inchanges += 1;

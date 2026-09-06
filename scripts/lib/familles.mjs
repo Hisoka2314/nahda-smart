@@ -65,8 +65,7 @@ export const FAMILLE_VERS_CATEGORIE = {
   // Ordinateurs
   LPT: "pc-portables", PTBL: "pc-portables", BAT: "pc-portables", CHG: "pc-portables",
   PC: "all-in-one",
-  UC: "pc-bureau", MB: "pc-bureau", CPU: "pc-bureau", ALM: "pc-bureau",
-  BALM: "pc-bureau", CALM: "pc-bureau", PCB: "pc-bureau",
+  UC: "pc-bureau", PCB: "pc-bureau",
 
   // Ecrans : sortis des peripheriques, ou ils representaient a eux seuls
   // presque la moitie du rayon.
@@ -77,14 +76,17 @@ export const FAMILLE_VERS_CATEGORIE = {
   ACLV: "peripheriques", SCN: "peripheriques", KVM: "peripheriques",
 
   // Composants
+  // Un processeur, une carte mere et une alimentation sont des composants,
+  // pas des ordinateurs de bureau : ils encombraient le rayon "PC Bureau".
   RAM: "composants-pc", CM: "composants-pc", VGA: "composants-pc",
-  BTG: "composants-pc", AFF: "composants-pc",
+  BTG: "composants-pc", AFF: "composants-pc", CPU: "composants-pc",
+  MB: "composants-pc", ALM: "composants-pc",
 
   // Cablerie et adaptateurs
   CHDMI: "cables-connectique", CVGA: "cables-connectique", CAPL: "cables-connectique",
   CRU: "cables-connectique", ADAP: "cables-connectique", HUSB: "cables-connectique",
   SHDMI: "cables-connectique", CAC: "cables-connectique", ACHG: "cables-connectique",
-  CCHG: "cables-connectique", ELEC: "cables-connectique",
+  CCHG: "cables-connectique", ELEC: "cables-connectique", CALM: "cables-connectique",
 
   // Impression : RP regroupe les rouleaux thermiques et les etiquettes, qui
   // sont des consommables d'impression et non des accessoires.
@@ -100,9 +102,10 @@ export const FAMILLE_VERS_CATEGORIE = {
   RACK: "baies-reseau-cablage", PAT: "baies-reseau-cablage", CPL: "baies-reseau-cablage",
   PBR: "baies-reseau-cablage",
 
-  // Videosurveillance
+  // Videosurveillance. BALM ne contient que des coffrets d'alimentation
+  // pour cameras : il etait range en bureautique.
   CAM: "securite-cameras", SCAM: "securite-cameras", ALR: "securite-cameras",
-  DVR: "securite-cameras", CPTZ: "securite-cameras", VIR: "securite-cameras",
+  DVR: "securite-cameras", CPTZ: "securite-cameras", BALM: "securite-cameras",
 
   // Reseau actif
   CWIFI: "reseaux-connectivite", RTR: "reseaux-connectivite", SWCH: "reseaux-connectivite",
@@ -119,7 +122,7 @@ export const FAMILLE_VERS_CATEGORIE = {
   STV: "multimedia", TVB: "multimedia", VP: "multimedia", EVP: "multimedia",
   PLAY: "multimedia", BAR: "multimedia",
 
-  SOFT: "logiciels",
+  SOFT: "logiciels", VIR: "logiciels",
 
   // Transport et protection
   CRTB: "sacs-housses", EMB: "sacs-housses",
@@ -143,6 +146,28 @@ export const FAMILLE_VERS_CATEGORIE = {
 
 export const CATEGORIE_PAR_DEFAUT = "accessoires";
 
-export function categoriePourFamille(famille) {
+// Rattrapages a la designation, appliques apres la famille.
+//
+// Une famille decrit un rayon, pas un article : le magasin range la carte de
+// pointage avec les cartes meres (CM) et le cable DisplayPort avec les
+// supports optiques (CDS). Une poignee de references ne peut donc pas etre
+// classee correctement par sa seule famille.
+//
+// L'ordre compte : le premier motif qui correspond gagne.
+export const AJUSTEMENTS_PAR_DESIGNATION = [
+  [/\bCARTE\b.*\bPOINTAGE\b|\bBADGE\b.*\b(RFID|PROXIMITE)\b/, "securite-cameras"],
+  [/\bPA[TS]?TE THERMIQUE\b/, "composants-pc"],
+  [/\bTABLETTE GRAPHIQUE\b/, "peripheriques"],
+  [/\bCABLE\b.*\bDISPLAY\b|\bDISPLAYPORT\b/, "cables-connectique"],
+  [/\bTRIPOD\b|\bTREPIED\b/, "accessoires"],
+];
+
+export function categoriePourFamille(famille, designation = "") {
+  const texte = String(designation ?? "").toUpperCase();
+
+  for (const [motif, slug] of AJUSTEMENTS_PAR_DESIGNATION) {
+    if (motif.test(texte)) return slug;
+  }
+
   return FAMILLE_VERS_CATEGORIE[String(famille ?? "").trim().toUpperCase()] ?? CATEGORIE_PAR_DEFAUT;
 }

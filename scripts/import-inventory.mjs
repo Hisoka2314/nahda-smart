@@ -278,7 +278,7 @@ try {
       nom,
       designation,
       marque: detecterMarque(designation),
-      categorie: categoriePourFamille(ligne.famille),
+      categorie: categoriePourFamille(ligne.famille, designation),
       quantite: Math.max(0, quantite),
     });
   }
