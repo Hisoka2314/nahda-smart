@@ -214,9 +214,13 @@ export default async function Home() {
         <section id="produits" className="bg-white py-14">
           <Container>
             <Reveal>
+              {/* "Meilleures ventes" affirmait un classement que la boutique
+                  n'a pas : elle vient d'ouvrir, aucune vente n'est enregistree.
+                  Le titre dira ce qu'il est des que le magasin cochera ses
+                  vrais best-sellers depuis le back-office. */}
               <SectionTitle
-                eyebrow="Sélection"
-                title="Meilleures ventes"
+                eyebrow="Catalogue"
+                title="Notre sélection"
                 description="Une sélection soignée de produits performants pour les besoins particuliers, professionnels et B2B."
                 action={
                   <Link
@@ -229,7 +233,7 @@ export default async function Home() {
               />
             </Reveal>
             <SectionCarousel
-              ariaLabel="Meilleures ventes"
+              ariaLabel="Notre sélection"
               className="mt-7"
             >
               {homeData.featuredProducts.map((product, index) => (
@@ -246,6 +250,10 @@ export default async function Home() {
           </Container>
         </section>
 
+        {/* La banniere ne s'affiche que s'il y a de vraies promotions.
+            Sans cette garde, la boutique annoncait "-25%" et le bouton menait
+            a un catalogue vide : aucun produit ne porte encore de prix promo. */}
+        {homeData.promoProducts.length > 0 && (
         <Container className="py-14">
           <Reveal>
             <div className="grid overflow-hidden rounded-card bg-nahda-ink text-white shadow-premium lg:grid-cols-[0.95fr_1.05fr]">
@@ -276,6 +284,7 @@ export default async function Home() {
             </div>
           </Reveal>
         </Container>
+        )}
 
         <section className="bg-white py-12">
           <Container>

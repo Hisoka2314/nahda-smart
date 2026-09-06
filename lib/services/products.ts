@@ -128,12 +128,28 @@ export async function getPublicProductBySlug(slug: string) {
   return prismaProductToCatalogProduct(product, { includeDetails: true });
 }
 
+// Aucun produit ne porte encore les drapeaux de mise en avant : la boutique
+// vient d'ouvrir, elle n'a pas d'historique de vente. Sans repli, la page
+// d'accueil s'ouvrait sur un carrousel vide sous un titre -- un visiteur
+// arrivait sur une boutique qui ne montre rien a acheter.
+//
+// Le repli prend de vrais produits publies, jamais des produits inventes. Des
+// que le magasin cochera "meilleure vente" ou "recommande" depuis le
+// back-office, sa selection reprendra la main.
+async function avecRepli(
+  selection: Awaited<ReturnType<typeof getPublicProducts>>,
+  take: number,
+) {
+  if (selection.length > 0) return selection;
+  return getPublicProducts({ take });
+}
+
 export async function getBestSellingProducts(take = 10) {
-  return getPublicProducts({ onlyBestSellers: true, take });
+  return avecRepli(await getPublicProducts({ onlyBestSellers: true, take }), take);
 }
 
 export async function getRecommendedProducts(take = 10) {
-  return getPublicProducts({ onlyRecommended: true, take });
+  return avecRepli(await getPublicProducts({ onlyRecommended: true, take }), take);
 }
 
 export async function getPromoProducts(take = 10) {
