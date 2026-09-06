@@ -78,11 +78,23 @@ try {
   console.log("\n--- A comparer avec l'autre machine ---");
   console.log(`   en stock : ${enStock.length}   publies : ${publies.length}`);
   console.log(
-    "   Un ecart entre le poste du magasin et le serveur signale des produits",
+    "   Un ecart sur 'en stock' signale des produits perdus en ligne. Pour les",
   );
-  console.log("   perdus en ligne. Pour les retrouver, avec le tableur a portee :");
-  console.log("     node scripts/import-inventory.mjs <inventaire.csv> --apply");
+  console.log("   retrouver, avec le tableur a portee :");
+  console.log(
+    "     node scripts/import-inventory.mjs <inventaire.csv> --comptes-seulement --apply",
+  );
   console.log("     node scripts/maj-stock.mjs <inventaire.csv> --apply");
+  console.log(
+    "\n   --comptes-seulement n'est pas facultatif : sans lui l'import recree",
+  );
+  console.log(
+    "   toute la liste, y compris ce qu'une purge avait retire a raison.",
+  );
+  console.log(
+    "\n   Un ou deux publies d'ecart sont normaux : un produit mis en ligne a la",
+  );
+  console.log("   main depuis l'admin ne figure dans aucun fichier de prix.");
   console.log(
     `\n   Les ${absentes.length} references absentes de la base ne sont pas listees : sans le`,
   );
