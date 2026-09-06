@@ -342,6 +342,8 @@ const TYPES = [
   [/\bIMPRIMANTE\b/, "Imprimante", "Vérifiez le coût des consommables autant que le prix de la machine."],
   [/\bROULEAU\b.*\bTHERMIQUE\b|\bETIQUETTES?\b.*\bTHERMIQUE\b/, "Consommable thermique",
     "Pour imprimante de tickets ou d'étiquettes : contrôlez la largeur du rouleau."],
+  [/\bFILM\b.*\b(CIRE|RESINE)\b|\bRUBONS?\b|\bRUBAN\b.*\bTRANSFERT\b/, "Ruban à transfert thermique",
+    "Imprime des étiquettes sur papier ordinaire, là où le thermique direct exige un papier spécial. Vérifiez le sens d'enroulement attendu par votre imprimante."],
 
   [/\bCABLE RESEAU\b|\bCABLE UTP\b|\bJARRETIERE\b|\bCABLE RJ45\b/, "Câble réseau RJ45",
     "Relie un poste, une caméra IP ou un point d'accès à votre switch. Le CAT6 tient le Gigabit jusqu'à cent mètres."],
@@ -361,8 +363,13 @@ const TYPES = [
 
   [/\bCLE WIFI\b|\bADAPTATEUR WIFI\b/, "Clé Wi-Fi USB",
     "Ajoute le Wi-Fi à un poste fixe, ou remplace une carte défaillante sur un portable."],
-  [/\bPOINT ACCES\b|\bPOINT D'ACCES\b/, "Point d'accès Wi-Fi",
+  // L'apostrophe manque dans la moitie des designations : "POINT D ACCES
+  // NETIS WF2416" n'etait reconnu par aucun motif et s'annoncait comme un
+  // vague "equipement reseau".
+  [/\bPOINT ?D? ?'?ACCES\b/, "Point d'accès Wi-Fi",
     "Étend la couverture sans fil d'un réseau existant. Il se raccorde au réseau filaire, contrairement à un répéteur."],
+  [/\bCLE BLUETOOTH\b|\bDONGLE BLUETOOTH\b|\bADAPTATEUR BLUETOOTH\b/, "Adaptateur Bluetooth USB",
+    "Ajoute le Bluetooth à un ordinateur qui n'en a pas, pour un casque, une souris ou un téléphone."],
   [/\bSWITCH\b|\bCOMMUTATEUR\b/, "Switch réseau",
     "Raccorde plusieurs appareils en filaire. Les modèles PoE alimentent caméras et bornes par le câble réseau."],
   [/\bROUTEUR\b|\bROUTER\b/, "Routeur", "Distribue la connexion internet vers les postes du réseau, en filaire et en Wi-Fi."],
@@ -393,16 +400,27 @@ const TYPES = [
   [/\bDISQUE DUR\b.*\bSSD\b|\bSSD\b/, "Disque SSD",
     "Bien plus rapide qu'un disque mécanique : c'est le remplacement qui rajeunit le plus une machine ancienne."],
   [/\bDISQUE DUR\b/, "Disque dur", "Vérifiez le format et l'interface attendus par votre machine."],
-  [/\bBOITIER\b.*\bDISQUE\b/, "Boîtier pour disque dur",
+  // "BOIITIER" avec deux i figure tel quel dans l'inventaire : le motif strict
+  // le manquait, et la fiche annoncait une "solution de stockage".
+  [/\bBOI?[IT]{1,2}IER\b.*\bDISQUE\b/, "Boîtier pour disque dur",
     "Transforme un disque interne en disque externe USB. Le format du boîtier doit correspondre à celui du disque."],
-  [/\bCLE USB\b/, "Clé USB", ""],
+  [/\bDOCKING STATION\b|\bSTATION D'?ACCUEIL\b/, "Station d'accueil pour disques durs",
+    "Le disque se pose dans la baie sans boîtier ni visserie : pratique pour lire plusieurs disques à la suite."],
+  // "USB Type-C SanDisk Dual Drive 128GO" est une cle USB sans commencer par
+  // "CLE USB".
+  [/\bCLE USB\b|\bDUAL DRIVE\b/, "Clé USB", ""],
   [/\bMICRO ?SD\b|\bCARTE MEMOIRE\b/, "Carte mémoire", "Vérifiez la classe de vitesse exigée par votre appareil."],
   [/\bNAS\b/, "Serveur de stockage en réseau", "Partage et sauvegarde les fichiers de plusieurs postes."],
 
   [/\bCASQUE\b|\bECOUTEUR\b|\bAIRPODS\b/, "Audio personnel", ""],
-  [/\bHAUT ?PARLEUR\b|\bSPEAKER\b|\bENCEINTE\b|\bBARRE DE SON\b/, "Enceinte", ""],
+  // "SPEAKEAR" figure tel quel dans l'inventaire.
+  [/\bHAUT ?-?PARLEUR\b|\bSPEAKE?A?R\b|\bENCEINTE\b|\bBARRE DE SON\b/, "Enceinte", ""],
+  // Avant la regle TELEVISION : un recepteur n'est pas un televiseur.
+  [/\bRECEPTEUR\b|\bTV ?BOX\b|\bBOX ANDROID\b|\bIP ?STATION\b/, "Boîtier multimédia",
+    "Se branche sur un téléviseur pour y ajouter les applications et la lecture en ligne. Aucun abonnement n'est inclus."],
   [/\bTELEVISION\b|\bTV\b(?!.*SUPPORT)/, "Téléviseur", ""],
-  [/\bSUPPORT\b.*\bTV\b/, "Support de téléviseur",
+  // "SUPPORT LCD WALL MOUNT" ne dit jamais "TV".
+  [/\bSUPPORT\b.*\b(TV|LCD|ECRAN|MONITEUR)\b|\bWALL MOUNT\b/, "Support de téléviseur",
     "Vérifiez la norme VESA et le poids maximal supporté avant la pose."],
   [/\bVIDEOPROJECTEUR\b|\bPROJECTEUR\b/, "Vidéoprojecteur", ""],
 
@@ -435,6 +453,15 @@ const TYPES = [
     "Referme la porte seule après chaque passage. La taille se choisit selon le poids et la largeur du vantail."],
   [/\bAUTOCOLLANT\b.*\bCLAVIER\b/, "Autocollants de clavier",
     "Se collent sur les touches pour ajouter une disposition à un clavier existant."],
+  [/\bTELECOMMANDE\b.*\bPRESENTATION\b|\bPRESENTER\b.*\bLASER\b/, "Télécommande de présentation",
+    "Fait défiler les diapositives à distance, avec un pointeur laser. Le récepteur USB se branche sans pilote."],
+  [/\bPRODUIT DE NET(?:T)?[OY]{2}AGE\b|\bNETTOYANT\b|\bSPRAY\b.*\bNETTOY/, "Produit de nettoyage",
+    "À vaporiser sur le chiffon, jamais directement sur l'écran : le liquide s'infiltre par les bords de la dalle."],
+  // Le magasin vend quelques desodorisants de voiture, sans rapport avec
+  // l'informatique. Les annoncer comme "accessoire informatique" ne trompait
+  // personne, mais ne renseignait pas davantage.
+  [/\bCAR AROMA\b|\bFRAN?GRANCE\b|\bDESODORISANT\b|\bPARFUM\b.*\bVOITURE\b/, "Désodorisant pour voiture",
+    "Se pose ou se vaporise dans l'habitacle."],
 ];
 
 // Une machine ne peut pas etre annoncee par un nom qui commence par un
@@ -524,10 +551,23 @@ try {
   // egale au nom du produit. Le seul test sur les majuscules laissait passer
   // les designations contenant une minuscule ("i7-10510u"), qui restaient
   // affichees telles quelles en boutique.
+  // --tout couvre en plus les descriptions importees d'Icecat qui ne sont
+  // qu'un empilement de "Libelle: valeur". Elles ouvraient la fiche produit
+  // sur un mur de caracteristiques la ou le client attend une phrase -- et
+  // rien ne se perd : ces caracteristiques restent dans l'onglet dedie.
+  //
+  // Le seuil de cinq clauses distingue le vidage de specs de la phrase
+  // constructeur : "HP 05A toner LaserJet noir authentique. Rendement par
+  // page: 2300 pages." en compte trois et se lit tres bien.
+  const videSpecs = `(
+      SELECT count(*) FROM regexp_matches(p.description, '[A-Za-z)\\]]: [^,.]{1,70}[,.]', 'g')
+    ) >= 5`;
+
   const filtre = tout
     ? `p.description = upper(p.description)
        OR upper(btrim(p.description)) = upper(btrim(p.name))
-       OR p.description LIKE '%vous conseiller avant l''achat.'`
+       OR p.description LIKE '%vous conseiller avant l''achat.'
+       OR ${videSpecs}`
     : `p.description = upper(p.description) OR upper(btrim(p.description)) = upper(btrim(p.name))`;
 
   const { rows } = await client.query(`

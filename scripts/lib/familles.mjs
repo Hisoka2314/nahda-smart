@@ -160,6 +160,10 @@ export const AJUSTEMENTS_PAR_DESIGNATION = [
   [/\bTABLETTE GRAPHIQUE\b/, "peripheriques"],
   [/\bCABLE\b.*\bDISPLAY\b|\bDISPLAYPORT\b/, "cables-connectique"],
   [/\bTRIPOD\b|\bTREPIED\b/, "accessoires"],
+  // Rangee en alarme par le magasin, donc en videosurveillance : la fiche
+  // annoncait une telecommande de presentation comme un "equipement de
+  // videosurveillance".
+  [/\bTELECOMMANDE\b.*\bPRESENTATION\b/, "peripheriques"],
 ];
 
 export function categoriePourFamille(famille, designation = "") {
