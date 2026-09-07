@@ -329,6 +329,139 @@ l'en-tête HSTS présent, et `307` sur `/admin` sans session.
 
 ---
 
+## Ajouter un domaine à un serveur déjà en ligne
+
+Le site a d'abord tourné sur `nahdasmart.duckdns.org`. Voici comment lui
+ajouter `nahdasmart.com` et `nahdasmart.ma` sans interruption.
+
+### Ce qui est déjà fait
+
+Les quatre noms — avec et sans `www` — pointent déjà sur l'IP du serveur.
+Vérifiable depuis n'importe quelle machine :
+
+```bash
+nslookup nahdasmart.com
+```
+
+L'adresse renvoyée doit être celle du VPS. Si oui, **rien à faire côté DNS**.
+
+### Le symptôme, et sa cause
+
+`https://nahdasmart.com` échoue alors que `https://nahdasmart.duckdns.org`
+fonctionne. Ce n'est pas le DNS : nginx ne connaît que le nom duckdns, donc il
+répond à tous les autres avec le certificat de celui-là. Le navigateur voit un
+certificat au mauvais nom et refuse la connexion.
+
+Deux choses manquent, dans cet ordre : le nom dans nginx, puis le certificat.
+
+### Étape A — Choisir le domaine principal
+
+Un seul doit être canonique ; les autres redirigent vers lui. Sans ce choix,
+Google voit trois boutiques identiques et dilue le référencement entre elles.
+
+Pour un commerce marocain, `.ma` inspire davantage confiance localement et
+`.com` reste compris partout. Le choix est commercial, pas technique — mais il
+doit être fait avant d'activer le référencement.
+
+### Étape B — Déclarer les noms dans nginx
+
+```bash
+nano /etc/nginx/sites-available/nahda
+```
+
+Sur la ligne `server_name`, ajouter les quatre noms à celui déjà présent :
+
+```nginx
+server_name nahdasmart.duckdns.org nahdasmart.com www.nahdasmart.com nahdasmart.ma www.nahdasmart.ma;
+```
+
+Garder `nahdasmart.duckdns.org` : le certificat actuel le couvre, et le site
+reste joignable pendant toute l'opération.
+
+```bash
+nginx -t && systemctl reload nginx
+```
+
+`nginx -t` doit répondre `syntax is ok` et `test is successful`. En cas
+d'erreur, nginx n'est pas rechargé et le site continue de tourner.
+
+### Étape C — Obtenir le certificat
+
+```bash
+certbot --nginx -d nahdasmart.duckdns.org -d nahdasmart.com -d www.nahdasmart.com -d nahdasmart.ma -d www.nahdasmart.ma
+```
+
+Certbot vérifie chaque nom en déposant un fichier que Let's Encrypt vient lire
+en HTTP : les cinq doivent donc déjà pointer sur le serveur, et le port 80
+rester ouvert. Choisir la redirection automatique vers HTTPS quand il la
+propose.
+
+Le renouvellement est automatique. Ne pas ajouter d'en-tête HSTS dans nginx :
+l'application l'envoie déjà.
+
+**Vérification** :
+
+```bash
+curl -sI https://nahdasmart.com | head -1
+```
+
+### Étape D — Dire à l'application son adresse
+
+Le sitemap, les liens canoniques et le bouton WhatsApp sont construits à partir
+de `NEXT_PUBLIC_SITE_URL`. Tant qu'elle vaut l'adresse duckdns, le sitemap
+soumis à Google annonce l'ancien domaine.
+
+```bash
+nano /var/www/nahda/app/.env
+```
+
+```
+NEXT_PUBLIC_SITE_URL="https://nahdasmart.ma"
+```
+
+Cette variable est figée à la compilation : un redémarrage ne suffit pas, il
+faut reconstruire.
+
+```bash
+cd /var/www/nahda/app && sudo -u nahda npm run build && systemctl restart nahda
+```
+
+**Vérification** : les adresses du sitemap portent le nouveau domaine.
+
+```bash
+curl -s https://nahdasmart.ma/sitemap.xml | head -5
+```
+
+### Étape E — Ouvrir le site au référencement
+
+À ne faire qu'une fois les étapes A à D vérifiées. Sinon Google indexe
+l'ancienne adresse, et ce référencement est perdu au changement.
+
+Dans `.env`, retirer la ligne ou la passer à zéro :
+
+```
+SEO_NOINDEX="0"
+```
+
+```bash
+cd /var/www/nahda/app && sudo -u nahda npm run build && systemctl restart nahda
+```
+
+**Vérification** : `robots.txt` doit autoriser l'exploration, et la balise
+`noindex` avoir disparu des pages.
+
+```bash
+curl -s https://nahdasmart.ma/robots.txt && curl -s https://nahdasmart.ma/ | grep -c noindex
+```
+
+La seconde commande doit afficher `0`.
+
+Reste ensuite à déclarer le site dans Google Search Console et à y soumettre
+`https://nahdasmart.ma/sitemap.xml`. Comptez quelques jours avant les premières
+apparitions dans les résultats.
+
+---
+
 ## Mettre à jour le site plus tard
 
 ```bash
