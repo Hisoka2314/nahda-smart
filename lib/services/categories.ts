@@ -1,13 +1,26 @@
+import type { Prisma } from "@prisma/client";
 import { getPrismaClient } from "@/lib/db";
 import {
   prismaCategoryToCatalogCategory,
   prismaCategoryToProductCategory,
 } from "@/lib/adapters/category-adapter";
 
+// Une categorie vide n'a rien a faire devant un client : la vitrine annoncait
+// "PC Bureau - 0 produits" et "All-in-One - 0 produits" sur sa page d'accueil,
+// et les filtres du catalogue menaient a des pages sans resultat. Elles
+// restent actives en base, donc pretes a reapparaitre des qu'un produit y
+// entre, mais ne sont plus proposees tant qu'elles sont vides.
+const CATEGORIE_NON_VIDE: Prisma.CategoryWhereInput = {
+  isActive: true,
+  products: {
+    some: { status: { in: ["PUBLISHED", "ON_ORDER", "OUT_OF_STOCK"] } },
+  },
+};
+
 export async function getPublicCategories() {
   const db = getPrismaClient();
   const categories = await db.category.findMany({
-    where: { isActive: true },
+    where: CATEGORIE_NON_VIDE,
     include: {
       _count: {
         select: {
@@ -28,7 +41,7 @@ export async function getPublicCategories() {
 export async function getPublicHomeCategories() {
   const db = getPrismaClient();
   const categories = await db.category.findMany({
-    where: { isActive: true },
+    where: CATEGORIE_NON_VIDE,
     include: {
       _count: {
         select: {
