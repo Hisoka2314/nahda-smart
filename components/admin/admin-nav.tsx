@@ -22,6 +22,7 @@ import {
   Tags,
   Users,
   Wrench,
+  ScanLine,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -37,6 +38,7 @@ const adminNav: Array<{
   section: AdminSection | null;
 }> = [
   { label: "Tableau de bord", href: "/admin", icon: LayoutDashboard, section: null },
+  { label: "Caisse", href: "/admin/caisse", icon: ScanLine, section: "orders" },
   { label: "Commandes", href: "/admin/commandes", icon: ShoppingCart, section: "orders" },
   { label: "Devis", href: "/admin/devis", icon: FileText, section: "quotes" },
   { label: "Leads & contacts", href: "/admin/contacts", icon: MessageSquare, section: "contacts" },
