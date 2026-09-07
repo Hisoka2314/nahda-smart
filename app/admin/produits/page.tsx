@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Eye, PackagePlus } from "lucide-react";
+import { Eye, PackagePlus, ScanLine } from "lucide-react";
 import { ProductCondition, ProductStatus } from "@prisma/client";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import {
@@ -79,6 +79,14 @@ export default async function AdminProductsPage({
           action={
             <div className="flex flex-wrap items-center gap-2">
               <AdminExportActions dataset="produits" />
+              {canManageProduct ? (
+                <Link href="/admin/produits/codes-barres">
+                  <Button variant="lightOutline">
+                    <ScanLine size={16} />
+                    Codes-barres
+                  </Button>
+                </Link>
+              ) : null}
               {canManageProduct ? (
                 <Link href="/admin/produits/nouveau">
                   <Button>
