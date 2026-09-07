@@ -1,11 +1,14 @@
 import { z } from "zod";
+import { ProductCondition } from "@prisma/client";
 import {
   nonNegativeMoneySchema,
   optionalTextSchema,
   slugSchema,
 } from "@/lib/validations/common";
 
-export const productConditionSchema = z.enum(["NEW", "USED", "REFURBISHED"]);
+// Liste ecrite en dur : elle a survecu a l'ajout de LIKE_NEW et aurait
+// rejete la valeur a l'enregistrement. Elle suit desormais l'enum Prisma.
+export const productConditionSchema = z.enum(ProductCondition);
 export const productStatusSchema = z.enum([
   "PUBLISHED",
   "DRAFT",

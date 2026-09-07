@@ -471,6 +471,13 @@ cd /var/www/nahda/app && sudo -u nahda npm run backup:db && sudo -u nahda git pu
 Toujours la sauvegarde avant, et toujours `git pull` en place — jamais un clone
 neuf, sinon relisez l'étape 5 sur les images.
 
+> **`npm run build` régénère le client Prisma avant de compiler.** C'est
+> indispensable après une migration : `prisma migrate deploy` applique le SQL
+> mais ne touche pas aux types TypeScript, contrairement à `migrate dev` qui
+> les régénère au passage. Sans cela, le build échoue sur des propriétés
+> « inexistantes » alors que la colonne est bien en base — c'est arrivé en
+> septembre 2026 sur l'ajout de `LIKE_NEW` et des mentions légales.
+
 ### Rejouer le classement et les fiches produit
 
 Le code déployé ne suffit pas quand la mise à jour touche le rangement du
