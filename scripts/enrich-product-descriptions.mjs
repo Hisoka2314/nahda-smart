@@ -114,7 +114,21 @@ function extraireSpecs(texte) {
   // Deux capacites separees par "/" : la premiere est la memoire vive, la
   // seconde le stockage. C'est la convention de saisie du magasin
   // ("8GO/256GO SSD") et elle est constante sur tout l'inventaire.
-  const paire = t.match(/(\d+)\s?G[OB]\s?\/\s?(\d+)\s?(G[OB]|T[OB])/);
+  // L'unite tombe parfois des deux cotes : "8/256". Les valeurs admises sont
+  // bornees aux capacites reelles, sans quoi "810 G3 4/2014" ou un rapport de
+  // ports "8/16" seraient lus comme une configuration.
+  const MEMOIRES = new Set([2, 4, 6, 8, 12, 16, 24, 32, 64]);
+  const STOCKAGES = new Set([64, 120, 128, 240, 250, 256, 480, 500, 512, 1000, 1024, 2000]);
+
+  const paire =
+    t.match(/(\d+)\s?G[OB]\s?\/\s?(\d+)\s?(G[OB]|T[OB])/) ??
+    (() => {
+      const brut = t.match(/\b(\d{1,2})\s?\/\s?(\d{2,4})\b/);
+      if (!brut) return null;
+      if (!MEMOIRES.has(Number(brut[1])) || !STOCKAGES.has(Number(brut[2]))) return null;
+      return [brut[0], brut[1], brut[2], "GO"];
+    })();
+
   if (paire) {
     ajouter(`${paire[1]} Go de mémoire vive`);
     ajouter(`Stockage ${paire[2]} ${paire[3].startsWith("T") ? "To" : "Go"}`);
@@ -264,11 +278,20 @@ function extraireSpecs(texte) {
     [/\bPOE\b/, "Alimentation PoE"],
     [/\bWIFI\b|\bSANS FIL\b|\bWIRELESS\b/, "Sans fil"],
     [/\bBLUETOOTH\b/, "Bluetooth"],
-    [/\bTACTILE\b|\bTOUCH\b/, "Écran tactile"],
+    // Un chassis convertible est tactile par construction : une charniere a
+    // 360° n'aurait aucun sens sans. Le magasin ne l'ecrit jamais, et sept
+    // portables gardaient l'argument enterre dans l'onglet technique --
+    // "Ecran rabattable a 360°" seul ne dit pas au client qu'il peut toucher
+    // l'ecran.
+    [/\bTACTILE\b|\bTOUCH\b|\bX360\b|\bYOGA\b|\bREVOLVE\b|\bSURFACE\b/, "Écran tactile"],
     [/\bRGB\b/, "Rétroéclairage RGB"],
     [/\bETANCHE\b|\bIP6[567]\b/, "Résistant aux intempéries"],
     [/\bCOLORVU\b/, "Vision nocturne couleur"],
+    // Le Revolve n'est pas dans cette liste : son ecran pivote sur un axe
+    // central et se rabat a plat, il ne fait pas le tour comme une charniere
+    // a 360°. Tactile oui, rabattable a 360° non.
     [/\bX360\b|\bYOGA\b/, "Écran rabattable à 360°"],
+    [/\bREVOLVE\b/, "Écran pivotant, convertible en tablette"],
   ]) {
     if (motif.test(t)) ajouter(libelle);
   }

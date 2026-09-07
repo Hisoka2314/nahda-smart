@@ -31,6 +31,7 @@ import { Button } from "@/components/ui/button";
 import { brandSlugMap } from "@/data/brands";
 import { catalogProductToCartProduct } from "@/lib/cart";
 import {
+  conditionLabels,
   getBrandFallbackLabel,
   getBrandName,
   getCategoryName,
@@ -181,6 +182,13 @@ export function ProductDetailClient({
             </Badge>
             {product.isPromo ? <Badge variant="promo">Promo</Badge> : null}
             {product.isNew ? <Badge variant="olive">Nouveau</Badge> : null}
+            {/* L'etat d'une machine d'occasion est une information que
+                l'acheteur doit voir avant le prix, pas apres avoir ouvert
+                l'onglet technique. Le neuf n'a pas besoin d'etre annonce :
+                c'est ce qu'on attend par defaut. */}
+            {product.condition !== "new" ? (
+              <Badge variant="olive">{conditionLabels[product.condition]}</Badge>
+            ) : null}
             <span className="min-w-0 max-w-full break-all rounded-[8px] bg-surface-muted px-2.5 py-1 text-xs font-black text-neutral-600">
               SKU : {product.id.toUpperCase()}
             </span>
