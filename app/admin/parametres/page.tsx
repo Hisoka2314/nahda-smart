@@ -148,6 +148,113 @@ export default async function AdminSettingsPage({
               />
             </AdminField>
 
+            {/* Mentions legales. Une facture marocaine qui ne les porte pas
+                n'est pas opposable : le client ne peut pas la deduire, et
+                l'administration peut la refuser. Toutes sont facultatives
+                ici, pour que le magasin les saisisse a mesure qu'il recoit
+                ses attestations -- un document omet la ligne vide plutot que
+                d'imprimer un libelle sans valeur. */}
+            <div className="lg:col-span-2 border-t border-white/10 pt-6">
+              <p className="text-sm font-black uppercase tracking-wide text-nahda-olive">
+                Mentions legales
+              </p>
+              <p className="mt-1 text-xs leading-5 text-white/60">
+                Reprises en en-tete et en pied des factures et des devis. Une
+                ligne laissee vide n&apos;est pas imprimee.
+              </p>
+            </div>
+
+            <AdminField
+              label="Raison sociale"
+              hint="Telle qu'elle figure au registre du commerce."
+            >
+              <AdminTextInput
+                name="legalName"
+                defaultValue={settings.legalName}
+                placeholder="Nahda Smart"
+              />
+            </AdminField>
+            <AdminField label="Forme juridique">
+              <AdminTextInput
+                name="legalForm"
+                defaultValue={settings.legalForm}
+                placeholder="SARL AU"
+              />
+            </AdminField>
+            <AdminField label="Capital social">
+              <AdminTextInput
+                name="legalCapital"
+                defaultValue={settings.legalCapital}
+                placeholder="100 000,00 DH"
+              />
+            </AdminField>
+            <AdminField
+              label="Siege social"
+              hint="Adresse legale, si elle differe de l'adresse du magasin."
+            >
+              <AdminTextInput
+                name="legalAddress"
+                defaultValue={settings.legalAddress}
+                placeholder="46 AV OKBA ET G 3, APT 18, Agdal, Rabat"
+              />
+            </AdminField>
+            <AdminField label="ICE">
+              <AdminTextInput
+                name="ice"
+                defaultValue={settings.ice}
+                placeholder="003981799000019"
+              />
+            </AdminField>
+            <AdminField label="Registre du commerce (RC)">
+              <AdminTextInput
+                name="rc"
+                defaultValue={settings.rc}
+                placeholder="132073"
+              />
+            </AdminField>
+            <AdminField label="Tribunal du RC">
+              <AdminTextInput
+                name="rcCity"
+                defaultValue={settings.rcCity}
+                placeholder="Rabat"
+              />
+            </AdminField>
+            <AdminField label="Identifiant fiscal (IF)">
+              <AdminTextInput
+                name="taxId"
+                defaultValue={settings.taxId}
+                placeholder="48553685"
+              />
+            </AdminField>
+            <AdminField label="Patente">
+              <AdminTextInput
+                name="patente"
+                defaultValue={settings.patente}
+                placeholder="26900893"
+              />
+            </AdminField>
+            <AdminField label="CNSS">
+              <AdminTextInput
+                name="cnss"
+                defaultValue={settings.cnss}
+                placeholder="2518767"
+              />
+            </AdminField>
+            <AdminField
+              label="Taux de TVA (%)"
+              hint="Zero si le magasin n'est pas assujetti : la facture n'affiche alors aucun detail de taxe."
+            >
+              <AdminTextInput
+                name="vatRate"
+                type="number"
+                min="0"
+                max="100"
+                step="0.01"
+                defaultValue={String(settings.vatRate)}
+                placeholder="20"
+              />
+            </AdminField>
+
             <div className="lg:col-span-2">
               <Button type="submit">Enregistrer les modifications</Button>
             </div>

@@ -20,6 +20,17 @@ export async function updateSiteSettingsAction(formData: FormData) {
     instagramUrl: formData.get("instagramUrl") ?? "",
     openingHours: formData.get("openingHours"),
     deliveryFee: formData.get("deliveryFee"),
+    legalName: formData.get("legalName") ?? "",
+    legalForm: formData.get("legalForm") ?? "",
+    legalCapital: formData.get("legalCapital") ?? "",
+    legalAddress: formData.get("legalAddress") ?? "",
+    ice: formData.get("ice") ?? "",
+    rc: formData.get("rc") ?? "",
+    rcCity: formData.get("rcCity") ?? "",
+    taxId: formData.get("taxId") ?? "",
+    patente: formData.get("patente") ?? "",
+    cnss: formData.get("cnss") ?? "",
+    vatRate: formData.get("vatRate") ?? 20,
   });
 
   if (!parsed.success) {

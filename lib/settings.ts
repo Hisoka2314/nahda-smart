@@ -18,6 +18,21 @@ export type SiteSettings = {
   instagramUrl: string;
   openingHours: string;
   deliveryFee: number;
+
+  // Mentions legales, obligatoires sur une facture marocaine. Elles restent
+  // vides tant que le magasin ne les a pas saisies : les documents omettent
+  // alors la ligne plutot que d'imprimer un libelle sans valeur.
+  legalName: string;
+  legalForm: string;
+  legalCapital: string;
+  legalAddress: string;
+  ice: string;
+  rc: string;
+  rcCity: string;
+  taxId: string;
+  patente: string;
+  cnss: string;
+  vatRate: number;
 };
 
 // Source unique du tarif de livraison. Le montant etait auparavant ecrit en
@@ -44,6 +59,17 @@ export const defaultSiteSettings: SiteSettings = {
   instagramUrl: "",
   openingHours: "Lun - Sam : 9h00 - 18h00",
   deliveryFee: 30,
+  legalName: "Nahda Smart",
+  legalForm: "SARL AU",
+  legalCapital: "",
+  legalAddress: "",
+  ice: "",
+  rc: "",
+  rcCity: "Rabat",
+  taxId: "",
+  patente: "",
+  cnss: "",
+  vatRate: 20,
 };
 
 // Mappeur unique partage avec le back-office : il etait duplique dans
@@ -61,6 +87,17 @@ export function toSiteSettings(row: SiteSettingRow): SiteSettings {
     instagramUrl: row.instagramUrl,
     openingHours: row.openingHours,
     deliveryFee: Number(row.deliveryFee),
+    legalName: row.legalName,
+    legalForm: row.legalForm,
+    legalCapital: row.legalCapital,
+    legalAddress: row.legalAddress,
+    ice: row.ice,
+    rc: row.rc,
+    rcCity: row.rcCity,
+    taxId: row.taxId,
+    patente: row.patente,
+    cnss: row.cnss,
+    vatRate: Number(row.vatRate),
   };
 }
 

@@ -2,6 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { PrintButton } from "@/components/admin/print-button";
+import {
+  EnteteDocument,
+  PiedDocument,
+  dirhams,
+  totauxAvecTva,
+} from "@/components/admin/document-commercial";
 import { requireAdminSection } from "@/lib/auth/admin-auth";
 import { getAdminOrderById } from "@/lib/services/admin-orders";
 import { getSiteSettings } from "@/lib/settings";
@@ -24,6 +30,10 @@ export default async function AdminOrderInvoicePage({
     notFound();
   }
 
+  // Les prix du catalogue sont saisis toutes taxes comprises : la base et la
+  // taxe se deduisent du total, jamais l'inverse.
+  const totaux = totauxAvecTva(order.total, settings.vatRate);
+
   return (
     <main className="min-h-screen bg-white p-6 text-nahda-ink md:p-10 print:p-0">
       <div className="mx-auto max-w-3xl">
@@ -38,25 +48,12 @@ export default async function AdminOrderInvoicePage({
           <PrintButton />
         </div>
 
-        <header className="flex flex-wrap items-start justify-between gap-6 border-b-2 border-nahda-ink pb-6">
-          <div>
-            <h1 className="text-2xl font-black">{settings.companyName}</h1>
-            <p className="mt-2 text-sm leading-6 text-neutral-600">
-              {settings.addressPrimary}
-              <br />
-              Tél : {settings.phone}
-              <br />
-              {settings.email}
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-xl font-black uppercase">Facture</p>
-            <p className="mt-2 text-sm font-bold text-neutral-600">
-              N° {order.orderNumber}
-            </p>
-            <p className="text-sm text-neutral-500">{order.createdAt}</p>
-          </div>
-        </header>
+        <EnteteDocument
+          settings={settings}
+          titre="Facture"
+          numero={order.orderNumber}
+          date={order.createdAt}
+        />
 
         <section className="mt-6 grid gap-6 sm:grid-cols-2">
           <div>
@@ -130,16 +127,32 @@ export default async function AdminOrderInvoicePage({
             <span className="text-neutral-600">Livraison</span>
             <span className="font-bold">{order.deliveryFeeLabel}</span>
           </div>
+
+          {/* Le detail de la taxe n'apparait que si le magasin est assujetti.
+              A taux zero, l'afficher laisserait croire a une TVA nulle plutot
+              qu'a son absence. */}
+          {totaux.taux > 0 ? (
+            <>
+              <div className="mt-2 flex justify-between border-t border-neutral-300 py-1 pt-2">
+                <span className="text-neutral-600">Total HT</span>
+                <span className="font-bold">{dirhams(totaux.ht)}</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-neutral-600">TVA {totaux.taux} %</span>
+                <span className="font-bold">{dirhams(totaux.tva)}</span>
+              </div>
+            </>
+          ) : null}
+
           <div className="mt-2 flex justify-between border-t-2 border-nahda-ink py-2 text-base">
-            <span className="font-black">Total</span>
+            <span className="font-black">
+              {totaux.taux > 0 ? "Total TTC" : "Total"}
+            </span>
             <span className="font-black">{order.totalLabel}</span>
           </div>
         </div>
 
-        <footer className="mt-10 border-t border-neutral-200 pt-4 text-center text-xs text-neutral-500">
-          {settings.companyName} — {settings.addressPrimary} — {settings.phone} —{" "}
-          {settings.email}
-        </footer>
+        <PiedDocument settings={settings} />
       </div>
     </main>
   );

@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FileText } from "lucide-react";
 import { QuoteStatus } from "@prisma/client";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import {
@@ -42,9 +44,18 @@ export default async function AdminQuoteDetailPage({
           title={quote.quoteNumber}
           description={`${quote.customerName} - ${quote.createdAt}`}
           action={
-            <AdminStatusBadge tone={getQuoteStatusTone(quote.status)}>
-              {quote.statusLabel}
-            </AdminStatusBadge>
+            <div className="flex items-center gap-3">
+              <Link
+                href={`/admin/devis/${quote.id}/impression`}
+                className="inline-flex h-9 items-center gap-1.5 rounded-control bg-nahda-olive px-3 text-xs font-bold text-white hover:bg-nahda-olive-dark"
+              >
+                <FileText size={14} />
+                Imprimer
+              </Link>
+              <AdminStatusBadge tone={getQuoteStatusTone(quote.status)}>
+                {quote.statusLabel}
+              </AdminStatusBadge>
+            </div>
           }
         />
 

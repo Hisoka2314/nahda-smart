@@ -31,7 +31,13 @@ export type AdminQuoteListItem = {
 
 export type AdminQuoteDetail = AdminQuoteListItem & {
   message?: string;
+  // Le montant brut, en plus de son libelle : le document imprime en deduit
+  // la base hors taxe et la TVA, ce qu'une chaine formatee ne permet pas.
+  total?: number;
   totalLabel?: string;
+  customerEmail?: string;
+  customerAddress?: string;
+  customerCity?: string;
   items: Array<{
     id: string;
     productName: string;
@@ -187,7 +193,11 @@ function toAdminQuoteDetail(quote: QuoteDetailPayload): AdminQuoteDetail {
   return {
     ...toAdminQuoteListItem(quote),
     message: quote.message ?? undefined,
+    total: quote.total ? Number(quote.total) : undefined,
     totalLabel: quote.total ? formatMoney(Number(quote.total)) : undefined,
+    customerEmail: quote.customer?.email ?? undefined,
+    customerAddress: quote.customer?.address ?? undefined,
+    customerCity: quote.customer?.city ?? undefined,
     items: quote.items.map((item) => ({
       id: item.id,
       productName: item.product?.name ?? item.productName ?? "Produit a qualifier",
