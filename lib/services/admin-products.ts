@@ -406,6 +406,10 @@ function buildProductWhere(filters: AdminProductFilters): Prisma.ProductWhereInp
     where.OR = [
       { name: { contains: q, mode: "insensitive" } },
       { sku: { contains: q, mode: "insensitive" } },
+      // Le code-barres manquait a la recherche : la douchette le tape dans
+      // le champ comme le ferait un clavier, et la liste ne renvoyait rien.
+      // Sans cette ligne, le champ barcode ne sert qu'a etre stocke.
+      { barcode: { contains: q, mode: "insensitive" } },
       { slug: { contains: q, mode: "insensitive" } },
       { brand: { name: { contains: q, mode: "insensitive" } } },
       { category: { name: { contains: q, mode: "insensitive" } } },
