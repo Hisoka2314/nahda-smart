@@ -46,6 +46,16 @@ if (!databaseUrl) {
   process.exit(1);
 }
 
+function versSlug(texte) {
+  return texte
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
 function decouperLigneCsv(ligne) {
   const cellules = [];
   let courant = "";
@@ -102,7 +112,14 @@ console.log(
 const client = new pg.Client({ connectionString: databaseUrl });
 await client.connect();
 
-const stats = { creees: 0, deplaces: 0, inchanges: 0, horsInventaire: 0, marquesCorrigees: 0 };
+const stats = {
+  creees: 0,
+  deplaces: 0,
+  inchanges: 0,
+  horsInventaire: 0,
+  marquesCorrigees: 0,
+  marquesCreees: 0,
+};
 const mouvements = new Map();
 const corrections = [];
 
@@ -172,20 +189,34 @@ try {
     const marqueVoulue = detecterMarque(designation);
 
     if (marqueVoulue !== produit.marque_actuelle) {
-      const cible = parMarque.get(marqueVoulue.toUpperCase());
+      let cible = parMarque.get(marqueVoulue.toUpperCase());
 
-      if (cible) {
-        stats.marquesCorrigees += 1;
-        corrections.push(
-          `${produit.sku.padEnd(18)} ${produit.marque_actuelle ?? "?"} -> ${marqueVoulue}`,
+      // La marque peut ne pas exister encore : la table de detection s'etoffe,
+      // et 64 references sortaient en "Generique" faute d'une entree. Sans
+      // cette creation le script les ignorait en silence.
+      if (!cible && apply) {
+        const res = await client.query(
+          `INSERT INTO "Brand" (id, name, slug, "isActive", "isOfficialAsset", "createdAt", "updatedAt")
+           VALUES (gen_random_uuid()::text, $1, $2, true, false, now(), now())
+           ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name
+           RETURNING id, name`,
+          [marqueVoulue, versSlug(marqueVoulue)],
         );
+        cible = res.rows[0];
+        parMarque.set(marqueVoulue.toUpperCase(), cible);
+        stats.marquesCreees += 1;
+      }
 
-        if (apply) {
-          await client.query(
-            `UPDATE "Product" SET "brandId" = $2, "updatedAt" = NOW() WHERE id = $1`,
-            [produit.id, cible.id],
-          );
-        }
+      stats.marquesCorrigees += 1;
+      corrections.push(
+        `${produit.sku.padEnd(18)} ${produit.marque_actuelle ?? "?"} -> ${marqueVoulue}`,
+      );
+
+      if (apply && cible) {
+        await client.query(
+          `UPDATE "Product" SET "brandId" = $2, "updatedAt" = NOW() WHERE id = $1`,
+          [produit.id, cible.id],
+        );
       }
     }
 
@@ -219,6 +250,7 @@ try {
   console.log(`Deja bien ranges         : ${stats.inchanges}`);
   console.log(`Hors inventaire (ignores): ${stats.horsInventaire}`);
   console.log(`Marques corrigees        : ${stats.marquesCorrigees}`);
+  console.log(`Marques creees           : ${stats.marquesCreees}`);
 
   if (corrections.length > 0) {
     console.log("\nMarques :");
