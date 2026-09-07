@@ -332,7 +332,17 @@ const TYPES = [
   [/\bCARTE MERE\b|\bMOTHERBOARD\b/, "Carte mère", ""],
   [/\bCARTE GRAPHIQUE\b/, "Carte graphique",
     "Vérifiez la longueur de la carte et la puissance de l'alimentation avant l'achat."],
-  [/\bBOITIER\b.*\b(GAMER|ATX)\b/, "Boîtier d'ordinateur", ""],
+  // "BOITIER SG GLASS 3 FAN ARGB NOIR" est un boitier de PC. Sans ces
+  // mots-cles il tombait plus bas sur la regle GLASS et s'annoncait comme une
+  // protection d'ecran en verre trempe.
+  [/\bBOITIER\b.*\b(GAMER|ATX|ARGB|RGB|FAN|GLASS|TOWER|MOYENNE TOUR)\b/, "Boîtier d'ordinateur",
+    "Accueille la carte mère, l'alimentation et les disques. Vérifiez le format admis : ATX, micro-ATX ou mini-ITX."],
+  // Une alimentation de PC se reconnait a sa puissance ou a sa certification.
+  // La regle des coffrets camera passe avant, elle reste prioritaire.
+  [/\bALIMENTATION\b.*(\d{3,4}\s?W\b|\bBRONZE\b|\bGOLD\b|\bATX\b|\bMODULAIRE\b)/, "Alimentation pour ordinateur",
+    "La puissance doit couvrir la carte graphique et le processeur, avec de la marge. La certification 80 PLUS mesure le rendement."],
+  [/\bAIRCOOLER\b|\bVENTIRAD\b|\bWATERCOOLING\b|\bREFROIDISSEMENT\b.*\bPROCESSEUR\b/, "Refroidisseur de processeur",
+    "Remplace le ventirad d'origine pour un fonctionnement plus frais et plus silencieux. Vérifiez le socket de votre carte mère."],
   [/\bPROCESSEUR\b|\bCPU\b/, "Processeur", "Le socket doit correspondre à celui de la carte mère."],
   [/\bAFFICHEUR\b|\bDALLE\b/, "Dalle d'écran de remplacement",
     "Relevez la référence de la dalle d'origine : la taille seule ne suffit pas, le connecteur et le nombre de broches doivent correspondre."],

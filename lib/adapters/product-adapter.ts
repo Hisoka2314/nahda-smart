@@ -41,6 +41,7 @@ export type PrismaPublicProduct = Prisma.ProductGetPayload<{
 
 const conditionMap: Record<ProductCondition, UiProductCondition> = {
   NEW: "new",
+  LIKE_NEW: "like_new",
   USED: "used",
   REFURBISHED: "refurbished",
 };

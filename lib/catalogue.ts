@@ -22,6 +22,7 @@ export const stockStatusLabels: Record<StockStatus, string> = {
 
 export const conditionLabels: Record<ProductCondition, string> = {
   new: "Neuf",
+  like_new: "Comme neuf",
   used: "Occasion",
   refurbished: "Reconditionné",
 };

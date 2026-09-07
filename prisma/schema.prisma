@@ -17,6 +17,10 @@ enum AdminRole {
 
 enum ProductCondition {
   NEW
+  // Etat d'un reconditionne sans trace d'usage. Le marche du refurb grade
+  // ses machines, et le magasin vend des portables professionnels dont
+  // l'etat varie : LIKE_NEW distingue celles qui sortent comme neuves.
+  LIKE_NEW
   USED
   REFURBISHED
 }
@@ -904,6 +908,24 @@ model SiteSetting {
   // Frais de livraison a domicile, editables depuis le back-office : la valeur
   // etait codee en dur a trois endroits du code applicatif.
   deliveryFee      Decimal  @default(30) @db.Decimal(12, 2)
+
+  // Mentions legales. Une facture marocaine qui ne porte pas l'ICE, l'IF, le
+  // RC et la patente de l'emetteur n'est pas opposable : le client ne peut
+  // pas la deduire, et l'administration peut la refuser. Elles vivent ici
+  // plutot qu'en dur pour rester modifiables sans redeploiement.
+  legalName        String   @default("Nahda Smart")
+  legalForm        String   @default("SARL AU")
+  legalCapital     String   @default("100 000,00 DH")
+  legalAddress     String   @default("46 AV OKBA ET G 3 APT 18 AGDAL RABAT")
+  ice              String   @default("")
+  rc               String   @default("")
+  rcCity           String   @default("Rabat")
+  taxId            String   @default("") // Identifiant fiscal
+  patente          String   @default("")
+  cnss             String   @default("")
+  // Taux de TVA applique, en pourcentage. Zero pour un magasin non assujetti.
+  vatRate          Decimal  @default(20) @db.Decimal(5, 2)
+
   updatedAt        DateTime @updatedAt
 
   @@map("site_settings")

@@ -1,6 +1,6 @@
 export type StockStatus = "in_stock" | "on_order" | "out_of_stock";
 
-export type ProductCondition = "new" | "used" | "refurbished";
+export type ProductCondition = "new" | "like_new" | "used" | "refurbished";
 
 export type ProductUsage =
   | "home"

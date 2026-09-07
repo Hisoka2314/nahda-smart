@@ -200,6 +200,7 @@ export const productStatusLabels: Record<ProductStatus, string> = {
 
 export const productConditionLabels: Record<ProductCondition, string> = {
   NEW: "Neuf",
+  LIKE_NEW: "Comme neuf",
   USED: "Occasion",
   REFURBISHED: "Reconditionne",
 };

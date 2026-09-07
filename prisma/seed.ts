@@ -51,6 +51,7 @@ const stockByStatus: Record<CatalogProduct["stockStatus"], number> = {
 
 const conditionMap: Record<CatalogProduct["condition"], ProductCondition> = {
   new: ProductCondition.NEW,
+  like_new: ProductCondition.LIKE_NEW,
   used: ProductCondition.USED,
   refurbished: ProductCondition.REFURBISHED,
 };
