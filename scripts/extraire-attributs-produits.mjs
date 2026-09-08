@@ -11,10 +11,11 @@ await db.connect();
 
 const products = (await db.query(`SELECT id, sku, name, "technicalDescription" FROM "Product" WHERE status <> 'ARCHIVED'`)).rows;
 const attrs = (await db.query(`SELECT id, slug, "categoryId" FROM "FilterAttribute" WHERE visible = true AND filterable = true`)).rows;
+const options = (await db.query(`SELECT id, "attributeId", label, value FROM "FilterOption" WHERE visible = true`)).rows;
 const bySlug = new Map(attrs.map((a) => [a.slug, a]));
 const rules = [
-  ["ram", /(\d+)\s*(?:go|gb)\s*(?:ram|ddr)?/i, (m) => `${m[1]} Go`],
-  ["storageCapacity", /(\d+(?:\.\d+)?)\s*(go|gb|to|tb)\s*(?:ssd|hdd|nvme)?/i, (m) => `${m[1]} ${m[2].toUpperCase()}`],
+  ["ram", /(\d+)\s*(?:go|gb)\s*(?:ram|ddr(?:[2345])?|[/:])?/i, (m) => `${m[1]} Go`],
+  ["storageCapacity", /(\d+(?:\.\d+)?)\s*(go|gb|to|tb)\s*(?=(?:ssd|hdd|nvme|m\.2|disque|stockage))/i, (m) => `${m[1]} ${m[2].toUpperCase()}`],
   ["processorGeneration", /(\d{1,2})(?:e|ème|eme)\s*(?:génération|generation)?/i, (m) => `${m[1]}e génération`],
   ["processor", /(core\s*i[3579]|ryzen\s*[3579]|celeron|pentium|xeon)/i, (m) => m[1].replace(/\s+/g, " ")],
 ];
@@ -25,9 +26,11 @@ for (const p of products) {
     const attr = bySlug.get(slug); if (!attr) continue;
     const m = text.match(re); if (!m) continue;
     const value = make(m); found++;
+    const normalize = (s) => String(s).toLowerCase().replace(/intel|amd|\s+/g, "").replace(/gb/g, "go").replace(/tb/g, "to");
+    const option = options.find((o) => o.attributeId === attr.id && (normalize(o.value) === normalize(value) || normalize(o.label) === normalize(value)));
     if (apply) {
       await db.query(`DELETE FROM "ProductAttributeValue" WHERE "productId"=$1 AND "attributeId"=$2`, [p.id, attr.id]);
-      await db.query(`INSERT INTO "ProductAttributeValue" (id,"productId","attributeId","valueString") VALUES ($1,$2,$3,$4)`, [crypto.randomUUID(), p.id, attr.id, value]);
+      await db.query(`INSERT INTO "ProductAttributeValue" (id,"productId","attributeId","optionId","valueString") VALUES ($1,$2,$3,$4,$5)`, [crypto.randomUUID(), p.id, attr.id, option?.id ?? null, option ? null : value]);
       written++;
     }
   }
