@@ -45,9 +45,21 @@ for (const p of products) {
     const m = text.match(re); if (!m) continue;
     const value = make(m); found++;
     const normalize = (s) => String(s).toLowerCase().replace(/intel|amd|\s+/g, "").replace(/gb/g, "go").replace(/tb/g, "to");
-    const option = options.find((o) => o.attributeId === attr.id && (normalize(o.value) === normalize(value) || normalize(o.label) === normalize(value)));
+    let option = options.find((o) => o.attributeId === attr.id && (normalize(o.value) === normalize(value) || normalize(o.label) === normalize(value)));
     categoryReport.values++;
-    if (!option) unmatched.push(`${p.sku}: ${slug} = ${value}`);
+    if (!option) {
+      unmatched.push(`${p.sku}: ${slug} = ${value}`);
+      // Les attributs à options doivent toujours pointer vers une option,
+      // sinon le catalogue public ne peut pas compter ni filtrer la valeur.
+      if (apply && options.some((o) => o.attributeId === attr.id)) {
+        const optionId = crypto.randomUUID();
+        await db.query(
+          `INSERT INTO "FilterOption" (id,"attributeId",label,value,"order",visible) VALUES ($1,$2,$3,$3,999,true) ON CONFLICT ("attributeId",value) DO NOTHING`,
+          [optionId, attr.id, value],
+        );
+        option = (await db.query(`SELECT id,label,value FROM "FilterOption" WHERE "attributeId"=$1 AND value=$2`, [attr.id, value])).rows[0];
+      }
+    }
     if (apply) {
       await db.query(`DELETE FROM "ProductAttributeValue" WHERE "productId"=$1 AND "attributeId"=$2`, [p.id, attr.id]);
       await db.query(`INSERT INTO "ProductAttributeValue" (id,"productId","attributeId","optionId","valueString") VALUES ($1,$2,$3,$4,$5)`, [crypto.randomUUID(), p.id, attr.id, option?.id ?? null, option ? null : value]);
