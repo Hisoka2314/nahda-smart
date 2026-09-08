@@ -1,8 +1,10 @@
 import pg from "pg";
 import crypto from "node:crypto";
+import { readFileSync } from "node:fs";
 
 const apply = process.argv.includes("--apply");
-const url = process.env.DATABASE_URL;
+const envFile = readFileSync(".env", "utf8");
+const url = process.env.DATABASE_URL ?? envFile.match(/DATABASE_URL="([^"]+)"/)?.[1];
 if (!url) throw new Error("DATABASE_URL manquant.");
 const db = new pg.Client({ connectionString: url });
 await db.connect();
