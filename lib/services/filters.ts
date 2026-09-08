@@ -5,7 +5,9 @@ export async function getPublicFiltersForCategories(categorySlugs: string[]) {
   const db = getPrismaClient();
 
   if (categorySlugs.length === 0) {
-    return prismaFilterGroupsToUiGroups([], { includeGlobal: true });
+    // Laisser le catalogue statique construire l'union des filtres techniques
+    // quand aucune catégorie n'est sélectionnée (RAM, stockage, génération...).
+    return [];
   }
 
   const groups = await db.filterGroup.findMany({

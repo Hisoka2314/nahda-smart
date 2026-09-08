@@ -200,6 +200,7 @@ export const stockOptions: FilterOption[] = [
 
 export const conditionOptions: Array<FilterOption & { value: ProductCondition }> = [
   { label: "Neuf", value: "new" },
+  { label: "Comme neuf", value: "like_new" },
   { label: "Occasion", value: "used" },
   { label: "Reconditionné", value: "refurbished" },
 ];

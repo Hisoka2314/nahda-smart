@@ -430,7 +430,10 @@ export function getCatalogueFilterGroups({
     ? [categorySlug]
     : selectedCategorySlugs.length > 0
       ? selectedCategorySlugs
-      : [];
+      // Sur le catalogue complet, proposer aussi les filtres techniques
+      // (RAM, génération, stockage, etc.). Les produits sans l'attribut sont
+      // ensuite masqués côté client quand aucune option n'est disponible.
+      : catalogueCategories.map((category) => category.slug);
   const categoryGroups = targetCategorySlugs.flatMap((slug) =>
     buildCategoryFilterGroups(slug),
   );

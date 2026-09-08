@@ -456,9 +456,70 @@ curl -s https://nahdasmart.ma/robots.txt && curl -s https://nahdasmart.ma/ | gre
 
 La seconde commande doit afficher `0`.
 
-Reste ensuite à déclarer le site dans Google Search Console et à y soumettre
-`https://nahdasmart.ma/sitemap.xml`. Comptez quelques jours avant les premières
-apparitions dans les résultats.
+
+### Étape F — Rediriger le domaine secondaire
+
+Trois noms servent aujourd'hui le même contenu : `nahdasmart.ma`,
+`nahdasmart.com` et `nahdasmart.duckdns.org`. Pour Google, ce sont trois
+boutiques identiques, et il partage le crédit entre elles au lieu de le
+concentrer sur une seule.
+
+Le domaine principal garde le site ; les autres le renvoient en **301**, la
+redirection qui transmet le référencement.
+
+Dans `/etc/nginx/sites-available/nahda`, **après** le passage de certbot,
+retirer les noms secondaires du bloc principal et leur donner leur propre
+bloc :
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name nahdasmart.com www.nahdasmart.com www.nahdasmart.ma nahdasmart.duckdns.org;
+
+    # Les certificats sont ceux que certbot a posés à l'étape C.
+    ssl_certificate     /etc/letsencrypt/live/nahdasmart.duckdns.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/nahdasmart.duckdns.org/privkey.pem;
+
+    return 301 https://nahdasmart.ma$request_uri;
+}
+```
+
+Le bloc principal ne garde alors que `server_name nahdasmart.ma;`.
+
+```bash
+nginx -t && systemctl reload nginx
+```
+
+**Vérification** : chaque nom secondaire doit répondre `301` et pointer vers le
+domaine principal.
+
+```bash
+for h in nahdasmart.com www.nahdasmart.com nahdasmart.duckdns.org; do curl -sI "https://$h/" | head -1; done
+```
+
+> Gardez `nahdasmart.duckdns.org` dans la redirection plutôt que de le
+> supprimer : c'est l'adresse par laquelle le site a vécu ses premières
+> semaines, et des liens y mènent peut-être déjà.
+
+### Étape G — Déclarer le site à Google
+
+1. Ouvrir [search.google.com/search-console](https://search.google.com/search-console)
+   et ajouter une propriété de type **Domaine** pour `nahdasmart.ma`.
+2. Google demande un enregistrement DNS **TXT** à créer chez le registrar.
+   Comptez quelques minutes de propagation avant de valider.
+3. Une fois validé, menu **Sitemaps**, soumettre `sitemap.xml`.
+
+Le sitemap est généré automatiquement et couvre aujourd'hui **228 adresses** :
+l'accueil, le catalogue, chaque catégorie, chaque fiche produit publiée et les
+pages d'information.
+
+Comptez de quelques jours à deux semaines avant les premières apparitions.
+Vérifiez ensuite dans **Indexation → Pages** que Google n'a pas rejeté des
+adresses.
+
+> Ne soumettez pas le sitemap avant l'étape E : tant que `SEO_NOINDEX` vaut
+> `1`, chaque page porte encore `noindex` et Google enregistrerait un refus
+> sur les 228 adresses.
 
 ---
 
