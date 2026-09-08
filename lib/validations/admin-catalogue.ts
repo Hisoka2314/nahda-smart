@@ -74,14 +74,16 @@ export const adminProductImageUpdateSchema = z.object({
 export const adminProductAttributeSchema = z.object({
   productId: z.string().min(1),
   attributeId: z.string().min(1),
-  optionId: optionalString,
-  valueString: optionalString,
+  // Un formulaire d'attribut ne rend qu'un seul des quatre champs de valeur.
+  // FormData.get renvoie null pour les autres : ce n'est pas une erreur.
+  optionId: z.preprocess((value) => value ?? undefined, optionalString),
+  valueString: z.preprocess((value) => value ?? undefined, optionalString),
   valueNumber: z
-    .preprocess((value) => (value === "" ? undefined : value), z.coerce.number().optional()),
-  valueBoolean: z
+    .preprocess((value) => (value == null || value === "" ? undefined : value), z.coerce.number().optional()),
+  valueBoolean: z.preprocess((value) => value ?? undefined, z
     .enum(["true", "false", ""])
     .optional()
-    .transform((value) => (value === "" || value === undefined ? undefined : value === "true")),
+    .transform((value) => (value === "" || value === undefined ? undefined : value === "true"))),
 });
 
 export const adminCategorySchema = z.object({
