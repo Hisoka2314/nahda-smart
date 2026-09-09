@@ -3,256 +3,3502 @@
     "sku": "LLO-L13I5108256",
     "model": "Lenovo ThinkPad L13 Gen 1",
     "facts": {
-      "weight": {"value":"Moins de 1.5 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i5-10210U 8/256","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"Weight starting at 1.38 kg"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"Poids environ 1.4 kg"}]},
-      "processor": {"value":"Intel Core i5","status":"verified","checkedAt":"2026-09-09","scope":"configuration i5-10210U","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"i5-10210U"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"Intel Core i5-10210U"}]},
-      "processorGeneration": {"value":"10e génération","status":"verified","checkedAt":"2026-09-09","scope":"configuration i5-10210U","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"i5-10210U"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"10th generation Intel Core i5-10210U"}]},
-      "ram": {"value":"8 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"Memory configurable on ThinkPad L13 platform"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"8 Go RAM DDR4"}]},
-      "storageCapacity": {"value":"256 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"M.2 SSD storage supported"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"256Go SSD"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"M.2 SSD / PCIe NVMe"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"256Go SSD"}]},
-      "graphics": {"value":"Intel UHD","status":"verified","checkedAt":"2026-09-09","scope":"i5-10210U configuration","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"Intel UHD Graphics with i5-10210U"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"Intel UHD Graphics"}]},
-      "screenSize": {"value":"13 pouces","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"13.3-inch display"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"13,3''"}]},
-      "resolution": {"value":"Full HD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"FHD 1920x1080"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"13,3'' FHD IPS"}]},
-      "panelType": {"value":"IPS","status":"verified","checkedAt":"2026-09-09","scope":"configuration FHD vendue","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","proof":"FHD IPS panel option"},{"url":"https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058","proof":"FHD IPS"}]}
+      "weight": {
+        "value": "Moins de 1.5 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i5-10210U 8/256",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "Weight starting at 1.38 kg"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "Poids environ 1.4 kg"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i5",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i5-10210U",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "i5-10210U"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "Intel Core i5-10210U"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "10e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i5-10210U",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "i5-10210U"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "10th generation Intel Core i5-10210U"
+          }
+        ]
+      },
+      "ram": {
+        "value": "8 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "Memory configurable on ThinkPad L13 platform"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "8 Go RAM DDR4"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "256 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "M.2 SSD storage supported"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "256Go SSD"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "M.2 SSD / PCIe NVMe"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "256Go SSD"
+          }
+        ]
+      },
+      "graphics": {
+        "value": "Intel UHD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-10210U configuration",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "Intel UHD Graphics with i5-10210U"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "Intel UHD Graphics"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "13 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "13.3-inch display"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "13,3''"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "Full HD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "FHD 1920x1080"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "13,3'' FHD IPS"
+          }
+        ]
+      },
+      "panelType": {
+        "value": "IPS",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration FHD vendue",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+            "proof": "FHD IPS panel option"
+          },
+          {
+            "url": "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058",
+            "proof": "FHD IPS"
+          }
+        ]
+      }
     },
-    "sources": ["https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf","https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058"],
+    "sources": [
+      "https://psref.lenovo.com/syspool/Sys/i_pdf/psref568.pdf",
+      "https://www.darty.com/nav/achat/ref/MC354216775.html?ofmp=1535271058"
+    ],
     "note": "Le poids n'est pas importé : aucune seconde source concordante pour cette configuration précise."
   },
   {
     "sku": "LHO-1030G4I58256X",
     "model": "HP EliteBook x360 1030 G4",
     "facts": {
-      "weight": {"value":"Moins de 1.5 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i5-8265U 8/256","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"Starting at 1.27 kg"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"Peso 1.27 kg"}]},
-      "processor": {"value":"Intel Core i5","status":"verified","checkedAt":"2026-09-09","scope":"i5-8265U configuration","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"Intel Core i5-8265U"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"Intel Core i5-8265U"}]},
-      "processorGeneration": {"value":"8e génération","status":"verified","checkedAt":"2026-09-09","scope":"i5-8265U configuration","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"8th generation Intel Core processors"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"i5-8265U"}]},
-      "ram": {"value":"8 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"8 GB memory option"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"8 GB RAM"}]},
-      "storageCapacity": {"value":"256 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"256 GB SSD option"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"256 GB SSD PCIe NVMe"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"SSD storage"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"SSD PCIe NVMe"}]},
-      "graphics": {"value":"Intel UHD","status":"verified","checkedAt":"2026-09-09","scope":"i5-8265U configuration","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"Intel UHD Graphics 620 with i5-8265U"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"Intel UHD Graphics 620"}]},
-      "screenSize": {"value":"13 pouces","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"13.3-inch display"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"13.3-inch"}]},
-      "resolution": {"value":"Full HD","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"FHD 1920 x 1080 display"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"FHD (1920 x 1080)"}]},
-      "panelType": {"value":"IPS","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"FHD IPS display"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"FHD, tactile, IPS"}]},
-      "touch": {"value":true,"status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","proof":"Touch screen options listed"},{"url":"https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil","proof":"13.3-inch touch display"}]}
+      "weight": {
+        "value": "Moins de 1.5 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i5-8265U 8/256",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "Starting at 1.27 kg"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "Peso 1.27 kg"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i5",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8265U configuration",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "Intel Core i5-8265U"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "Intel Core i5-8265U"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "8e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8265U configuration",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "8th generation Intel Core processors"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "i5-8265U"
+          }
+        ]
+      },
+      "ram": {
+        "value": "8 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "8 GB memory option"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "8 GB RAM"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "256 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "256 GB SSD option"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "256 GB SSD PCIe NVMe"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "SSD storage"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "SSD PCIe NVMe"
+          }
+        ]
+      },
+      "graphics": {
+        "value": "Intel UHD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8265U configuration",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "Intel UHD Graphics 620 with i5-8265U"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "Intel UHD Graphics 620"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "13 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "13.3-inch display"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "13.3-inch"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "Full HD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "FHD 1920 x 1080 display"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "FHD (1920 x 1080)"
+          }
+        ]
+      },
+      "panelType": {
+        "value": "IPS",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "FHD IPS display"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "FHD, tactile, IPS"
+          }
+        ]
+      },
+      "touch": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+            "proof": "Touch screen options listed"
+          },
+          {
+            "url": "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil",
+            "proof": "13.3-inch touch display"
+          }
+        ]
+      }
     },
-    "sources": ["https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf","https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil"]
+    "sources": [
+      "https://cdn.cnetcontent.com/e2/fd/e2fdcdd2-4c38-416c-81df-5afb7e8cce50.pdf",
+      "https://www.pccomponentes.com/hp-elitebook-x360-1030-g4-intel-core-i5-8265u-8gb-256gb-ssd-133-tactil"
+    ]
   },
   {
     "sku": "LHO-840G6I78256",
     "model": "HP EliteBook 840 G6",
     "facts": {
-      "weight": {"value":"Moins de 1.5 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i7-8565U 8/256","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"Weight 1.48 kg"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"Weight 1.48 kg"}]},
-      "processor": {"value":"Intel Core i7","status":"verified","checkedAt":"2026-09-09","scope":"i7-8565U 8/256 configuration","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"EliteBook 840 G6 i7-8565U"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"Intel Core i7-8565U"}]},
-      "processorGeneration": {"value":"8e génération","status":"verified","checkedAt":"2026-09-09","scope":"i7-8565U","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"i7-8565U (8th generation)"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"i7-8565U"}]},
-      "ram": {"value":"8 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"8GB DDR4"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"8 GB RAM"}]},
-      "storageCapacity": {"value":"256 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"256GB M.2 SSD"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"256 GB SSD"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"M.2 SSD"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"NVMe SSD"}]},
-      "graphics": {"value":"Intel UHD","status":"verified","checkedAt":"2026-09-09","scope":"i7-8565U configuration","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"UHD 620"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"UHD Graphics 620"}]},
-      "screenSize": {"value":"14 pouces","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"14-inch"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"14-inch"}]},
-      "resolution": {"value":"Full HD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"1920 x 1080 Full HD"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"1920 x 1080 Full HD"}]},
-      "panelType": {"value":"IPS","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","proof":"FHD display"},{"url":"https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P","proof":"14-inch IPS 1920 x 1080"}]}
+      "weight": {
+        "value": "Moins de 1.5 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i7-8565U 8/256",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "Weight 1.48 kg"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "Weight 1.48 kg"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i7",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i7-8565U 8/256 configuration",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "EliteBook 840 G6 i7-8565U"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "Intel Core i7-8565U"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "8e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i7-8565U",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "i7-8565U (8th generation)"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "i7-8565U"
+          }
+        ]
+      },
+      "ram": {
+        "value": "8 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "8GB DDR4"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "8 GB RAM"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "256 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "256GB M.2 SSD"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "256 GB SSD"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "M.2 SSD"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "NVMe SSD"
+          }
+        ]
+      },
+      "graphics": {
+        "value": "Intel UHD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i7-8565U configuration",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "UHD 620"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "UHD Graphics 620"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "14 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "14-inch"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "14-inch"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "Full HD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "1920 x 1080 Full HD"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "1920 x 1080 Full HD"
+          }
+        ]
+      },
+      "panelType": {
+        "value": "IPS",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+            "proof": "FHD display"
+          },
+          {
+            "url": "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P",
+            "proof": "14-inch IPS 1920 x 1080"
+          }
+        ]
+      }
     },
-    "sources": ["https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/","https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P"]
+    "sources": [
+      "https://www.bscom.eu/repasovany-notebook-hp-elitebook-840-g6-15213875_d2520271/",
+      "https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/hp-elitebook-840-g6-notebook-14-intel-core-i7-8565u-8-gb-ram-256-gb-ssd-uk/P267451P"
+    ]
   },
   {
     "sku": "LHO-830G8I516256",
     "model": "HP EliteBook 830 G8",
     "facts": {
-      "weight": {"value":"Moins de 1.5 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i5-1135G7 16/256","evidence":[{"url":"https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/","proof":"Starting weight about 1.24 kg"},{"url":"https://www.iris.ma/12482-ordinateur-portable-hp-elitebook-830-g8-336h2ea.html","proof":"Poids à partir de 1,24 kg"}]},
-      "processor": {"value":"Intel Core i5","status":"verified","checkedAt":"2026-09-09","scope":"i5-1135G7 16/256 configuration","evidence":[{"url":"https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/","proof":"Core i5-1135G7"},{"url":"https://www.walmart.com/ip/13962909435?conditionGroupCode=2","proof":"Core i5-1135G7"}]},
-      "processorGeneration": {"value":"11e génération","status":"verified","checkedAt":"2026-09-09","scope":"i5-1135G7","evidence":[{"url":"https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/","proof":"i5-1135G7 processor"},{"url":"https://www.walmart.com/ip/13962909435?conditionGroupCode=2","proof":"i5 11th Gen"}]},
-      "ram": {"value":"16 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 16/256","evidence":[{"url":"https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/","proof":"16 GB memory configuration"},{"url":"https://www.walmart.com/ip/13962909435?conditionGroupCode=2","proof":"16GB RAM"}]},
-      "storageCapacity": {"value":"256 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 16/256","evidence":[{"url":"https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/","proof":"256GB M.2 SSD"},{"url":"https://www.walmart.com/ip/13962909435?conditionGroupCode=2","proof":"256GB SSD"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/","proof":"M.2 SSD PCIe NVMe"},{"url":"https://www.walmart.com/ip/13962909435?conditionGroupCode=2","proof":"SSD hard drive"}]},
-      "screenSize": {"value":"13 pouces","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/","proof":"13.3-inch display"},{"url":"https://www.walmart.com/ip/13962909435?conditionGroupCode=2","proof":"13.3-inch"}]},
-      "resolution": {"value":"Full HD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/","proof":"Full HD 1920x1080"},{"url":"https://www.walmart.com/ip/13962909435?conditionGroupCode=2","proof":"FHD 1920x1080 resolution"}]}
+      "weight": {
+        "value": "Moins de 1.5 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i5-1135G7 16/256",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/",
+            "proof": "Starting weight about 1.24 kg"
+          },
+          {
+            "url": "https://www.iris.ma/12482-ordinateur-portable-hp-elitebook-830-g8-336h2ea.html",
+            "proof": "Poids à partir de 1,24 kg"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i5",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-1135G7 16/256 configuration",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/",
+            "proof": "Core i5-1135G7"
+          },
+          {
+            "url": "https://www.walmart.com/ip/13962909435?conditionGroupCode=2",
+            "proof": "Core i5-1135G7"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "11e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-1135G7",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/",
+            "proof": "i5-1135G7 processor"
+          },
+          {
+            "url": "https://www.walmart.com/ip/13962909435?conditionGroupCode=2",
+            "proof": "i5 11th Gen"
+          }
+        ]
+      },
+      "ram": {
+        "value": "16 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 16/256",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/",
+            "proof": "16 GB memory configuration"
+          },
+          {
+            "url": "https://www.walmart.com/ip/13962909435?conditionGroupCode=2",
+            "proof": "16GB RAM"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "256 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 16/256",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/",
+            "proof": "256GB M.2 SSD"
+          },
+          {
+            "url": "https://www.walmart.com/ip/13962909435?conditionGroupCode=2",
+            "proof": "256GB SSD"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/",
+            "proof": "M.2 SSD PCIe NVMe"
+          },
+          {
+            "url": "https://www.walmart.com/ip/13962909435?conditionGroupCode=2",
+            "proof": "SSD hard drive"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "13 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/",
+            "proof": "13.3-inch display"
+          },
+          {
+            "url": "https://www.walmart.com/ip/13962909435?conditionGroupCode=2",
+            "proof": "13.3-inch"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "Full HD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/",
+            "proof": "Full HD 1920x1080"
+          },
+          {
+            "url": "https://www.walmart.com/ip/13962909435?conditionGroupCode=2",
+            "proof": "FHD 1920x1080 resolution"
+          }
+        ]
+      }
     },
-    "sources": ["https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/","https://www.walmart.com/ip/13962909435?conditionGroupCode=2"],
+    "sources": [
+      "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/",
+      "https://www.walmart.com/ip/13962909435?conditionGroupCode=2"
+    ],
     "note": "GPU, dalle IPS/UWVA et poids restent vides car la configuration exacte n'est pas concordante entre sources."
   },
   {
     "sku": "LLO-L390G8",
     "model": "Lenovo ThinkPad L390",
     "facts": {
-      "weight": {"value":"Moins de 1.5 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i5-8265U 8/256","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_L390/ThinkPad_L390_Spec.html","proof":"Weight 1.46 kg"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"Peso 1,46 kg"}]},
-      "processor": {"value":"Intel Core i5","status":"verified","checkedAt":"2026-09-09","scope":"i5-8265U 8/256 configuration","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","proof":"i5-8265U"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"Intel Core i5-8265U"}]},
-      "processorGeneration": {"value":"8e génération","status":"verified","checkedAt":"2026-09-09","scope":"i5-8265U","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","proof":"8th Generation Intel Core"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"i5-8265U"}]},
-      "ram": {"value":"8 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","proof":"8GBx1"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"8GB RAM"}]},
-      "storageCapacity": {"value":"256 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","proof":"256GB SSD M.2"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"256GB SSD"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","proof":"256GB SSD M.2 PCIe NVMe"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"SSD"}]},
-      "graphics": {"value":"Intel UHD","status":"verified","checkedAt":"2026-09-09","scope":"i5-8265U configuration","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","proof":"Intel UHD 620"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"Intel UHD Graphics 620"}]},
-      "screenSize": {"value":"13 pouces","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","proof":"13.3-inch"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"13.3-inch"}]},
-      "resolution": {"value":"Full HD","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","proof":"13.3 FHD 1920x1080"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"FHD 1920x1080"}]},
-      "panelType": {"value":"IPS","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","proof":"FHD IPS"},{"url":"https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133","proof":"FHD IPS"}]}
+      "weight": {
+        "value": "Moins de 1.5 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i5-8265U 8/256",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_L390/ThinkPad_L390_Spec.html",
+            "proof": "Weight 1.46 kg"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "Peso 1,46 kg"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i5",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8265U 8/256 configuration",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+            "proof": "i5-8265U"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "Intel Core i5-8265U"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "8e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8265U",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+            "proof": "8th Generation Intel Core"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "i5-8265U"
+          }
+        ]
+      },
+      "ram": {
+        "value": "8 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+            "proof": "8GBx1"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "8GB RAM"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "256 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+            "proof": "256GB SSD M.2"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "256GB SSD"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+            "proof": "256GB SSD M.2 PCIe NVMe"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "SSD"
+          }
+        ]
+      },
+      "graphics": {
+        "value": "Intel UHD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8265U configuration",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+            "proof": "Intel UHD 620"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "Intel UHD Graphics 620"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "13 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+            "proof": "13.3-inch"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "13.3-inch"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "Full HD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+            "proof": "13.3 FHD 1920x1080"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "FHD 1920x1080"
+          }
+        ]
+      },
+      "panelType": {
+        "value": "IPS",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+            "proof": "FHD IPS"
+          },
+          {
+            "url": "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133",
+            "proof": "FHD IPS"
+          }
+        ]
+      }
     },
-    "sources": ["https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf","https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133"]
+    "sources": [
+      "https://psref.lenovo.com/syspool/Sys/i_pdf/psref540TS.pdf",
+      "https://www.pccomponentes.com/lenovo-thinkpad-l390-intel-core-i5-8265u-8gb-256gb-ssd-133"
+    ]
   },
   {
     "sku": "LHO-1030G3I58256X",
     "model": "HP EliteBook x360 1030 G3",
     "facts": {
-      "weight": {"value":"Moins de 1.5 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i5-8250U 8/256","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-3770179341-4aa7-2696enuc.pdf","proof":"Starting at 1.25 kg"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"Peso aproximado 1,25 kg"}]},
-      "processor": {"value":"Intel Core i5","status":"verified","checkedAt":"2026-09-09","scope":"i5-8250U 8/256 configuration","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"i5-8250U, 8 GB"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"Intel Core i5-8250U"}]},
-      "processorGeneration": {"value":"8e génération","status":"verified","checkedAt":"2026-09-09","scope":"i5-8250U","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"8th generation Intel Core processors"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"i5-8250U"}]},
-      "ram": {"value":"8 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"8 GB memory option"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"8GB"}]},
-      "storageCapacity": {"value":"256 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"256 GB PCIe NVMe SSD"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"256 GB"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"M.2 SSD"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"SSD NVMe PCIe"}]},
-      "graphics": {"value":"Intel UHD","status":"verified","checkedAt":"2026-09-09","scope":"i5-8250U configuration","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"Intel UHD Graphics 620"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"Intel HD 620"}]},
-      "screenSize": {"value":"13 pouces","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"13.3-inch panel"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"13.3 pulgadas"}]},
-      "resolution": {"value":"Full HD","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"FHD 1920 x 1080"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"Full HD 1920 x 1080"}]},
-      "panelType": {"value":"IPS","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"FHD UWVA touch panel"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"IPS Full HD touch"}]},
-      "touch": {"value":true,"status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","proof":"Touch display"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2","proof":"Táctil"}]}
+      "weight": {
+        "value": "Moins de 1.5 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i5-8250U 8/256",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-3770179341-4aa7-2696enuc.pdf",
+            "proof": "Starting at 1.25 kg"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "Peso aproximado 1,25 kg"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i5",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8250U 8/256 configuration",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "i5-8250U, 8 GB"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "Intel Core i5-8250U"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "8e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8250U",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "8th generation Intel Core processors"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "i5-8250U"
+          }
+        ]
+      },
+      "ram": {
+        "value": "8 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "8 GB memory option"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "8GB"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "256 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "256 GB PCIe NVMe SSD"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "256 GB"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "M.2 SSD"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "SSD NVMe PCIe"
+          }
+        ]
+      },
+      "graphics": {
+        "value": "Intel UHD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8250U configuration",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "Intel UHD Graphics 620"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "Intel HD 620"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "13 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "13.3-inch panel"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "13.3 pulgadas"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "Full HD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "FHD 1920 x 1080"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "Full HD 1920 x 1080"
+          }
+        ]
+      },
+      "panelType": {
+        "value": "IPS",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "FHD UWVA touch panel"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "IPS Full HD touch"
+          }
+        ]
+      },
+      "touch": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+            "proof": "Touch display"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2",
+            "proof": "Táctil"
+          }
+        ]
+      }
     },
-    "sources": ["https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf","https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2"]
+    "sources": [
+      "https://kaas.hpcloud.hp.com/pdf-public/pdf_13030208_en-US-1.pdf",
+      "https://ecoportatil.es/producto/hp-elitebook-x360-1030-g3-tactil-133-i5-8250u-8gb-ssd-256gb-full-hd-a-2"
+    ]
   },
   {
     "sku": "LHO-15G5I732256",
     "model": "HP ZBook 15 G5",
     "facts": {
-      "weight": {"value":"Plus de 2 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i7-8850H 32/512","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf","proof":"Starting at 2.6 kg"},{"url":"https://www.target.com/p/-/A-1001323216","proof":"Item weight 2.6 kg"}]},
-      "processor": {"value":"Intel Core i7","status":"verified","checkedAt":"2026-09-09","scope":"configuration i7 32/512","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf","proof":"8th generation Intel Core i7 processors"},{"url":"https://www.target.com/p/-/A-1001323216","proof":"Intel Core i7, 32GB, 512GB SSD"}]},
-      "processorGeneration": {"value":"8e génération","status":"verified","checkedAt":"2026-09-09","scope":"configuration i7","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf","proof":"8th generation Intel Core"},{"url":"https://www.target.com/p/-/A-1001323216","proof":"i7 8th generation"}]},
-      "ram": {"value":"32 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 32/512","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf","proof":"32 GB memory configuration"},{"url":"https://www.target.com/p/-/A-1001323216","proof":"32GB"}]},
-      "storageCapacity": {"value":"512 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 32/512","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf","proof":"512 GB SSD option"},{"url":"https://www.target.com/p/-/A-1001323216","proof":"512GB SSD"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf","proof":"SSD storage options"},{"url":"https://www.target.com/p/-/A-1001323216","proof":"SSD"}]},
-      "screenSize": {"value":"15.6 pouces","status":"verified","checkedAt":"2026-09-09","scope":"ZBook 15 G5 configuration","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf","proof":"15.6-inch display options"},{"url":"https://www.target.com/p/-/A-1001323216","proof":"15.6-inch laptop"}]}
+      "weight": {
+        "value": "Plus de 2 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i7-8850H 32/512",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf",
+            "proof": "Starting at 2.6 kg"
+          },
+          {
+            "url": "https://www.target.com/p/-/A-1001323216",
+            "proof": "Item weight 2.6 kg"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i7",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i7 32/512",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf",
+            "proof": "8th generation Intel Core i7 processors"
+          },
+          {
+            "url": "https://www.target.com/p/-/A-1001323216",
+            "proof": "Intel Core i7, 32GB, 512GB SSD"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "8e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i7",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf",
+            "proof": "8th generation Intel Core"
+          },
+          {
+            "url": "https://www.target.com/p/-/A-1001323216",
+            "proof": "i7 8th generation"
+          }
+        ]
+      },
+      "ram": {
+        "value": "32 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 32/512",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf",
+            "proof": "32 GB memory configuration"
+          },
+          {
+            "url": "https://www.target.com/p/-/A-1001323216",
+            "proof": "32GB"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "512 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 32/512",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf",
+            "proof": "512 GB SSD option"
+          },
+          {
+            "url": "https://www.target.com/p/-/A-1001323216",
+            "proof": "512GB SSD"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf",
+            "proof": "SSD storage options"
+          },
+          {
+            "url": "https://www.target.com/p/-/A-1001323216",
+            "proof": "SSD"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "15.6 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "ZBook 15 G5 configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf",
+            "proof": "15.6-inch display options"
+          },
+          {
+            "url": "https://www.target.com/p/-/A-1001323216",
+            "proof": "15.6-inch laptop"
+          }
+        ]
+      }
     },
-    "sources": ["https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf","https://www.target.com/p/-/A-1001323216"],
+    "sources": [
+      "https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf",
+      "https://www.target.com/p/-/A-1001323216"
+    ],
     "note": "Le GPU, la résolution et le poids sont laissés vides : plusieurs variantes existent."
   },
   {
     "sku": "DS-2CE16K0T-EXLF",
     "model": "Hikvision DS-2CE16K0T-EXLF",
     "facts": {
-      "resolution": {"value":"3K","status":"verified","checkedAt":"2026-09-09","scope":"référence exacte","evidence":[{"url":"https://assets.hikvision.com/prd/public/all/doc/m000068583/DS-2CE16K0T-EXLF_Datasheet_20241210.pdf","proof":"3K CMOS, 2960 × 1665"},{"url":"https://www.blibli.com/p/kamera-cctv-outdoor-5mp-3k-colorvu-hikvision-ds-2ce16k0t-exlf-smart-light/ps--TOC-70003-01649","proof":"5MP 3K ColorVu"}]},
-      "placement": {"value":"Extérieur","status":"verified","checkedAt":"2026-09-09","scope":"boîtier protégé","evidence":[{"url":"https://assets.hikvision.com/prd/public/all/doc/m000068583/DS-2CE16K0T-EXLF_Datasheet_20241210.pdf","proof":"IP67 protection"},{"url":"https://www.blibli.com/p/kamera-cctv-outdoor-5mp-3k-colorvu-hikvision-ds-2ce16k0t-exlf-smart-light/ps--TOC-70003-01649","proof":"Outdoor camera, IP67"}]},
-      "poe": {"value":false,"status":"verified","checkedAt":"2026-09-09","scope":"alimentation de la référence","evidence":[{"url":"https://assets.hikvision.com/prd/public/all/doc/m000068583/DS-2CE16K0T-EXLF_Datasheet_20241210.pdf","proof":"12 VDC ±25%, max 5.0 W"},{"url":"https://www.blibli.com/p/kamera-cctv-outdoor-5mp-3k-colorvu-hikvision-ds-2ce16k0t-exlf-smart-light/ps--TOC-70003-01649","proof":"analog camera power supply"}]}
+      "resolution": {
+        "value": "3K",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "référence exacte",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/public/all/doc/m000068583/DS-2CE16K0T-EXLF_Datasheet_20241210.pdf",
+            "proof": "3K CMOS, 2960 × 1665"
+          },
+          {
+            "url": "https://www.blibli.com/p/kamera-cctv-outdoor-5mp-3k-colorvu-hikvision-ds-2ce16k0t-exlf-smart-light/ps--TOC-70003-01649",
+            "proof": "5MP 3K ColorVu"
+          }
+        ]
+      },
+      "placement": {
+        "value": "Extérieur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "boîtier protégé",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/public/all/doc/m000068583/DS-2CE16K0T-EXLF_Datasheet_20241210.pdf",
+            "proof": "IP67 protection"
+          },
+          {
+            "url": "https://www.blibli.com/p/kamera-cctv-outdoor-5mp-3k-colorvu-hikvision-ds-2ce16k0t-exlf-smart-light/ps--TOC-70003-01649",
+            "proof": "Outdoor camera, IP67"
+          }
+        ]
+      },
+      "poe": {
+        "value": false,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "alimentation de la référence",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/public/all/doc/m000068583/DS-2CE16K0T-EXLF_Datasheet_20241210.pdf",
+            "proof": "12 VDC ±25%, max 5.0 W"
+          },
+          {
+            "url": "https://www.blibli.com/p/kamera-cctv-outdoor-5mp-3k-colorvu-hikvision-ds-2ce16k0t-exlf-smart-light/ps--TOC-70003-01649",
+            "proof": "analog camera power supply"
+          }
+        ]
+      }
     },
-    "sources": ["https://assets.hikvision.com/prd/public/all/doc/m000068583/DS-2CE16K0T-EXLF_Datasheet_20241210.pdf","https://www.blibli.com/p/kamera-cctv-outdoor-5mp-3k-colorvu-hikvision-ds-2ce16k0t-exlf-smart-light/ps--TOC-70003-01649"],
+    "sources": [
+      "https://assets.hikvision.com/prd/public/all/doc/m000068583/DS-2CE16K0T-EXLF_Datasheet_20241210.pdf",
+      "https://www.blibli.com/p/kamera-cctv-outdoor-5mp-3k-colorvu-hikvision-ds-2ce16k0t-exlf-smart-light/ps--TOC-70003-01649"
+    ],
     "note": "La portée publiée est 20 m ; aucune option 20 m n'existe encore dans le filtre (30 m n'est donc pas importé)."
   },
   {
     "sku": "IEN-L3250",
     "model": "Epson EcoTank L3250",
     "facts": {
-      "printerType": {"value":"Jet d'encre","status":"verified","checkedAt":"2026-09-09","scope":"référence L3250","evidence":[{"url":"https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226","proof":"Inkjet printer"},{"url":"https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html","proof":"Imprimante jet d'encre"}]},
-      "colorMode": {"value":"Couleur","status":"verified","checkedAt":"2026-09-09","scope":"référence L3250","evidence":[{"url":"https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226","proof":"4 colour, black/cyan/yellow/magenta"},{"url":"https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html","proof":"Couleur Oui"}]},
-      "wifi": {"value":true,"status":"verified","checkedAt":"2026-09-09","scope":"référence L3250","evidence":[{"url":"https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226","proof":"Wi-Fi and Wi-Fi Direct"},{"url":"https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html","proof":"Wifi Oui, Wi-Fi Direct Oui"}]},
-      "duplex": {"value":false,"status":"verified","checkedAt":"2026-09-09","scope":"recto-verso automatique absent","evidence":[{"url":"https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226","proof":"Automatic 2-sided printing: No"},{"url":"https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html","proof":"Impression recto-verso: Manuel"}]},
-      "scanner": {"value":true,"status":"verified","checkedAt":"2026-09-09","scope":"multifonction 3-en-1","evidence":[{"url":"https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226","proof":"Print, Scan, Copy"},{"url":"https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html","proof":"MFP 3en1"}]},
-      "consumables": {"value":"Bouteilles d'encre","status":"verified","checkedAt":"2026-09-09","scope":"réservoirs rechargeables","evidence":[{"url":"https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226","proof":"Ink tank printer"},{"url":"https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html","proof":"réservoir d'encre"}]},
-      "paperFormat": {"value":"A4","status":"verified","checkedAt":"2026-09-09","scope":"format maximal","evidence":[{"url":"https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226","proof":"A4 printer"},{"url":"https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html","proof":"A4"}]}
+      "printerType": {
+        "value": "Jet d'encre",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "référence L3250",
+        "evidence": [
+          {
+            "url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226",
+            "proof": "Inkjet printer"
+          },
+          {
+            "url": "https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html",
+            "proof": "Imprimante jet d'encre"
+          }
+        ]
+      },
+      "colorMode": {
+        "value": "Couleur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "référence L3250",
+        "evidence": [
+          {
+            "url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226",
+            "proof": "4 colour, black/cyan/yellow/magenta"
+          },
+          {
+            "url": "https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html",
+            "proof": "Couleur Oui"
+          }
+        ]
+      },
+      "wifi": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "référence L3250",
+        "evidence": [
+          {
+            "url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226",
+            "proof": "Wi-Fi and Wi-Fi Direct"
+          },
+          {
+            "url": "https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html",
+            "proof": "Wifi Oui, Wi-Fi Direct Oui"
+          }
+        ]
+      },
+      "duplex": {
+        "value": false,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "recto-verso automatique absent",
+        "evidence": [
+          {
+            "url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226",
+            "proof": "Automatic 2-sided printing: No"
+          },
+          {
+            "url": "https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html",
+            "proof": "Impression recto-verso: Manuel"
+          }
+        ]
+      },
+      "scanner": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "multifonction 3-en-1",
+        "evidence": [
+          {
+            "url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226",
+            "proof": "Print, Scan, Copy"
+          },
+          {
+            "url": "https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html",
+            "proof": "MFP 3en1"
+          }
+        ]
+      },
+      "consumables": {
+        "value": "Bouteilles d'encre",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "réservoirs rechargeables",
+        "evidence": [
+          {
+            "url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226",
+            "proof": "Ink tank printer"
+          },
+          {
+            "url": "https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html",
+            "proof": "réservoir d'encre"
+          }
+        ]
+      },
+      "paperFormat": {
+        "value": "A4",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "format maximal",
+        "evidence": [
+          {
+            "url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226",
+            "proof": "A4 printer"
+          },
+          {
+            "url": "https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html",
+            "proof": "A4"
+          }
+        ]
+      }
     },
-    "sources": ["https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226","https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html"]
+    "sources": [
+      "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3250-multifunction-wi-fi-ink-tank-a4-printer%2C-with-up-to-3-years-of-ink-included/p/30226",
+      "https://www.electroplanet.ma/p3079779-epson-ecotank-l3250-mfp-3en1-wifi-couleur-a4.html"
+    ]
   },
   {
     "sku": "DS-2CD1123G0E-I",
     "model": "Hikvision DS-2CD1123G0E-I",
     "facts": {
-      "resolution": {"value":"2MP","status":"verified","checkedAt":"2026-09-09","scope":"référence exacte","evidence":[{"url":"https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/","proof":"2 MP network camera"},{"url":"https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/","proof":"DS-2CD1123G0E-I 2MP"}]},
-      "securityType": {"value":"Caméra IP","status":"verified","checkedAt":"2026-09-09","scope":"référence exacte","evidence":[{"url":"https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/","proof":"Network camera"},{"url":"https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/","proof":"Network products / network cameras"}]},
-      "nightVision": {"value":"30 m","status":"verified","checkedAt":"2026-09-09","scope":"portée IR maximale","evidence":[{"url":"https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/","proof":"EXIR infrared illumination"},{"url":"https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/","proof":"Supplement Light Range Up to 30 m"}]},
-      "poe": {"value":true,"status":"verified","checkedAt":"2026-09-09","scope":"alimentation réseau","evidence":[{"url":"https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/","proof":"PoE 802.3af"},{"url":"https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/","proof":"PoE 802.3af, Class 3"}]}
+      "resolution": {
+        "value": "2MP",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "référence exacte",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/",
+            "proof": "2 MP network camera"
+          },
+          {
+            "url": "https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/",
+            "proof": "DS-2CD1123G0E-I 2MP"
+          }
+        ]
+      },
+      "securityType": {
+        "value": "Caméra IP",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "référence exacte",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/",
+            "proof": "Network camera"
+          },
+          {
+            "url": "https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/",
+            "proof": "Network products / network cameras"
+          }
+        ]
+      },
+      "nightVision": {
+        "value": "30 m",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "portée IR maximale",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/",
+            "proof": "EXIR infrared illumination"
+          },
+          {
+            "url": "https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/",
+            "proof": "Supplement Light Range Up to 30 m"
+          }
+        ]
+      },
+      "poe": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "alimentation réseau",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/",
+            "proof": "PoE 802.3af"
+          },
+          {
+            "url": "https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/",
+            "proof": "PoE 802.3af, Class 3"
+          }
+        ]
+      }
     },
-    "sources": ["https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/","https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/"]
+    "sources": [
+      "https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Value-Series/DS-2CD1123G0E-I/",
+      "https://hikvision.tj/en/products/network-products/network-cameras/value-series-network-cameras/ds-2cd1123g0e-i/"
+    ]
   },
   {
     "sku": "LHO-X360-830G7",
     "model": "HP EliteBook x360 830 G7",
     "facts": {
-      "weight": {"value":"Moins de 1.5 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i5-10210U tactile","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"Starting at 1.23 kg non-touch and 1.35 kg touch"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"Weight 1.35 kg"}]},
-      "processor": {"value":"Intel Core i5","status":"verified","checkedAt":"2026-09-09","scope":"i5-10210U 16/256 configuration","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"Intel Core i5-10210U with Intel UHD Graphics"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"Intel Core i5-10210U"}]},
-      "processorGeneration": {"value":"10e génération","status":"verified","checkedAt":"2026-09-09","scope":"i5-10210U","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"10th generation Intel Core processors"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"10th generation i5-10210U"}]},
-      "ram": {"value":"16 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 16/256","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"16 GB DDR4 option"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"16GB DDR4 memory"}]},
-      "storageCapacity": {"value":"256 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 16/256","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"256 GB PCIe NVMe SSD option"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"256GB M.2 NVMe PCIe SSD"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"PCIe NVMe SSD"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"solid-state drive"}]},
-      "graphics": {"value":"Intel UHD","status":"verified","checkedAt":"2026-09-09","scope":"i5-10210U configuration","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"Intel UHD Graphics with i5-10210U"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"Intel UHD Graphics"}]},
-      "screenSize": {"value":"13 pouces","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"13.3-inch display"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"13.3-inch"}]},
-      "resolution": {"value":"Full HD","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"FHD 1920 x 1080 display option"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"1920 x 1080"}]},
-      "touch": {"value":true,"status":"verified","checkedAt":"2026-09-09","scope":"x360 configuration","evidence":[{"url":"https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","proof":"multi-touch display option"},{"url":"https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs","proof":"Multi-Touch 2-in-1"}]}
+      "weight": {
+        "value": "Moins de 1.5 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i5-10210U tactile",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "Starting at 1.23 kg non-touch and 1.35 kg touch"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "Weight 1.35 kg"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i5",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-10210U 16/256 configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "Intel Core i5-10210U with Intel UHD Graphics"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "Intel Core i5-10210U"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "10e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-10210U",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "10th generation Intel Core processors"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "10th generation i5-10210U"
+          }
+        ]
+      },
+      "ram": {
+        "value": "16 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 16/256",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "16 GB DDR4 option"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "16GB DDR4 memory"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "256 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 16/256",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "256 GB PCIe NVMe SSD option"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "256GB M.2 NVMe PCIe SSD"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "PCIe NVMe SSD"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "solid-state drive"
+          }
+        ]
+      },
+      "graphics": {
+        "value": "Intel UHD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-10210U configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "Intel UHD Graphics with i5-10210U"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "Intel UHD Graphics"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "13 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "13.3-inch display"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "13.3-inch"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "Full HD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "FHD 1920 x 1080 display option"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "1920 x 1080"
+          }
+        ]
+      },
+      "touch": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "x360 configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+            "proof": "multi-touch display option"
+          },
+          {
+            "url": "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs",
+            "proof": "Multi-Touch 2-in-1"
+          }
+        ]
+      }
     },
-    "sources": ["https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf","https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs"]
+    "sources": [
+      "https://media.flixcar.com/f360cdn/HP-4996721576-c06692085.pdf",
+      "https://www.bhphotovideo.com/c/product/1570651-REG/hp_1d0f1ut_aba_x360_830_g7_i5_10210u.html/specs"
+    ]
   },
   {
     "sku": "LHO-1040G7",
     "model": "HP EliteBook x360 1040 G7",
     "facts": {
-      "weight": {"value":"Moins de 1.5 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i7-10610U 16/256","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"Starting at 1.32 kg"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"Peso 1,32 kg"}]},
-      "processor": {"value":"Intel Core i7","status":"verified","checkedAt":"2026-09-09","scope":"i7-10610U 16/256 configuration","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"Core i7-10610U"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"Intel Core i7-10610U"}]},
-      "processorGeneration": {"value":"10e génération","status":"verified","checkedAt":"2026-09-09","scope":"i7-10610U","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"10th Generation Intel Core i7"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"i7-10610U"}]},
-      "ram": {"value":"16 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 16/256","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"16 GB memory"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"16 GB LPDDR4x"}]},
-      "storageCapacity": {"value":"256 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 16/256","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"256 GB SSD options"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"256 GB"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"PCIe NVMe SSD"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"SSD M.2 PCIe NVMe"}]},
-      "graphics": {"value":"Intel UHD","status":"verified","checkedAt":"2026-09-09","scope":"i7-10610U configuration","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"Intel UHD Graphics"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"Intel UHD Graphics"}]},
-      "screenSize": {"value":"14 pouces","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"14-inch display"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"14 pulgadas"}]},
-      "resolution": {"value":"Full HD","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"FHD 1920 x 1080"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"FHD"}]},
-      "panelType": {"value":"IPS","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"FHD IPS panel"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"pantalla IPS"}]},
-      "touch": {"value":true,"status":"verified","checkedAt":"2026-09-09","scope":"x360 configuration","evidence":[{"url":"https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","proof":"touchscreen display"},{"url":"https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626","proof":"táctil"}]}
+      "weight": {
+        "value": "Moins de 1.5 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i7-10610U 16/256",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "Starting at 1.32 kg"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "Peso 1,32 kg"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i7",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i7-10610U 16/256 configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "Core i7-10610U"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "Intel Core i7-10610U"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "10e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i7-10610U",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "10th Generation Intel Core i7"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "i7-10610U"
+          }
+        ]
+      },
+      "ram": {
+        "value": "16 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 16/256",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "16 GB memory"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "16 GB LPDDR4x"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "256 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 16/256",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "256 GB SSD options"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "256 GB"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "PCIe NVMe SSD"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "SSD M.2 PCIe NVMe"
+          }
+        ]
+      },
+      "graphics": {
+        "value": "Intel UHD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i7-10610U configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "Intel UHD Graphics"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "Intel UHD Graphics"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "14 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "14-inch display"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "14 pulgadas"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "Full HD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "FHD 1920 x 1080"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "FHD"
+          }
+        ]
+      },
+      "panelType": {
+        "value": "IPS",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "FHD IPS panel"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "pantalla IPS"
+          }
+        ]
+      },
+      "touch": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "x360 configuration",
+        "evidence": [
+          {
+            "url": "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+            "proof": "touchscreen display"
+          },
+          {
+            "url": "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626",
+            "proof": "táctil"
+          }
+        ]
+      }
     },
-    "sources": ["https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf","https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626"]
+    "sources": [
+      "https://media.flixcar.com/webp/synd-asset/HP-4998170763-4aa7-7661eeap.pdf",
+      "https://ecoportatil.es/producto/hp-elitebook-x360-1040-g7-tactil-14-i7-10610u-16gb-ssd-256gb-fhd-a-300626"
+    ]
   },
   {
     "sku": "LHO-450G5I58256",
     "model": "HP ProBook 450 G5",
     "facts": {
-      "weight": {"value":"Plus de 2 kg","status":"verified","checkedAt":"2026-09-09","scope":"configuration i5-8250U 8/256","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"Weight approximately 2.02 kg"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"Starting weight 2.1 kg in later specifications"}]},
-      "processor": {"value":"Intel Core i5","status":"verified","checkedAt":"2026-09-09","scope":"i5-8250U 8/256 configuration","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"8th generation Core i5-8250U"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"Intel Core i5-8250U"}]},
-      "processorGeneration": {"value":"8e génération","status":"verified","checkedAt":"2026-09-09","scope":"i5-8250U","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"第8世代 Core i5-8250U"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"i5-8250U"}]},
-      "ram": {"value":"8 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"8GB memory configuration"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"8 GB RAM"}]},
-      "storageCapacity": {"value":"256 Go","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue 8/256","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"256GB SSD (M.2 PCIe NVMe)"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"256 GB SSD storage"}]},
-      "storageType": {"value":"SSD","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"M.2 PCIe NVMe SSD"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"SSD storage"}]},
-      "graphics": {"value":"Intel UHD","status":"verified","checkedAt":"2026-09-09","scope":"i5-8250U configuration","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"Intel UHD Graphics 620"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"Intel UHD Graphics 620"}]},
-      "screenSize": {"value":"15.6 pouces","status":"verified","checkedAt":"2026-09-09","scope":"configuration vendue","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"15.6-inch display"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"15.6-inch model"}]},
-      "resolution": {"value":"Full HD","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"Full HD 1920 x 1080"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"IPS FHD 1920x1080"}]},
-      "panelType": {"value":"IPS","status":"verified","checkedAt":"2026-09-09","scope":"FHD configuration","evidence":[{"url":"https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","proof":"FHD display"},{"url":"https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html","proof":"IPS FHD display"}]}
+      "weight": {
+        "value": "Plus de 2 kg",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration i5-8250U 8/256",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "Weight approximately 2.02 kg"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "Starting weight 2.1 kg in later specifications"
+          }
+        ]
+      },
+      "processor": {
+        "value": "Intel Core i5",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8250U 8/256 configuration",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "8th generation Core i5-8250U"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "Intel Core i5-8250U"
+          }
+        ]
+      },
+      "processorGeneration": {
+        "value": "8e génération",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8250U",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "第8世代 Core i5-8250U"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "i5-8250U"
+          }
+        ]
+      },
+      "ram": {
+        "value": "8 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "8GB memory configuration"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "8 GB RAM"
+          }
+        ]
+      },
+      "storageCapacity": {
+        "value": "256 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue 8/256",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "256GB SSD (M.2 PCIe NVMe)"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "256 GB SSD storage"
+          }
+        ]
+      },
+      "storageType": {
+        "value": "SSD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "M.2 PCIe NVMe SSD"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "SSD storage"
+          }
+        ]
+      },
+      "graphics": {
+        "value": "Intel UHD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "i5-8250U configuration",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "Intel UHD Graphics 620"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "Intel UHD Graphics 620"
+          }
+        ]
+      },
+      "screenSize": {
+        "value": "15.6 pouces",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration vendue",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "15.6-inch display"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "15.6-inch model"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "Full HD",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "Full HD 1920 x 1080"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "IPS FHD 1920x1080"
+          }
+        ]
+      },
+      "panelType": {
+        "value": "IPS",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "FHD configuration",
+        "evidence": [
+          {
+            "url": "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+            "proof": "FHD display"
+          },
+          {
+            "url": "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html",
+            "proof": "IPS FHD display"
+          }
+        ]
+      }
     },
-    "sources": ["https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das","https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html"]
+    "sources": [
+      "https://jp.ext.hp.com/notebooks/business/probook_450_g5/?jumpid=st_cm_p_sh_ya_bra_das",
+      "https://www.notebookcheck.net/HP-ProBook-450-G5-i5-8250U-FHD-Laptop-Review.286846.0.html"
+    ]
   },
   {
     "sku": "DS-2CE76D0T-EXIMF",
     "model": "Hikvision DS-2CE76D0T-EXIMF",
     "facts": {
-      "cameraResolution": {"value":"2MP","status":"verified","checkedAt":"2026-09-09","scope":"référence exacte","evidence":[{"url":"https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf","proof":"2 MP, 1920 × 1080"},{"url":"https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html","proof":"2 MP 1080p"}]},
-      "securityType": {"value":"Caméra analogique","status":"verified","checkedAt":"2026-09-09","scope":"technologie TVI/AHD/CVI/CVBS","evidence":[{"url":"https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf","proof":"4-in-1 (TVI/AHD/CVI/CVBS)"},{"url":"https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html","proof":"TVI/AHD/CVI/CVBS"}]},
-      "lens": {"value":"2.8mm","status":"verified","checkedAt":"2026-09-09","scope":"objectif fixe","evidence":[{"url":"https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf","proof":"2.8 mm fixed lens"},{"url":"https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html","proof":"Objectif 2.8 mm"}]},
-      "nightVisionDistance": {"value":"20m","status":"verified","checkedAt":"2026-09-09","scope":"portée infrarouge maximale","evidence":[{"url":"https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf","proof":"IR distance up to 20 m"},{"url":"https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html","proof":"IR 20 m"}]},
-      "placement": {"value":"Extérieur","status":"verified","checkedAt":"2026-09-09","scope":"boîtier IP67","evidence":[{"url":"https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf","proof":"IP67 protection"},{"url":"https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html","proof":"IP67"}]},
-      "poe": {"value":false,"status":"verified","checkedAt":"2026-09-09","scope":"alimentation 12 VDC","evidence":[{"url":"https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf","proof":"12 VDC ±25%"},{"url":"https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html","proof":"Alimentation 12V DC"}]},
-      "protectionIndex": {"value":"IP67","status":"verified","checkedAt":"2026-09-09","scope":"indice de protection","evidence":[{"url":"https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf","proof":"IP67"},{"url":"https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html","proof":"IP67"}]}
+      "cameraResolution": {
+        "value": "2MP",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "référence exacte",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf",
+            "proof": "2 MP, 1920 × 1080"
+          },
+          {
+            "url": "https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html",
+            "proof": "2 MP 1080p"
+          }
+        ]
+      },
+      "securityType": {
+        "value": "Caméra analogique",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "technologie TVI/AHD/CVI/CVBS",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf",
+            "proof": "4-in-1 (TVI/AHD/CVI/CVBS)"
+          },
+          {
+            "url": "https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html",
+            "proof": "TVI/AHD/CVI/CVBS"
+          }
+        ]
+      },
+      "lens": {
+        "value": "2.8mm",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "objectif fixe",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf",
+            "proof": "2.8 mm fixed lens"
+          },
+          {
+            "url": "https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html",
+            "proof": "Objectif 2.8 mm"
+          }
+        ]
+      },
+      "nightVisionDistance": {
+        "value": "20m",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "portée infrarouge maximale",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf",
+            "proof": "IR distance up to 20 m"
+          },
+          {
+            "url": "https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html",
+            "proof": "IR 20 m"
+          }
+        ]
+      },
+      "placement": {
+        "value": "Extérieur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "boîtier IP67",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf",
+            "proof": "IP67 protection"
+          },
+          {
+            "url": "https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html",
+            "proof": "IP67"
+          }
+        ]
+      },
+      "poe": {
+        "value": false,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "alimentation 12 VDC",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf",
+            "proof": "12 VDC ±25%"
+          },
+          {
+            "url": "https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html",
+            "proof": "Alimentation 12V DC"
+          }
+        ]
+      },
+      "protectionIndex": {
+        "value": "IP67",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "indice de protection",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf",
+            "proof": "IP67"
+          },
+          {
+            "url": "https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html",
+            "proof": "IP67"
+          }
+        ]
+      }
     },
-    "sources": ["https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf","https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html"]
+    "sources": [
+      "https://assets.hikvision.com/prd/normal/all/doc/m000019926/DS-2CE76D0T-EXIMF_Datasheet_20250801.pdf",
+      "https://www.camerahikvisionmaroc.com/home/51-camera-turret-hikvision-ds-2ce76d0t-eximf-2-mp-1080p-ir-20-m-tviahdcvicvbs-ip67.html"
+    ]
   },
   {
     "sku": "DS-7616NI-K2",
     "model": "Hikvision DS-7616NI-K2",
     "facts": {
-      "securityType": {"value":"NVR","status":"verified","checkedAt":"2026-09-09","scope":"enregistreur réseau 16 canaux","evidence":[{"url":"https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf","proof":"16-ch network video recorder"},{"url":"https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/","proof":"Network video recorder DS-7616NI-K2"}]},
-      "channels": {"value":"16","status":"verified","checkedAt":"2026-09-09","scope":"nombre de canaux IP","evidence":[{"url":"https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf","proof":"Up to 16-ch IP video inputs"},{"url":"https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/","proof":"16 channels"}]},
-      "diskCapacity": {"value":"10 To","status":"verified","checkedAt":"2026-09-09","scope":"capacité maximale par disque SATA","evidence":[{"url":"https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf","proof":"2 SATA interfaces, up to 10 TB capacity for each"},{"url":"https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/","proof":"Supports up to 10 TB per HDD"}]},
-      "brandCompatibility": {"value":"Hikvision","status":"verified","checkedAt":"2026-09-09","scope":"marque du NVR","evidence":[{"url":"https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf","proof":"Hikvision DS-7616NI-K2"},{"url":"https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/","proof":"Hikvision product page"}]}
+      "securityType": {
+        "value": "NVR",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "enregistreur réseau 16 canaux",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf",
+            "proof": "16-ch network video recorder"
+          },
+          {
+            "url": "https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/",
+            "proof": "Network video recorder DS-7616NI-K2"
+          }
+        ]
+      },
+      "channels": {
+        "value": "16",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "nombre de canaux IP",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf",
+            "proof": "Up to 16-ch IP video inputs"
+          },
+          {
+            "url": "https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/",
+            "proof": "16 channels"
+          }
+        ]
+      },
+      "diskCapacity": {
+        "value": "10 To",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "capacité maximale par disque SATA",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf",
+            "proof": "2 SATA interfaces, up to 10 TB capacity for each"
+          },
+          {
+            "url": "https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/",
+            "proof": "Supports up to 10 TB per HDD"
+          }
+        ]
+      },
+      "brandCompatibility": {
+        "value": "Hikvision",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "marque du NVR",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf",
+            "proof": "Hikvision DS-7616NI-K2"
+          },
+          {
+            "url": "https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/",
+            "proof": "Hikvision product page"
+          }
+        ]
+      }
     },
-    "sources": ["https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf","https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/"]
+    "sources": [
+      "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000026/OFR000040/M000000577/Data_Sheet/Datasheet-of-DS-7616NI-K2_16P-NVR-D-or-E_4.71.410_20221026.pdf",
+      "https://hikvision.tj/en/products/network-products/network-video-recorders/pro-series-all-network-video-recorders/ds-7616ni-k2-16p/"
+    ]
   },
   {
     "sku": "IDS-7208HQHI-M1/T",
     "model": "Hikvision IDS-7208HQHI-M1/T",
     "facts": {
-      "securityType": {"value":"DVR","status":"verified","checkedAt":"2026-09-09","scope":"enregistreur Turbo HD 8 canaux","evidence":[{"url":"https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf","proof":"8-ch 5 MP Turbo HD DVR"},{"url":"https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d","proof":"8 Kanal 5MP DVR"}]},
-      "cameraResolution": {"value":"5MP","status":"verified","checkedAt":"2026-09-09","scope":"résolution analogique maximale","evidence":[{"url":"https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf","proof":"5 MP resolution support"},{"url":"https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d","proof":"5MP DVR"}]},
-      "channels": {"value":"8","status":"verified","checkedAt":"2026-09-09","scope":"entrées analogiques","evidence":[{"url":"https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf","proof":"8 analog channels"},{"url":"https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d","proof":"8 channel"}]},
-      "diskCapacity": {"value":"10 To","status":"verified","checkedAt":"2026-09-09","scope":"capacité maximale SATA","evidence":[{"url":"https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf","proof":"1 SATA interface, up to 10 TB"},{"url":"https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d","proof":"Supports 10TB HDD"}]},
-      "brandCompatibility": {"value":"Hikvision","status":"verified","checkedAt":"2026-09-09","scope":"marque du DVR","evidence":[{"url":"https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf","proof":"Hikvision IDS-7208HQHI-M1"},{"url":"https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d","proof":"Hikvision DVR"}]}
+      "securityType": {
+        "value": "DVR",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "enregistreur Turbo HD 8 canaux",
+        "evidence": [
+          {
+            "url": "https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf",
+            "proof": "8-ch 5 MP Turbo HD DVR"
+          },
+          {
+            "url": "https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d",
+            "proof": "8 Kanal 5MP DVR"
+          }
+        ]
+      },
+      "cameraResolution": {
+        "value": "5MP",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "résolution analogique maximale",
+        "evidence": [
+          {
+            "url": "https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf",
+            "proof": "5 MP resolution support"
+          },
+          {
+            "url": "https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d",
+            "proof": "5MP DVR"
+          }
+        ]
+      },
+      "channels": {
+        "value": "8",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "entrées analogiques",
+        "evidence": [
+          {
+            "url": "https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf",
+            "proof": "8 analog channels"
+          },
+          {
+            "url": "https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d",
+            "proof": "8 channel"
+          }
+        ]
+      },
+      "diskCapacity": {
+        "value": "10 To",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "capacité maximale SATA",
+        "evidence": [
+          {
+            "url": "https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf",
+            "proof": "1 SATA interface, up to 10 TB"
+          },
+          {
+            "url": "https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d",
+            "proof": "Supports 10TB HDD"
+          }
+        ]
+      },
+      "brandCompatibility": {
+        "value": "Hikvision",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "marque du DVR",
+        "evidence": [
+          {
+            "url": "https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf",
+            "proof": "Hikvision IDS-7208HQHI-M1"
+          },
+          {
+            "url": "https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d",
+            "proof": "Hikvision DVR"
+          }
+        ]
+      }
     },
-    "sources": ["https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf","https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d"]
+    "sources": [
+      "https://us-legacy.hikvision.com/sites/default/files/data_sheet/datasheetofids-7208hqhi-m1_s_v4.71.000_20230621_0.pdf",
+      "https://www.hikvisioninterkom.com/hikvision-ids-7208hqhi-m1t-8-kanal-acusense-5mp-dvr-708c8b10-33be-478b-84de-b1f733f91a4d"
+    ]
   },
   {
     "sku": "DH-HAC-HFW1220BP",
     "model": "Dahua DH-HAC-HFW1220BP",
     "facts": {
-      "cameraResolution": {"value":"2MP","status":"verified","checkedAt":"2026-09-09","scope":"référence exacte","evidence":[{"url":"https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf","proof":"DH-HAC-HFW1220BP, 2Megapixel CMOS"},{"url":"https://www.cctvdealerspune.com/ir-bullet-camera/","proof":"DH-HAC-HFW1220BP, 2Megapixel CMOS"}]},
-      "securityType": {"value":"Caméra analogique","status":"verified","checkedAt":"2026-09-09","scope":"caméra HDCVI coaxiale","evidence":[{"url":"https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf","proof":"HD and SD output switchable, control over coaxial cable"},{"url":"https://www.cctvdealerspune.com/ir-bullet-camera/","proof":"HD and SD output switchable, control over coaxial cable"}]},
-      "lens": {"value":"3.6mm","status":"verified","checkedAt":"2026-09-09","scope":"objectif fixe","evidence":[{"url":"https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf","proof":"3.6mm fixed lens"},{"url":"https://www.cctvdealerspune.com/ir-bullet-camera/","proof":"3.6mm fixed lens"}]},
-      "nightVisionDistance": {"value":"50m","status":"verified","checkedAt":"2026-09-09","scope":"portée infrarouge maximale","evidence":[{"url":"https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf","proof":"Max. IR LEDs length 50m"},{"url":"https://www.cctvdealerspune.com/ir-bullet-camera/","proof":"Max. IR LEDs length 50m"}]},
-      "protectionIndex": {"value":"IP67","status":"verified","checkedAt":"2026-09-09","scope":"indice de protection","evidence":[{"url":"https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf","proof":"IP67"},{"url":"https://www.cctvdealerspune.com/ir-bullet-camera/","proof":"IP67"}]}
+      "cameraResolution": {
+        "value": "2MP",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "référence exacte",
+        "evidence": [
+          {
+            "url": "https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf",
+            "proof": "DH-HAC-HFW1220BP, 2Megapixel CMOS"
+          },
+          {
+            "url": "https://www.cctvdealerspune.com/ir-bullet-camera/",
+            "proof": "DH-HAC-HFW1220BP, 2Megapixel CMOS"
+          }
+        ]
+      },
+      "securityType": {
+        "value": "Caméra analogique",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "caméra HDCVI coaxiale",
+        "evidence": [
+          {
+            "url": "https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf",
+            "proof": "HD and SD output switchable, control over coaxial cable"
+          },
+          {
+            "url": "https://www.cctvdealerspune.com/ir-bullet-camera/",
+            "proof": "HD and SD output switchable, control over coaxial cable"
+          }
+        ]
+      },
+      "lens": {
+        "value": "3.6mm",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "objectif fixe",
+        "evidence": [
+          {
+            "url": "https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf",
+            "proof": "3.6mm fixed lens"
+          },
+          {
+            "url": "https://www.cctvdealerspune.com/ir-bullet-camera/",
+            "proof": "3.6mm fixed lens"
+          }
+        ]
+      },
+      "nightVisionDistance": {
+        "value": "50m",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "portée infrarouge maximale",
+        "evidence": [
+          {
+            "url": "https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf",
+            "proof": "Max. IR LEDs length 50m"
+          },
+          {
+            "url": "https://www.cctvdealerspune.com/ir-bullet-camera/",
+            "proof": "Max. IR LEDs length 50m"
+          }
+        ]
+      },
+      "protectionIndex": {
+        "value": "IP67",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "indice de protection",
+        "evidence": [
+          {
+            "url": "https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf",
+            "proof": "IP67"
+          },
+          {
+            "url": "https://www.cctvdealerspune.com/ir-bullet-camera/",
+            "proof": "IP67"
+          }
+        ]
+      }
     },
-    "sources": ["https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf","https://www.cctvdealerspune.com/ir-bullet-camera/"]
+    "sources": [
+      "https://npico.ir/wp-content/uploads/2017/05/HDCVI-DAHUA-www.npico_.ir-%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%84%DB%8C%D8%B3%D8%AA-%D9%82%D9%8A%D9%85%D8%AA-%D9%87%D9%85%D9%83%D8%A7%D8%B1-%D8%AF%D9%88%D8%B1%D8%A8%D9%8A%D9%86-%D8%AF%D8%A7%D9%87%D9%88%D8%A7.pdf",
+      "https://www.cctvdealerspune.com/ir-bullet-camera/"
+    ]
+  },
+  {
+    "sku": "DS-2CE16D0T-EXIF",
+    "model": "Hikvision DS-2CE16D0T-EXIF",
+    "facts": {
+      "cameraResolution": {
+        "value": "2MP",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "référence exacte",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR002776/M000019924/Data_Sheet/DS-2CE16D0T-EXIF.pdf",
+            "proof": "2 MP CMOS, 1920 × 1080"
+          },
+          {
+            "url": "https://www.hikdistribution.com/es/products/hikvision-ds-2ce16d0t-exif-2-mp-camara-de-bala-de-mini-de-mini",
+            "proof": "2 MP camera"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "2MP",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "résolution image",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR002776/M000019924/Data_Sheet/DS-2CE16D0T-EXIF.pdf",
+            "proof": "Resolution 1920 × 1080"
+          },
+          {
+            "url": "https://www.hikvision.net.az/en/video-surveillance-systems/analog-cameras/2-mp/774-ds-2ce16d0t-exif-28mm-2-mp-ir-20m-fixed-mini-bullet-camera.html",
+            "proof": "2 MP IR 20m"
+          }
+        ]
+      },
+      "securityType": {
+        "value": "Caméra analogique",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "sorties TVI/AHD/CVI/CVBS",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR002776/M000019924/Data_Sheet/DS-2CE16D0T-EXIF.pdf",
+            "proof": "One port for four switchable signals TVI/AHD/CVI/CVBS"
+          },
+          {
+            "url": "https://tiendahikvision.com.ar/p/camara-bullet-analogica-ds-2ce16d0t-exif-hikvision-2mp-exir-2-8mm/fc1276f9-de71-4e52-a4f6-cb3817ca3f9f",
+            "proof": "Cámara Bullet Analógica"
+          }
+        ]
+      },
+      "lens": {
+        "value": "2.8mm",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration 2.8 mm",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR002776/M000019924/Data_Sheet/DS-2CE16D0T-EXIF.pdf",
+            "proof": "Available model DS-2CE16D0T-EXIF(2.8mm)"
+          },
+          {
+            "url": "https://tiendahikvision.com.ar/p/camara-bullet-analogica-ds-2ce16d0t-exif-hikvision-2mp-exir-2-8mm/fc1276f9-de71-4e52-a4f6-cb3817ca3f9f",
+            "proof": "Lente fija de 2,8 mm"
+          }
+        ]
+      },
+      "nightVisionDistance": {
+        "value": "20m",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "portée IR maximale",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR002776/M000019924/Data_Sheet/DS-2CE16D0T-EXIF.pdf",
+            "proof": "IR Range up to 20 m"
+          },
+          {
+            "url": "https://www.hikdistribution.com/es/products/hikvision-ds-2ce16d0t-exif-2-mp-camara-de-bala-de-mini-de-mini",
+            "proof": "Up to 20 m IR distance"
+          }
+        ]
+      },
+      "placement": {
+        "value": "Extérieur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "produit Outdoor EXIR",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR002776/M000019924/Data_Sheet/DS-2CE16D0T-EXIF.pdf",
+            "proof": "2MP Outdoor EXIR Fixed Mini Bullet Camera"
+          },
+          {
+            "url": "https://www.hikvision.net.az/en/video-surveillance-systems/analog-cameras/2-mp/774-ds-2ce16d0t-exif-28mm-2-mp-ir-20m-fixed-mini-bullet-camera.html",
+            "proof": "Fixed mini bullet camera"
+          }
+        ]
+      },
+      "protectionIndex": {
+        "value": "IP67",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "protection eau et poussière",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR002776/M000019924/Data_Sheet/DS-2CE16D0T-EXIF.pdf",
+            "proof": "Protection Level IP67"
+          },
+          {
+            "url": "https://tiendahikvision.com.ar/p/camara-bullet-analogica-ds-2ce16d0t-exif-hikvision-2mp-exir-2-8mm/fc1276f9-de71-4e52-a4f6-cb3817ca3f9f",
+            "proof": "Water and dust resistant IP67"
+          }
+        ]
+      },
+      "wdr": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "Digital WDR",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR002776/M000019924/Data_Sheet/DS-2CE16D0T-EXIF.pdf",
+            "proof": "WDR (Wide Dynamic Range): Digital WDR"
+          },
+          {
+            "url": "https://tiendahikvision.com.ar/p/camara-bullet-analogica-ds-2ce16d0t-exif-hikvision-2mp-exir-2-8mm/fc1276f9-de71-4e52-a4f6-cb3817ca3f9f",
+            "proof": "DWDR"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR002776/M000019924/Data_Sheet/DS-2CE16D0T-EXIF.pdf",
+      "https://tiendahikvision.com.ar/p/camara-bullet-analogica-ds-2ce16d0t-exif-hikvision-2mp-exir-2-8mm/fc1276f9-de71-4e52-a4f6-cb3817ca3f9f"
+    ]
+  },
+  {
+    "sku": "DS-2CE76K0T-EXLMF",
+    "model": "Hikvision DS-2CE76K0T-EXLMF",
+    "facts": {
+      "cameraResolution": {
+        "value": "5MP",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "variante 3K / 5 MP",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000146/S000000147/OFR011562/M000068586/Data_Sheet/DS-2CE76K0T-EXLMF_Datasheet_20240626.pdf",
+            "proof": "AHD: 5 MP; 3K CMOS"
+          },
+          {
+            "url": "https://ecuacomp.com/producto/camara-de-vigilancia-turbo-hd-domo-hikvision-ds-2ce76k0t-exlmf-5mp-3k-2-8mm-ip67-dia-y-noche-plastico/",
+            "proof": "5MP 3K"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "3K",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "résolution maximale 2960 × 1665",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000146/S000000147/OFR011562/M000068586/Data_Sheet/DS-2CE76K0T-EXLMF_Datasheet_20240626.pdf",
+            "proof": "Max. Resolution 2960 × 1665"
+          },
+          {
+            "url": "https://ecuacomp.com/producto/camara-de-vigilancia-turbo-hd-domo-hikvision-ds-2ce76k0t-exlmf-5mp-3k-2-8mm-ip67-dia-y-noche-plastico/",
+            "proof": "Resolución máxima 2960 × 1665 (3K)"
+          }
+        ]
+      },
+      "securityType": {
+        "value": "Caméra analogique",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "sortie TVI/AHD/CVI/CVBS",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000146/S000000147/OFR011562/M000068586/Data_Sheet/DS-2CE76K0T-EXLMF_Datasheet_20240626.pdf",
+            "proof": "Switchable TVI/AHD/CVI/CVBS"
+          },
+          {
+            "url": "https://ecuacomp.com/producto/camara-de-vigilancia-turbo-hd-domo-hikvision-ds-2ce76k0t-exlmf-5mp-3k-2-8mm-ip67-dia-y-noche-plastico/",
+            "proof": "Cámara Turbo HD analógica"
+          }
+        ]
+      },
+      "lens": {
+        "value": "2.8mm",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration 2.8 mm",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000146/S000000147/OFR011562/M000068586/Data_Sheet/DS-2CE76K0T-EXLMF_Datasheet_20240626.pdf",
+            "proof": "2.8 mm fixed focal lens"
+          },
+          {
+            "url": "https://ecuacomp.com/producto/camara-de-vigilancia-turbo-hd-domo-hikvision-ds-2ce76k0t-exlmf-5mp-3k-2-8mm-ip67-dia-y-noche-plastico/",
+            "proof": "Lente fija de 2.8 mm"
+          }
+        ]
+      },
+      "nightVisionDistance": {
+        "value": "20m",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "IR et lumière blanche",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000146/S000000147/OFR011562/M000068586/Data_Sheet/DS-2CE76K0T-EXLMF_Datasheet_20240626.pdf",
+            "proof": "IR up to 20 m; White Light up to 20 m"
+          },
+          {
+            "url": "https://www.blibli.com/p/kamera-cctv-indoor-5mp-3k-colorvu-hikvision-ds-2ce76k0t-exlmf-smart-light/ps--TOC-70003-01658",
+            "proof": "Up to 20m IR and white light"
+          }
+        ]
+      },
+      "placement": {
+        "value": "Intérieur / extérieur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "usage annoncé intérieur et extérieur",
+        "evidence": [
+          {
+            "url": "https://ecuacomp.com/producto/camara-de-vigilancia-turbo-hd-domo-hikvision-ds-2ce76k0t-exlmf-5mp-3k-2-8mm-ip67-dia-y-noche-plastico/",
+            "proof": "Suitable for indoor and outdoor installations"
+          },
+          {
+            "url": "https://www.panacompu.com/panama/es/informacion-producto/hikvision-ds-2ce76k0t-exlmf-camara-analogica-para-interiores-y-exteriores-3k-coaxial-ajuste-de-angulo-manual",
+            "proof": "Para interiores y exteriores"
+          }
+        ]
+      },
+      "protectionIndex": {
+        "value": "IP67",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "protection eau et poussière",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000146/S000000147/OFR011562/M000068586/Data_Sheet/DS-2CE76K0T-EXLMF_Datasheet_20240626.pdf",
+            "proof": "Protection IP67"
+          },
+          {
+            "url": "https://ecuacomp.com/producto/camara-de-vigilancia-turbo-hd-domo-hikvision-ds-2ce76k0t-exlmf-5mp-3k-2-8mm-ip67-dia-y-noche-plastico/",
+            "proof": "Protección IP67"
+          }
+        ]
+      },
+      "wdr": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "Digital WDR",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000146/S000000147/OFR011562/M000068586/Data_Sheet/DS-2CE76K0T-EXLMF_Datasheet_20240626.pdf",
+            "proof": "Wide Dynamic Range: Digital WDR"
+          },
+          {
+            "url": "https://ecuacomp.com/producto/camara-de-vigilancia-turbo-hd-domo-hikvision-ds-2ce76k0t-exlmf-5mp-3k-2-8mm-ip67-dia-y-noche-plastico/",
+            "proof": "DWDR"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000146/S000000147/OFR011562/M000068586/Data_Sheet/DS-2CE76K0T-EXLMF_Datasheet_20240626.pdf",
+      "https://ecuacomp.com/producto/camara-de-vigilancia-turbo-hd-domo-hikvision-ds-2ce76k0t-exlmf-5mp-3k-2-8mm-ip67-dia-y-noche-plastico/"
+    ]
+  },
+  {
+    "sku": "DS-2CE76K0T-LMFS",
+    "model": "Hikvision DS-2CE76K0T-LMFS",
+    "facts": {
+      "cameraResolution": {
+        "value": "5MP",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "variante 3K / 5 MP",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+            "proof": "3K Dual Light camera; AHD 5 MP"
+          },
+          {
+            "url": "https://www.syscom.mx/products/217236",
+            "proof": "3K (5 Megapixel)"
+          }
+        ]
+      },
+      "resolution": {
+        "value": "3K",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "résolution maximale 2960 × 1665",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+            "proof": "3K, 2960 × 1665 resolution"
+          },
+          {
+            "url": "https://argseguridad.com/camaras-hd/2574-camara-3k-5mpx-dual-light-turret-con-audio-lente-28mm-ip67-ir-30m.html",
+            "proof": "Resolución 3K (2960 × 1665) / 5Mpx"
+          }
+        ]
+      },
+      "securityType": {
+        "value": "Caméra analogique",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "sortie TVI/AHD/CVI/CVBS",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+            "proof": "One port for four switchable signals TVI/AHD/CVI/CVBS"
+          },
+          {
+            "url": "https://www.syscom.mx/products/217236",
+            "proof": "Soporta 4 tecnologías TVI/AHD/CVI/CVBS"
+          }
+        ]
+      },
+      "lens": {
+        "value": "2.8mm",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration 2.8 mm",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+            "proof": "2.8 mm fixed focal lens"
+          },
+          {
+            "url": "https://argseguridad.com/camaras-hd/2574-camara-3k-5mpx-dual-light-turret-con-audio-lente-28mm-ip67-ir-30m.html",
+            "proof": "Lente fijo de 2.8 mm"
+          }
+        ]
+      },
+      "nightVision": {
+        "value": "30 m",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "portée infrarouge maximale",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+            "proof": "IR up to 30 m"
+          },
+          {
+            "url": "https://www.syscom.mx/products/217236",
+            "proof": "IR 30 mts"
+          }
+        ]
+      },
+      "nightVisionDistance": {
+        "value": "30m",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "portée infrarouge maximale",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+            "proof": "IR: Up to 30 m"
+          },
+          {
+            "url": "https://argseguridad.com/camaras-hd/2574-camara-3k-5mpx-dual-light-turret-con-audio-lente-28mm-ip67-ir-30m.html",
+            "proof": "Distancia IR: hasta 30 metros"
+          }
+        ]
+      },
+      "placement": {
+        "value": "Extérieur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "protection et usage extérieur",
+        "evidence": [
+          {
+            "url": "https://www.syscom.mx/products/217236",
+            "proof": "IP67 ideal para exteriores"
+          },
+          {
+            "url": "https://www.tevah.fr/shop/300615453-ds-2ce76k0t-lmfs-2-8mm-82062",
+            "proof": "Eyeball HDTVI IP67"
+          }
+        ]
+      },
+      "audio": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "microphone intégré",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+            "proof": "3K Dual Light Audio camera"
+          },
+          {
+            "url": "https://argseguridad.com/camaras-hd/2574-camara-3k-5mpx-dual-light-turret-con-audio-lente-28mm-ip67-ir-30m.html",
+            "proof": "Micrófono incorporado"
+          }
+        ]
+      },
+      "protectionIndex": {
+        "value": "IP67",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "protection eau et poussière",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+            "proof": "Water and dust resistant IP67"
+          },
+          {
+            "url": "https://www.syscom.mx/products/217236",
+            "proof": "Protección IP67"
+          }
+        ]
+      },
+      "wdr": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "Digital WDR",
+        "evidence": [
+          {
+            "url": "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+            "proof": "Digital WDR"
+          },
+          {
+            "url": "https://argseguridad.com/camaras-hd/2574-camara-3k-5mpx-dual-light-turret-con-audio-lente-28mm-ip67-ir-30m.html",
+            "proof": "dWDR"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000146/S000000147/OFR009689/M000059516/Data_Sheet/DS-2CE76K0T-LMFS_Datasheet_20230529.pdf",
+      "https://www.syscom.mx/products/217236"
+    ]
+  },
+  {
+    "sku": "DS-2CE16U0T-LF",
+    "model": "Hikvision DS-2CE16U0T-LF",
+    "facts": {
+      "cameraResolution": {
+        "value": "4K",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "résolution 3840 × 2160",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000112369/DS-2CE16U0T-LF_Datasheet_20250807.pdf",
+            "proof": "4K CMOS, 3840 × 2160"
+          },
+          {
+            "url": "https://www.kamery-ip.com/Hikvision-DS-2CE16U0T-LF-125406.html",
+            "proof": "Turbo HD 4K, 8 Mpx"
+          }
+        ]
+      },
+      "securityType": {
+        "value": "Caméra analogique",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "sortie TVI/AHD/CVI/CVBS",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000112369/DS-2CE16U0T-LF_Datasheet_20250807.pdf",
+            "proof": "Switchable TVI/AHD/CVI/CVBS"
+          },
+          {
+            "url": "https://dsc.hu/shop/product/32536/video/hdcvi_tvi/kamerak/analog_hd_csokamera_8mp_fix_objektiv_28mm_ir_es_feher_led_30m_fem_haz_dc12v_4_in_1",
+            "proof": "Analóg HD 8MP, 4 in 1"
+          }
+        ]
+      },
+      "lens": {
+        "value": "2.8mm",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "configuration 2.8 mm",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000112369/DS-2CE16U0T-LF_Datasheet_20250807.pdf",
+            "proof": "2.8 mm fixed focal lens"
+          },
+          {
+            "url": "https://dsc.hu/shop/product/32536/video/hdcvi_tvi/kamerak/analog_hd_csokamera_8mp_fix_objektiv_28mm_ir_es_feher_led_30m_fem_haz_dc12v_4_in_1",
+            "proof": "Fixed lens 2.8mm"
+          }
+        ]
+      },
+      "nightVision": {
+        "value": "30 m",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "portée infrarouge maximale",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000112369/DS-2CE16U0T-LF_Datasheet_20250807.pdf",
+            "proof": "IR up to 30 m"
+          },
+          {
+            "url": "https://foston.cl/producto/camara-tvi-4k-smart-dual-light-ir-30m-ds-2ce16u0t-lf-2-8mm-hikvision/",
+            "proof": "IR 30m"
+          }
+        ]
+      },
+      "nightVisionDistance": {
+        "value": "30m",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "portée infrarouge maximale",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000112369/DS-2CE16U0T-LF_Datasheet_20250807.pdf",
+            "proof": "IR: Up to 30 m"
+          },
+          {
+            "url": "https://dsc.hu/shop/product/32536/video/hdcvi_tvi/kamerak/analog_hd_csokamera_8mp_fix_objektiv_28mm_ir_es_feher_led_30m_fem_haz_dc12v_4_in_1",
+            "proof": "IR és fehér LED 30m"
+          }
+        ]
+      },
+      "placement": {
+        "value": "Extérieur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "protection IP67 et boîtier bullet",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000112369/DS-2CE16U0T-LF_Datasheet_20250807.pdf",
+            "proof": "IP67 metal mini bullet camera"
+          },
+          {
+            "url": "https://dsc.hu/shop/product/32536/video/hdcvi_tvi/kamerak/analog_hd_csokamera_8mp_fix_objektiv_28mm_ir_es_feher_led_30m_fem_haz_dc12v_4_in_1",
+            "proof": "Metal housing, IP67"
+          }
+        ]
+      },
+      "protectionIndex": {
+        "value": "IP67",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "protection eau et poussière",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000112369/DS-2CE16U0T-LF_Datasheet_20250807.pdf",
+            "proof": "Protection IP67"
+          },
+          {
+            "url": "https://dsc.hu/shop/product/32536/video/hdcvi_tvi/kamerak/analog_hd_csokamera_8mp_fix_objektiv_28mm_ir_es_feher_led_30m_fem_haz_dc12v_4_in_1",
+            "proof": "Védettség IP67"
+          }
+        ]
+      },
+      "wdr": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "Digital WDR",
+        "evidence": [
+          {
+            "url": "https://assets.hikvision.com/prd/normal/all/doc/m000112369/DS-2CE16U0T-LF_Datasheet_20250807.pdf",
+            "proof": "Digital WDR"
+          },
+          {
+            "url": "https://foston.cl/producto/camara-tvi-4k-smart-dual-light-ir-30m-ds-2ce16u0t-lf-2-8mm-hikvision/",
+            "proof": "Digital WDR"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://assets.hikvision.com/prd/normal/all/doc/m000112369/DS-2CE16U0T-LF_Datasheet_20250807.pdf",
+      "https://dsc.hu/shop/product/32536/video/hdcvi_tvi/kamerak/analog_hd_csokamera_8mp_fix_objektiv_28mm_ir_es_feher_led_30m_fem_haz_dc12v_4_in_1"
+    ]
+  },
+  {
+    "sku": "STN-LS1008",
+    "model": "TP-Link LS1008",
+    "facts": {
+      "networkType": {
+        "value": "Switch",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "switch de bureau non manageable",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "Product classified as Unmanaged; 8-Port 10/100Mbps Desktop Switch"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "LiteWave series described as unmanaged plug-and-play switches"
+          }
+        ]
+      },
+      "rj45Ports": {
+        "value": "8",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "8 ports RJ45 10/100 Mbps",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "8× 10/100Mbps Auto-Negotiation RJ45 ports"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "LS1008 interface: 8 10/100Mbps RJ45 ports"
+          }
+        ]
+      },
+      "ports": {
+        "value": "8 ports",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "8 ports RJ45",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "8-Port 10/100Mbps Desktop Switch"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "LS1008 interface: 8 10/100Mbps RJ45 ports"
+          }
+        ]
+      },
+      "portSpeed": {
+        "value": "100 Mbps",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "Fast Ethernet 10/100 Mbps",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "8× 10/100Mbps RJ45 ports"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "LS1008 interface: 8 10/100Mbps RJ45 ports"
+          }
+        ]
+      },
+      "speed": {
+        "value": "100 Mbps",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "débit maximal Fast Ethernet",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "8-Port 10/100Mbps Desktop Switch"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "LS1008 interface: 8 10/100Mbps RJ45 ports"
+          }
+        ]
+      },
+      "manageableBool": {
+        "value": false,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "aucune configuration; switch unmanaged",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "Product classified as Unmanaged; plug and play, no configuration needed"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "LiteWave switches are unmanaged and require no configuration"
+          }
+        ]
+      },
+      "manageable": {
+        "value": "Non manageable",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "switch non manageable",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "Product classified as Unmanaged"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "LiteWave series described as unmanaged"
+          }
+        ]
+      },
+      "managementLevel": {
+        "value": "Unmanaged",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "niveau de gestion constructeur",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "Product classified as Unmanaged"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "Unmanaged switch series"
+          }
+        ]
+      },
+      "fanless": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "refroidissement sans ventilateur",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "Fanless design ensures quiet operation"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "Fanless design ensures quiet operation"
+          }
+        ]
+      },
+      "networkUsage": {
+        "value": "Usage maison",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "gamme Home/Office et switch de bureau",
+        "evidence": [
+          {
+            "url": "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+            "proof": "Desktop switch for basic wired networks"
+          },
+          {
+            "url": "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf",
+            "proof": "Home/Office Ethernet Switches; ideal for basic networks"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://www.tp-link.com/ph/business-networking/soho-switch-unmanaged/ls1008/",
+      "https://static.tp-link.com/2019/201909/20190916/LS1008_LiteWave%20Switch%20Datasheet.pdf"
+    ]
+  },
+  {
+    "sku": "PN2409",
+    "model": "Netis WF2409E",
+    "facts": {
+      "networkType": {
+        "value": "Routeur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "routeur sans fil multi-mode",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/index.php/products/WF2409E.html",
+            "proof": "300Mbps Multi-Mode Wireless Router; Router mode supported"
+          },
+          {
+            "url": "https://www.netiness.com/product/netis-wf2409e-router/",
+            "proof": "WF2409E listed as wireless router"
+          }
+        ]
+      },
+      "rj45Ports": {
+        "value": "4",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "4 ports LAN RJ45 10/100 Mbps",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/index.php/products/WF2409E.html",
+            "proof": "4 × 10/100Mbps Auto MDI/MDIX RJ45 LAN ports"
+          },
+          {
+            "url": "https://www.netiness.com/product/netis-wf2409e-router/",
+            "proof": "Four Fast Ethernet LAN ports"
+          }
+        ]
+      },
+      "ports": {
+        "value": "4 ports",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "4 ports LAN",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/index.php/products/WF2409E.html",
+            "proof": "1 WAN + 4 LAN ports"
+          },
+          {
+            "url": "https://www.netiness.com/product/netis-wf2409e-router/",
+            "proof": "1 WAN and 4 LAN ports"
+          }
+        ]
+      },
+      "portSpeed": {
+        "value": "100 Mbps",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "ports Fast Ethernet 10/100 Mbps",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/index.php/products/WF2409E.html",
+            "proof": "WAN and LAN interfaces are 10/100Mbps"
+          },
+          {
+            "url": "https://www.netiness.com/product/netis-wf2409e-router/",
+            "proof": "Fast Ethernet ports"
+          }
+        ]
+      },
+      "speed": {
+        "value": "100 Mbps",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "débit filaire Fast Ethernet",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/index.php/products/WF2409E.html",
+            "proof": "IEEE 802.3u 100Base-TX interfaces"
+          },
+          {
+            "url": "https://www.netiness.com/product/netis-wf2409e-router/",
+            "proof": "10/100 Mbps Ethernet"
+          }
+        ]
+      },
+      "wifiBands": {
+        "value": "Single",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "Wi-Fi sur la seule bande 2,4 GHz",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/index.php/products/WF2409E.html",
+            "proof": "300Mbps wireless speed on the 2.4 GHz band"
+          },
+          {
+            "url": "https://www.netiness.com/product/netis-wf2409e-router/",
+            "proof": "2.4 GHz wireless router"
+          }
+        ]
+      },
+      "antennas": {
+        "value": "Externes",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "3 antennes fixes externes 5 dBi",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/index.php/products/WF2409E.html",
+            "proof": "3 × 5dBi Fixed Antenna"
+          },
+          {
+            "url": "https://www.netiness.com/product/netis-wf2409e-router/",
+            "proof": "Three external 5dBi antennas"
+          }
+        ]
+      },
+      "qos": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "WMM et contrôle de bande passante",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/index.php/products/WF2409E.html",
+            "proof": "QoS: WMM and Bandwidth Control"
+          },
+          {
+            "url": "https://www.netiness.com/product/netis-wf2409e-router/",
+            "proof": "Bandwidth control / QoS supported"
+          }
+        ]
+      },
+      "vpn": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "VPN pass-through PPTP, L2TP et IPSec",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/index.php/products/WF2409E.html",
+            "proof": "VPN Pass-through: PPTP, L2TP, IPSec"
+          },
+          {
+            "url": "https://www.netiness.com/product/netis-wf2409e-router/",
+            "proof": "VPN pass-through support"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://www.netis-systems.com/index.php/products/WF2409E.html",
+      "https://www.netiness.com/product/netis-wf2409e-router/"
+    ]
+  },
+  {
+    "sku": "RTD305",
+    "model": "Tenda D305",
+    "facts": {
+      "networkType": {
+        "value": "Routeur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "modem-routeur ADSL2+ sans fil",
+        "evidence": [
+          {
+            "url": "https://www.tendacn.com/product/support/d305.html",
+            "proof": "D305 N300 ADSL2+ Modem Router"
+          },
+          {
+            "url": "https://youshop-dz.com/product/tenda-d305/",
+            "proof": "Modem-routeur ADSL2+ tout-en-un"
+          }
+        ]
+      },
+      "rj45Ports": {
+        "value": "4",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "3 ports LAN et 1 port WAN/LAN 10/100 Mbps",
+        "evidence": [
+          {
+            "url": "https://www.tendacn.com/product/support/d305.html",
+            "proof": "10/100Mbps LAN × 3 and 10/100Mbps WAN × 1"
+          },
+          {
+            "url": "https://youshop-dz.com/product/tenda-d305/",
+            "proof": "3× RJ45 10/100 Mbps LAN + 1× WAN/LAN interchangeable"
+          }
+        ]
+      },
+      "ports": {
+        "value": "4 ports",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "4 ports Ethernet 10/100 Mbps",
+        "evidence": [
+          {
+            "url": "https://www.tendacn.com/product/support/d305.html",
+            "proof": "10/100Mbps LAN × 3 and 10/100Mbps WAN × 1"
+          },
+          {
+            "url": "https://youshop-dz.com/product/tenda-d305/",
+            "proof": "3 LAN + 1 WAN/LAN port"
+          }
+        ]
+      },
+      "portSpeed": {
+        "value": "100 Mbps",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "ports Fast Ethernet 10/100 Mbps",
+        "evidence": [
+          {
+            "url": "https://www.tendacn.com/product/support/d305.html",
+            "proof": "10/100Mbps LAN and WAN interfaces"
+          },
+          {
+            "url": "https://youshop-dz.com/product/tenda-d305/",
+            "proof": "Ports LAN 10/100 Mbps"
+          }
+        ]
+      },
+      "speed": {
+        "value": "100 Mbps",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "débit filaire Fast Ethernet",
+        "evidence": [
+          {
+            "url": "https://www.tendacn.com/product/support/d305.html",
+            "proof": "10/100Mbps LAN × 3 and WAN × 1"
+          },
+          {
+            "url": "https://youshop-dz.com/product/tenda-d305/",
+            "proof": "LAN 10/100 Mbps + WAN/LAN interchangeable"
+          }
+        ]
+      },
+      "wifiBands": {
+        "value": "Single",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "Wi-Fi 802.11b/g/n sur 2,4 GHz",
+        "evidence": [
+          {
+            "url": "https://www.tendacn.com/product/support/d305.html",
+            "proof": "Wireless standards IEEE 802.11b/g/n 2.4GHz"
+          },
+          {
+            "url": "https://youshop-dz.com/product/tenda-d305/",
+            "proof": "Wi-Fi 802.11b/g/n, 2,4 GHz, up to 300 Mbps"
+          }
+        ]
+      },
+      "antennas": {
+        "value": "Externes",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "4 antennes externes omnidirectionnelles 5 dBi",
+        "evidence": [
+          {
+            "url": "https://www.tendacn.com/product/support/d305.html",
+            "proof": "4 × 5 dBi antenna"
+          },
+          {
+            "url": "https://youshop-dz.com/product/tenda-d305/",
+            "proof": "4× external omnidirectional 5 dBi antennas"
+          }
+        ]
+      },
+      "qos": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "QoS basé sur IP / contrôle de bande passante",
+        "evidence": [
+          {
+            "url": "https://www.tendacn.com/product/support/d305.html",
+            "proof": "Advanced feature QoS (Based IP)"
+          },
+          {
+            "url": "https://youshop-dz.com/product/tenda-d305/",
+            "proof": "QoS and bandwidth control listed"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://www.tendacn.com/product/support/d305.html",
+      "https://youshop-dz.com/product/tenda-d305/"
+    ]
+  },
+  {
+    "sku": "RN4323",
+    "model": "Netis DL4323",
+    "facts": {
+      "networkType": {
+        "value": "Routeur",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "modem-routeur ADSL2+ sans fil",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/isp/DL4323.html",
+            "proof": "N300 Wireless ADSL2+ Modem Router; 4-port NAT router"
+          },
+          {
+            "url": "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/",
+            "proof": "DL4323 300Mbps wireless N ADSL2+ modem router"
+          }
+        ]
+      },
+      "rj45Ports": {
+        "value": "4",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "4 ports LAN RJ45 10/100 Mbps",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/isp/DL4323.html",
+            "proof": "4 × 10/100Mbps Auto MDI/MDIX RJ45 LAN ports"
+          },
+          {
+            "url": "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/",
+            "proof": "Four 10/100 Mbps LAN ports"
+          }
+        ]
+      },
+      "ports": {
+        "value": "4 ports",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "4 ports Ethernet LAN",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/isp/DL4323.html",
+            "proof": "4-port NAT router; 4 RJ45 LAN ports"
+          },
+          {
+            "url": "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/",
+            "proof": "4-port Ethernet router"
+          }
+        ]
+      },
+      "portSpeed": {
+        "value": "100 Mbps",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "ports Fast Ethernet 10/100 Mbps",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/isp/DL4323.html",
+            "proof": "IEEE 802.3u 100Base-TX; 10/100Mbps LAN"
+          },
+          {
+            "url": "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/",
+            "proof": "10/100 Mbps Ethernet ports"
+          }
+        ]
+      },
+      "speed": {
+        "value": "100 Mbps",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "débit filaire Fast Ethernet",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/isp/DL4323.html",
+            "proof": "4 × 10/100Mbps RJ45 LAN ports"
+          },
+          {
+            "url": "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/",
+            "proof": "Fast Ethernet LAN ports"
+          }
+        ]
+      },
+      "wifiBands": {
+        "value": "Single",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "Wi-Fi N sur la seule bande 2,4 GHz",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/isp/DL4323.html",
+            "proof": "Wireless N up to 300Mbps; frequency 2.4-2.4835GHz"
+          },
+          {
+            "url": "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/",
+            "proof": "2.4GHz 300Mbps wireless N"
+          }
+        ]
+      },
+      "antennas": {
+        "value": "Externes",
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "2 antennes 5 dBi",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/isp/DL4323.html",
+            "proof": "2 × 5dBi Antennas"
+          },
+          {
+            "url": "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/",
+            "proof": "Two external 5dBi antennas"
+          }
+        ]
+      },
+      "qos": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "QoS ATM et gestion du trafic ADSL",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/isp/DL4323.html",
+            "proof": "ATM QoS listed in software specification"
+          },
+          {
+            "url": "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/",
+            "proof": "QoS / traffic management support"
+          }
+        ]
+      },
+      "vpn": {
+        "value": true,
+        "status": "verified",
+        "checkedAt": "2026-09-09",
+        "scope": "VPN pass-through PPTP, L2TP et IPsec",
+        "evidence": [
+          {
+            "url": "https://www.netis-systems.com/isp/DL4323.html",
+            "proof": "VPN (PPTP, L2TP, IPsec) Pass-through"
+          },
+          {
+            "url": "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/",
+            "proof": "VPN pass-through supported"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://www.netis-systems.com/isp/DL4323.html",
+      "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/"
+    ]
   }
 ]

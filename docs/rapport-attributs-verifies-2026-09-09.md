@@ -1,6 +1,6 @@
 # Rapport du lot vérifié du 9 septembre 2026
 
-Le registre `data/verified-product-specs.json` couvre 17 références et 133
+Le registre `data/verified-product-specs.json` couvre 25 références et 203
 valeurs. Chaque valeur possède deux sources HTTPS, un extrait de preuve, une
 date de contrôle et le périmètre de la configuration concernée.
 
@@ -10,9 +10,20 @@ Références traitées :
 - HP EliteBook x360 1030 G3/G4, x360 830 G7, 830 G8, 840 G6, x360 1040 G7,
   ProBook 450 G5 et ZBook 15 G5 ;
 - Hikvision DS-2CE16K0T-EXLF, DS-2CE76D0T-EXIMF, DS-2CD1123G0E-I,
-  DS-7616NI-K2 et IDS-7208HQHI-M1/T ;
+  DS-2CE16D0T-EXIF, DS-2CE76K0T-EXLMF, DS-2CE76K0T-LMFS,
+  DS-2CE16U0T-LF, DS-7616NI-K2 et IDS-7208HQHI-M1/T ;
 - Dahua DH-HAC-HFW1220BP ;
-- Epson EcoTank L3250.
+- Epson EcoTank L3250 ;
+- TP-Link LS1008 ;
+- Netis WF2409E et DL4323 ;
+- Tenda D305.
+
+Le lot réseau ajoute les attributs réellement exposés par les fiches
+constructeur : type d'équipement, nombre et débit des ports, mode de gestion,
+Wi-Fi mono-bande, antennes externes, QoS et VPN quand la fonction est
+explicitement documentée. Les standards Wi-Fi 4 et les valeurs négatives sans
+mention explicite ont été laissés vides car les options de la catégorie ne les
+représentent pas fidèlement.
 
 Les valeurs dépendant d'une variante non identifiée (GPU dédié, résolution ou
 dalle différente) sont volontairement absentes. Les poids sont utilisés
@@ -30,7 +41,7 @@ Après écriture dans la base locale, une seconde simulation a retourné :
 
 ```text
 proposed: 0
-identique: 133
+identique: 203
 ```
 
 Cela confirme que l'import est idempotent. Avant le nettoyage, les valeurs
@@ -40,4 +51,4 @@ et n'étaient jamais présentées comme preuves du registre.
 Le mode `--apply --purge-unverified` a ensuite été exécuté sur la base locale
 de test : 204 lignes historiques ont été supprimées après sauvegarde et
 conservées dans le rapport d'audit. Une simulation post-nettoyage retourne
-`nonVerified: 0`, `identique: 133` et `proposed: 0`.
+`nonVerified: 0`, `identique: 203` et `proposed: 0`.

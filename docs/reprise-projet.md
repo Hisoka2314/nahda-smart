@@ -152,6 +152,7 @@ node scripts/nettoyer-marques.mjs --apply
 | `diagnostic-catalogue.mjs` | **À lancer des deux côtés et comparer.** |
 | `import-product-images.mjs` | Photos depuis Icecat, sites constructeurs, dossier local. |
 | `backup-postgres.mjs` | `npm run backup:db`. À faire avant toute écriture. |
+| `import-verified-specs.mjs` | Importe uniquement les attributs sourcés du registre vérifié, avec sauvegarde, transaction, audit et provenance. |
 
 ---
 
@@ -313,3 +314,139 @@ Le gérant n'y a pas encore répondu. Ne tranchez pas à sa place.
 3. **`TJN-001` et `TKN-001`, « Tronchoir Jianzhong » et « Tronchoir
    Katenai »** — désignation trop abrégée pour être décrite. Rangés en
    quincaillerie, fiche minimale.
+
+---
+
+## 11 — Reprise du chantier des filtres (9 septembre 2026)
+
+### Objectif confirmé par le gérant
+
+Pour chaque produit publié ou brouillon : rechercher la référence, comparer au
+moins deux sources (constructeur et revendeur quand c'est possible), conserver
+uniquement les faits concordants, laisser vide ce qui est ambigu et garder les
+URL ainsi que la preuve avec chaque valeur. Les images sont désormais prises en
+charge par le gérant ; ce chantier concerne les descriptions, catégories et
+surtout les filtres principaux et avancés.
+
+### Ce qui est réellement prêt dans le dépôt local
+
+Le registre `data/verified-product-specs.json` contient **25 références et 203
+valeurs vérifiées** :
+
+- 10 configurations de PC portables Lenovo/HP ;
+- 10 références Hikvision, 1 Dahua et 1 Epson ;
+- TP-Link LS1008, Netis WF2409E, Netis DL4323 et Tenda D305.
+
+Le dernier lot réseau ajoute 36 valeurs : type d'équipement, ports et débit,
+niveau de gestion et refroidissement du LS1008, ainsi que bande Wi-Fi,
+antennes, QoS et VPN lorsque les deux sources les confirment. Le Wi-Fi 4 n'a
+pas été forcé dans les choix Wi-Fi 5/6/6E/7. Les valeurs négatives absentes des
+fiches ont aussi été laissées vides.
+
+Fichiers du chantier :
+
+- `data/verified-product-specs.json` — registre des faits et preuves ;
+- `scripts/import-verified-specs.mjs` — import transactionnel et audit ;
+- `scripts/lib/verified-specs.mjs` — validation/encodage ;
+- `tests/verified-specs.test.ts` — tests unitaires de la preuve et de
+  l'encodage ;
+- `docs/import-attributs-verifies.md` — mode opératoire ;
+- `docs/rapport-attributs-verifies-2026-09-09.md` — rapport du lot courant.
+
+Le script d'import accepte `--purge-unverified`. En mode simulation, il liste
+les anciennes valeurs sans `valueJson.verifiedSpec`. En mode
+`--apply --purge-unverified`, il sauvegarde la base, ouvre une transaction
+sérialisable, verrouille les tables de filtres, conserve les anciennes lignes
+dans le rapport JSON, les supprime et écrit le registre vérifié. Une seconde
+simulation doit être idempotente.
+
+Validation locale du registre actuel :
+
+```text
+25 références
+203 valeurs
+preuves invalides : 0
+proposed après import : 0
+identique : 203
+nonVerified : 0
+tests : 12 fichiers / 67 tests passés
+typecheck : passé
+eslint : passé
+next build : passé (243 pages statiques)
+```
+
+### État serveur communiqué
+
+Le dernier import lancé sur le VPS avant ce lot local a retourné :
+
+```text
+proposed: 0
+written: 0
+nonVerified: 325
+preuve_insuffisante: 41
+```
+
+Ce résultat n'est pas le résultat final : le serveur utilisait encore une
+version antérieure du registre/importeur. Le build et le redémarrage ont
+réussi, mais les 325 anciennes lignes déduites restent à remplacer.
+
+### Point exact où le travail s'arrête
+
+Le lot réseau est intégré et validé localement. La prochaine tâche est de
+configurer les filtres PostgreSQL des catégories qui n'en ont aucun. L'audit
+local a trouvé :
+
+| Catégorie | Produits | Filtres PostgreSQL |
+|---|---:|---:|
+| Composants PC | 38 | 0 |
+| Câbles & Connectique | 23 | 0 |
+| Ventilation & Climatisation | 9 | 0 |
+| Écrans & Moniteurs | 3 | 0 |
+| Énergie & Éclairage | 12 | 0 |
+
+Commencer par **Composants PC**. Les premières références faciles à vérifier
+sont `VGA1030` (ASUS GT 1030), `VGMSI1030` (MSI GT 1030 Aero ITX), `VGB1030`
+(Biostar GT 1030), `CRN-T3-3100` (Ryzen 3 3100), `SG-7969` (Ryzen 5 5500) et
+`SG-10773` (Ryzen 7 5700). Définir d'abord les attributs/options cohérents pour
+GPU, mémoire, processeur, socket, fréquence, TDP et format ; ensuite seulement
+ajouter les faits à l'importeur. Les références génériques ou dont le suffixe
+est ambigu doivent rester vides.
+
+Le fichier local `.claude/settings.local.json` est sans rapport avec ce
+chantier : ne pas le versionner.
+
+### Publication du lot courant
+
+Sur le poste Windows :
+
+```powershell
+cd "C:\Users\hp\Documents\nahda smart"
+git add AGENTS.md `
+  data/verified-product-specs.json `
+  docs/rapport-attributs-verifies-2026-09-09.md `
+  docs/reprise-projet.md
+git commit -m "feat(catalogue): completer les attributs verifies reseau"
+git push origin main
+```
+
+Ne pas utiliser `git add .`, afin de ne pas inclure
+`.claude/settings.local.json`.
+
+Sur le VPS, après le push :
+
+```bash
+cd /var/www/nahda/app
+sudo -u nahda npm run backup:db
+sudo -u nahda git pull --ff-only
+sudo -u nahda node scripts/import-verified-specs.mjs --purge-unverified
+sudo -u nahda node scripts/import-verified-specs.mjs --apply --purge-unverified
+sudo -u nahda npm run build
+sudo systemctl restart nahda
+sudo -u nahda node scripts/import-verified-specs.mjs
+```
+
+Avant l'application, la simulation devrait proposer les 203 valeurs du
+registre et signaler environ 325 lignes à purger. Après application, la
+dernière simulation doit retourner `proposed: 0`, `identique: 203` et
+`nonVerified: 0`. Si les nombres diffèrent, lire le fichier JSON indiqué par
+`report` avant de continuer.
