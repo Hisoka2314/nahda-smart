@@ -45,5 +45,26 @@ export function extraireAttributs(product, definitions = []) {
     const distinct = [...new Set(candidates.map((v) => String(v.value)))];
     if (distinct.length === 1) values.push(candidates[0]); else if (distinct.length > 1) issues.push({ slug, candidates, reason: "Sources contradictoires" });
   }
+  // La désignation d'inventaire décrit la configuration vendue des ordinateurs.
+  // Elle ne sert jamais à inventer un poids, un écran ou un GPU.
+  if (["pc-portables", "pc-bureau", "all-in-one"].includes(product.categorySlug)) {
+    const name = product.name || "";
+    const fallback = [
+      ["processor", /\b(?:intel\s*)?core\s*i([3579])\b|\b(?:amd\s*)?ryzen\s*([3579])\b/i],
+      ["processorGeneration", /\b(\d{1,2})(?:e|eme|ème)\b/i],
+      ["ram", /\b(\d+)\s*(?:go|gb)(?=\s*(?:\/|ram|ddr))/i],
+      ["storageCapacity", /\b(\d+(?:[.,]\d+)?)\s*(go|gb|to|tb)\s*(?=ssd|hdd|nvme)/i],
+      ["storageType", /\b(ssd|hdd|nvme)\b/i],
+    ];
+    for (const [slug, pattern] of fallback) {
+      if (values.some((v) => v.slug === slug) || !targets.has(slug)) continue;
+      const m = name.match(pattern); if (!m) continue;
+      const value = slug === "processor" ? (m[1] ? `Intel Core i${m[1]}` : `AMD Ryzen ${m[2]}`)
+        : slug === "processorGeneration" ? `${m[1]}e génération`
+        : slug === "storageType" ? m[1].toUpperCase()
+        : `${m[1].replace(",", ".")} ${/^g/i.test(m[2] || "") ? "Go" : "To"}`;
+      values.push({ slug, value, source: "Désignation magasin", evidence: m[0] });
+    }
+  }
   return { values, issues };
 }
