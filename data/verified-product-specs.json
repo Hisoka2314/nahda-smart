@@ -2,7 +2,9 @@
   {
     "sku": "LLO-L13I5108256",
     "model": "Lenovo ThinkPad L13 Gen 1",
-    "sources": ["https://psref.lenovo.com/syspool/Sys/PDF/datasheet/ThinkPad_L13_datasheet_EN.pdf"],
+    "sources": [
+      "https://psref.lenovo.com/syspool/Sys/PDF/datasheet/ThinkPad_L13_datasheet_EN.pdf"
+    ],
     "facts": {
       "processor": "Intel Core i5",
       "processorGeneration": "10e génération",
@@ -17,7 +19,9 @@
   {
     "sku": "LHO-1030G4I58256X",
     "model": "HP EliteBook x360 1030 G4",
-    "sources": ["https://kaas.hpcloud.hp.com/pdf-public/pdf_12667748_en-US-1.pdf"],
+    "sources": [
+      "https://kaas.hpcloud.hp.com/pdf-public/pdf_12667748_en-US-1.pdf"
+    ],
     "facts": {
       "processor": "Intel Core i5",
       "processorGeneration": "8e génération",
@@ -31,7 +35,9 @@
   {
     "sku": "LHO-840G6I78256",
     "model": "HP EliteBook 840 G6",
-    "sources": ["https://www.hp.com/us-en/shop/pdp/hp-eb840g6-i7-16gb-256-crtfd-rfrbd-pc"],
+    "sources": [
+      "https://www.hp.com/us-en/shop/pdp/hp-eb840g6-i7-16gb-256-crtfd-rfrbd-pc"
+    ],
     "facts": {
       "processor": "Intel Core i7",
       "processorGeneration": "8e génération",
@@ -45,7 +51,9 @@
   {
     "sku": "LHO-830G8I516256",
     "model": "HP EliteBook 830 G8",
-    "sources": ["https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/"],
+    "sources": [
+      "https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/"
+    ],
     "facts": {
       "processor": "Intel Core i5",
       "processorGeneration": "11e génération",
@@ -54,5 +62,52 @@
       "storageType": "SSD"
     },
     "note": "Le GPU et la dalle exacte varient selon la configuration ; ne pas les déduire ici."
+  },
+  {
+    "sku": "LLO-L390G8",
+    "model": "Lenovo ThinkPad L390",
+    "sources": [
+      "https://psref.lenovo.com/syspool/Sys/i_pdf/psref541.pdf"
+    ],
+    "facts": {
+      "processor": "Intel Core i5",
+      "processorGeneration": "8e génération",
+      "screenSize": "13.3 pouces",
+      "resolution": "1920 x 1080",
+      "panelType": "IPS",
+      "storageType": "SSD",
+      "weight": "1.46 kg",
+      "wifiStandard": "Wi-Fi 5",
+      "bluetooth": "Bluetooth 5.0"
+    },
+    "note": "Le PSREF présente plusieurs variantes d'écran ; la configuration vendue doit confirmer FHD/IPS."
+  },
+  {
+    "sku": "LHO-1030G3I58256X",
+    "model": "HP EliteBook x360 1030 G3",
+    "sources": [
+      "https://support.hp.com/ca-en/product/product-specs/hp-elitebook-x360-1030-g3-notebook-pc/19753388"
+    ],
+    "facts": {
+      "processor": "Intel Core i5",
+      "processorGeneration": "8e génération",
+      "screenSize": "13.3 pouces",
+      "touch": true
+    },
+    "note": "La résolution, le poids et le GPU dépendent de la configuration exacte et restent à confirmer."
+  },
+  {
+    "sku": "LHO-15G5I732256",
+    "model": "HP ZBook 15 G5",
+    "sources": [
+      "https://media.flixcar.com/f360cdn/HP-3977084735-4aa7-2490enuc.pdf"
+    ],
+    "facts": {
+      "processor": "Intel Core i7",
+      "processorGeneration": "8e génération",
+      "screenSize": "15.6 pouces",
+      "storageType": "SSD"
+    },
+    "note": "Le ZBook 15 G5 existe avec plusieurs GPU et écrans ; le modèle exact doit être confirmé."
   }
 ]
