@@ -7,14 +7,26 @@ import { fileURLToPath } from 'node:url';
 import { loadLocalEnv } from './prod-maintenance-utils.mjs';
 import { validateEvidence, encodeValue, sameValue } from './lib/verified-specs.mjs';
 loadLocalEnv();
-const apply = process.argv.includes('--apply');
-if (process.argv.slice(2).some(arg => arg !== '--apply')) throw new Error('Option inconnue.');
+const args = process.argv.slice(2);
+const apply = args.includes('--apply');
+const purgeUnverified = args.includes('--purge-unverified');
+if (args.some(arg => !['--apply', '--purge-unverified'].includes(arg))) throw new Error('Option inconnue.');
 const specs = JSON.parse(readFileSync(new URL('../data/verified-product-specs.json', import.meta.url), 'utf8').replace(/^\uFEFF/, ''));
 if (new Set(specs.map(item => item.sku)).size !== specs.length) throw new Error('SKU duplique.');
 if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL manquant.');
 mkdirSync(resolve('tmp'), { recursive: true });
 const path = resolve('tmp', `verified-specs-${Date.now()}-${crypto.randomUUID()}.json`);
-const report = { mode: apply ? 'application' : 'simulation', committed: false, proposed: 0, written: 0, entries: [], audit: [] };
+const report = {
+  mode: apply ? 'application' : 'simulation',
+  committed: false,
+  purgeUnverified,
+  purgeProposed: 0,
+  purged: 0,
+  proposed: 0,
+  written: 0,
+  entries: [],
+  audit: [],
+};
 if (apply) {
   const backup = spawnSync(process.execPath, [fileURLToPath(new URL('./backup-postgres.mjs', import.meta.url))], { env: process.env, encoding: 'utf8' });
   if (backup.status !== 0) throw new Error('Sauvegarde echouee : import annule. Lancer npm run backup:db pour diagnostiquer.');
@@ -27,6 +39,12 @@ try {
   if (apply) await db.query('LOCK TABLE "ProductAttributeValue", "FilterAttribute", "FilterOption" IN SHARE ROW EXCLUSIVE MODE');
   const audit = await db.query('SELECT p.sku, a.slug, v.* FROM "ProductAttributeValue" v JOIN "Product" p ON p.id=v."productId" JOIN "FilterAttribute" a ON a.id=v."attributeId"');
   report.audit = audit.rows.filter(v => !v.valueJson?.verifiedSpec).map(v => ({ sku: v.sku, slug: v.slug, status: 'non_verifie', current: v }));
+  report.purgeProposed = purgeUnverified ? report.audit.length : 0;
+  if (apply && purgeUnverified && report.audit.length) {
+    const ids = report.audit.map(entry => entry.current.id);
+    const deleted = await db.query('DELETE FROM "ProductAttributeValue" WHERE id = ANY($1::text[]) RETURNING id', [ids]);
+    report.purged = deleted.rowCount ?? 0;
+  }
   for (const item of specs) {
     const product = (await db.query('SELECT id,"categoryId" FROM "Product" WHERE sku=$1', [item.sku])).rows[0];
     for (const [slug, fact] of Object.entries(item.facts)) {
@@ -39,11 +57,28 @@ try {
       entry.before = old;
       if (!validateEvidence(fact)) continue;
       if (!attribute.visible || !attribute.filterable) { entry.status = 'filtre_inactif'; continue; }
-      const options = (await db.query('SELECT * FROM "FilterOption" WHERE "attributeId"=$1', [attribute.id])).rows;
-      const encoded = encodeValue(attribute, options, fact.value);
+      let options = (await db.query('SELECT * FROM "FilterOption" WHERE "attributeId"=$1', [attribute.id])).rows;
+      let encoded = encodeValue(attribute, options, fact.value);
+      if (!encoded && !['BOOLEAN', 'RANGE', 'NUMERIC_RANGE'].includes(attribute.type) && apply && typeof fact.value !== 'boolean') {
+        const label = String(fact.value);
+        const nextOrder = Math.max(0, ...options.map(option => option.order ?? 0)) + 1;
+        const created = await db.query('INSERT INTO "FilterOption" (id,"attributeId",label,value,"order",visible) VALUES ($1,$2,$3,$3,$4,true) RETURNING *', [crypto.randomUUID(), attribute.id, label, nextOrder]);
+        options = [...options, created.rows[0]];
+        encoded = encodeValue(attribute, options, fact.value);
+        entry.optionCreated = true;
+      }
+      if (!encoded && !['BOOLEAN', 'RANGE', 'NUMERIC_RANGE'].includes(attribute.type) && !apply && typeof fact.value !== 'boolean') {
+        entry.status = 'option_a_creer';
+        entry.after = { value: fact.value, valueJson: { verifiedSpec: { sku: item.sku, slug, ...fact } } };
+        report.proposed++;
+        continue;
+      }
       if (!encoded) { entry.status = 'option_absente_ou_type_incompatible'; continue; }
       const provenance = { verifiedSpec: { sku: item.sku, slug, ...fact } };
-      if (sameValue(old, encoded) && JSON.stringify(old[0].valueJson) === JSON.stringify(provenance)) { entry.status = 'identique'; continue; }
+      const previousEvidence = old[0]?.valueJson?.verifiedSpec?.evidence ?? [];
+      const nextEvidence = fact.evidence ?? [];
+      const evidenceKey = evidence => JSON.stringify(evidence.map(source => ({ url: source.url, proof: source.proof })).sort((a, b) => `${a.url}${a.proof}`.localeCompare(`${b.url}${b.proof}`)));
+      if (sameValue(old, encoded) && old[0]?.valueJson?.verifiedSpec?.value === fact.value && evidenceKey(previousEvidence) === evidenceKey(nextEvidence)) { entry.status = 'identique'; continue; }
       entry.status = old.length ? 'remplacement_propose' : 'ajout_propose';
       entry.after = { ...encoded, valueJson: provenance };
       report.proposed++;
@@ -64,5 +99,5 @@ try {
 } finally {
   await db.end();
   writeFileSync(path, JSON.stringify(report, null, 2));
-  console.log(JSON.stringify({ mode: report.mode, committed: report.committed, proposed: report.proposed, written: report.written, nonVerified: report.audit.length, statuses: report.entries.reduce((counts, e) => ({ ...counts, [e.status]: (counts[e.status] ?? 0) + 1 }), {}), report: path }, null, 2));
+  console.log(JSON.stringify({ mode: report.mode, committed: report.committed, proposed: report.proposed, written: report.written, nonVerified: report.audit.length, purgeProposed: report.purgeProposed, purged: report.purged, statuses: report.entries.reduce((counts, e) => ({ ...counts, [e.status]: (counts[e.status] ?? 0) + 1 }), {}), report: path }, null, 2));
 }

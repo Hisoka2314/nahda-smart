@@ -16,6 +16,7 @@ export function validateEvidence(fact) {
 export function encodeValue(attribute, options, value) {
   if (attribute.type === 'BOOLEAN') return typeof value === 'boolean' ? { valueBoolean: value } : null;
   if (['RANGE', 'NUMERIC_RANGE'].includes(attribute.type)) return typeof value === 'number' && Number.isFinite(value) ? { valueNumber: value } : null;
+  if (typeof value === 'boolean') value = value ? 'Oui' : 'Non';
   const normalize = v => String(v).normalize('NFKC').trim().toLowerCase();
   const matches = options.filter(o => o.visible && [o.value, o.label].some(v => normalize(v) === normalize(value)));
   return matches.length === 1 ? { optionId: matches[0].id } : null;
