@@ -1,0 +1,58 @@
+[
+  {
+    "sku": "LLO-L13I5108256",
+    "model": "Lenovo ThinkPad L13 Gen 1",
+    "sources": ["https://psref.lenovo.com/syspool/Sys/PDF/datasheet/ThinkPad_L13_datasheet_EN.pdf"],
+    "facts": {
+      "processor": "Intel Core i5",
+      "processorGeneration": "10e génération",
+      "screenSize": "13.3 pouces",
+      "resolution": "1920 x 1080",
+      "panelType": "IPS",
+      "storageType": "SSD",
+      "weight": "1.38 kg"
+    },
+    "note": "La RAM et la capacité vendues sont celles de l'inventaire magasin (8 Go / 256 Go SSD)."
+  },
+  {
+    "sku": "LHO-1030G4I58256X",
+    "model": "HP EliteBook x360 1030 G4",
+    "sources": ["https://kaas.hpcloud.hp.com/pdf-public/pdf_12667748_en-US-1.pdf"],
+    "facts": {
+      "processor": "Intel Core i5",
+      "processorGeneration": "8e génération",
+      "screenSize": "13.3 pouces",
+      "resolution": "1920 x 1080",
+      "panelType": "IPS",
+      "touch": true
+    },
+    "note": "La configuration vendue est celle de l'inventaire magasin (8 Go / 256 Go SSD)."
+  },
+  {
+    "sku": "LHO-840G6I78256",
+    "model": "HP EliteBook 840 G6",
+    "sources": ["https://www.hp.com/us-en/shop/pdp/hp-eb840g6-i7-16gb-256-crtfd-rfrbd-pc"],
+    "facts": {
+      "processor": "Intel Core i7",
+      "processorGeneration": "8e génération",
+      "screenSize": "14 pouces",
+      "resolution": "1920 x 1080",
+      "panelType": "IPS",
+      "storageType": "SSD"
+    },
+    "note": "La mémoire et le stockage doivent rester ceux de la configuration réellement vendue."
+  },
+  {
+    "sku": "LHO-830G8I516256",
+    "model": "HP EliteBook 830 G8",
+    "sources": ["https://jp.ext.hp.com/prod/notebooks/business/elitebook_830_g8/bto/"],
+    "facts": {
+      "processor": "Intel Core i5",
+      "processorGeneration": "11e génération",
+      "screenSize": "13.3 pouces",
+      "resolution": "1920 x 1080",
+      "storageType": "SSD"
+    },
+    "note": "Le GPU et la dalle exacte varient selon la configuration ; ne pas les déduire ici."
+  }
+]
