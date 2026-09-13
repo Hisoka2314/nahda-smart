@@ -3500,5 +3500,769 @@
       "https://www.netis-systems.com/isp/DL4323.html",
       "https://rajeebtech.com/product/300mbps-wireless-n-adsl2-modem-router/"
     ]
+  },
+  {
+    "sku": "VGA1030",
+    "model": "ASUS GeForce GT 1030 2 Go GDDR5",
+    "facts": {
+      "componentType": {
+        "value": "Carte graphique",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "toutes variantes ASUS GT 1030 2 Go GDDR5",
+        "evidence": [
+          {
+            "url": "https://www.asus.com/us/motherboards-components/graphics-cards/asus/gt1030-2g-csm/techspec/",
+            "proof": "Fil d'Ariane : Motherboards / Components > Graphics Cards > ASUS > GT1030-2G-CSM"
+          },
+          {
+            "url": "https://www.newegg.com/asus-geforce-gt-1030-gt1030-2g-csm/p/N82E16814126203",
+            "proof": "Product Category: Graphics card"
+          }
+        ]
+      },
+      "gpuChipset": {
+        "value": "GeForce GT 1030",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "toutes variantes ASUS GT 1030 2 Go GDDR5",
+        "evidence": [
+          {
+            "url": "https://www.asus.com/us/motherboards-components/graphics-cards/asus/gt1030-2g-csm/techspec/",
+            "proof": "Graphics Engine: NVIDIA GeForce GT 1030"
+          },
+          {
+            "url": "https://www.newegg.com/asus-geforce-gt-1030-gt1030-2g-csm/p/N82E16814126203",
+            "proof": "GPU/Chipset: GeForce GT 1030, manufactured by NVIDIA"
+          }
+        ]
+      },
+      "gpuMemory": {
+        "value": "2 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "toutes variantes ASUS GT 1030 2 Go GDDR5",
+        "evidence": [
+          {
+            "url": "https://www.asus.com/us/motherboards-components/graphics-cards/asus/gt1030-2g-csm/techspec/",
+            "proof": "Video Memory: 2GB GDDR5"
+          },
+          {
+            "url": "https://www.newegg.com/asus-geforce-gt-1030-gt1030-2g-csm/p/N82E16814126203",
+            "proof": "Memory: 2GB capacity"
+          }
+        ]
+      },
+      "gpuMemoryType": {
+        "value": "GDDR5",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "toutes variantes ASUS GT 1030 2 Go GDDR5",
+        "evidence": [
+          {
+            "url": "https://www.asus.com/us/motherboards-components/graphics-cards/asus/gt1030-2g-csm/techspec/",
+            "proof": "Video Memory: 2GB GDDR5"
+          },
+          {
+            "url": "https://www.newegg.com/asus-geforce-gt-1030-gt1030-2g-csm/p/N82E16814126203",
+            "proof": "using GDDR5 technology"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "sku": "VGMSI1030",
+    "model": "MSI GeForce GT 1030 AERO ITX 2G OC",
+    "facts": {
+      "componentType": {
+        "value": "Carte graphique",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI GT 1030 AERO ITX 2G OC / OCV1",
+        "evidence": [
+          {
+            "url": "https://www.newegg.com/msi-gt-1030-aero-itx-2g-oc-geforce-gt-1030-2gb-graphics-card-single-fan/p/N82E16814137141",
+            "proof": "Product Category: Graphics card (GPU/Video Graphics Device)"
+          },
+          {
+            "url": "https://www.helptechco.com/content/geforce-gt-1030-aero-itx-2g-oc",
+            "proof": "PC Components > Graphic Cards > Other Graphics"
+          }
+        ]
+      },
+      "gpuChipset": {
+        "value": "GeForce GT 1030",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI GT 1030 AERO ITX 2G OC / OCV1",
+        "evidence": [
+          {
+            "url": "https://www.newegg.com/msi-gt-1030-aero-itx-2g-oc-geforce-gt-1030-2gb-graphics-card-single-fan/p/N82E16814137141",
+            "proof": "Chipset/GPU: GeForce GT 1030"
+          },
+          {
+            "url": "https://www.helptechco.com/content/geforce-gt-1030-aero-itx-2g-oc",
+            "proof": "GPU Name: GeForce GT 1030"
+          }
+        ]
+      },
+      "gpuMemory": {
+        "value": "2 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI GT 1030 AERO ITX 2G OC / OCV1",
+        "evidence": [
+          {
+            "url": "https://www.newegg.com/msi-gt-1030-aero-itx-2g-oc-geforce-gt-1030-2gb-graphics-card-single-fan/p/N82E16814137141",
+            "proof": "Memory Size: 2GB"
+          },
+          {
+            "url": "https://www.helptechco.com/content/geforce-gt-1030-aero-itx-2g-oc",
+            "proof": "Memory Size & Type: 2GB GDDR5"
+          }
+        ]
+      },
+      "gpuMemoryType": {
+        "value": "GDDR5",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI GT 1030 AERO ITX 2G OC / OCV1",
+        "evidence": [
+          {
+            "url": "https://www.newegg.com/msi-gt-1030-aero-itx-2g-oc-geforce-gt-1030-2gb-graphics-card-single-fan/p/N82E16814137141",
+            "proof": "Memory Type: GDDR5"
+          },
+          {
+            "url": "https://www.helptechco.com/content/geforce-gt-1030-aero-itx-2g-oc",
+            "proof": "Memory Size & Type: 2GB GDDR5"
+          }
+        ]
+      },
+      "tdp": {
+        "value": "30 W",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI GT 1030 AERO ITX 2G OC / OCV1",
+        "evidence": [
+          {
+            "url": "https://www.newegg.com/msi-gt-1030-aero-itx-2g-oc-geforce-gt-1030-2gb-graphics-card-single-fan/p/N82E16814137141",
+            "proof": "Thermal Design Power: 30W"
+          },
+          {
+            "url": "https://www.helptechco.com/content/geforce-gt-1030-aero-itx-2g-oc",
+            "proof": "Power Consumption: 30 W"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "sku": "VGB1030",
+    "model": "BIOSTAR GeForce GT 1030 2 Go GDDR5 (VN1035TBX6)",
+    "facts": {
+      "componentType": {
+        "value": "Carte graphique",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "BIOSTAR GT 1030 2 Go GDDR5",
+        "evidence": [
+          {
+            "url": "https://www.gputracker.eu/en/product/23101/biostar-geforce-gt-1030-2gb-gddr5-vn1035tbx6",
+            "proof": "Product Category: Graphics cards"
+          },
+          {
+            "url": "https://www.tejar.com/biostar-nvidia-geforce-gt1030-2gb-gddr5-64bit-graphics-card",
+            "proof": "Product Category: Graphics Cards (Computers & Accessories > Computer Components)"
+          }
+        ]
+      },
+      "gpuChipset": {
+        "value": "GeForce GT 1030",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "BIOSTAR GT 1030 2 Go GDDR5",
+        "evidence": [
+          {
+            "url": "https://www.gputracker.eu/en/product/23101/biostar-geforce-gt-1030-2gb-gddr5-vn1035tbx6",
+            "proof": "Biostar GeForce GT 1030 2GB GDDR5"
+          },
+          {
+            "url": "https://www.tejar.com/biostar-nvidia-geforce-gt1030-2gb-gddr5-64bit-graphics-card",
+            "proof": "GPU Name: GeForce GT1030"
+          }
+        ]
+      },
+      "gpuMemory": {
+        "value": "2 Go",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "BIOSTAR GT 1030 2 Go GDDR5",
+        "evidence": [
+          {
+            "url": "https://www.gputracker.eu/en/product/23101/biostar-geforce-gt-1030-2gb-gddr5-vn1035tbx6",
+            "proof": "Memory Size: 2GB"
+          },
+          {
+            "url": "https://www.tejar.com/biostar-nvidia-geforce-gt1030-2gb-gddr5-64bit-graphics-card",
+            "proof": "Memory Size: 2 GB"
+          }
+        ]
+      },
+      "gpuMemoryType": {
+        "value": "GDDR5",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "BIOSTAR GT 1030 2 Go GDDR5",
+        "evidence": [
+          {
+            "url": "https://www.gputracker.eu/en/product/23101/biostar-geforce-gt-1030-2gb-gddr5-vn1035tbx6",
+            "proof": "Memory Type: GDDR5"
+          },
+          {
+            "url": "https://www.tejar.com/biostar-nvidia-geforce-gt1030-2gb-gddr5-64bit-graphics-card",
+            "proof": "Memory Type: GDDR5"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "sku": "VGT1030",
+    "model": "Carte graphique GeForce GT 1030 (fabricant non precise)",
+    "facts": {
+      "componentType": {
+        "value": "Carte graphique",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "puce GeForce GT 1030, fabricant et variante memoire non precises par la designation",
+        "evidence": [
+          {
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+            "proof": "Page GeForce GT 1030 Specifications, gamme GeForce graphics cards"
+          },
+          {
+            "url": "https://www.asus.com/us/motherboards-components/graphics-cards/asus/gt1030-2g-csm/techspec/",
+            "proof": "Fil d'Ariane : Motherboards / Components > Graphics Cards"
+          }
+        ]
+      },
+      "gpuChipset": {
+        "value": "GeForce GT 1030",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "puce GeForce GT 1030, fabricant et variante memoire non precises par la designation",
+        "evidence": [
+          {
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+            "proof": "GeForce GT 1030 Specifications - Memory Interface Width: 64-bit"
+          },
+          {
+            "url": "https://www.asus.com/us/motherboards-components/graphics-cards/asus/gt1030-2g-csm/techspec/",
+            "proof": "Graphics Engine: NVIDIA GeForce GT 1030"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "sku": "CG730",
+    "model": "Carte graphique GeForce GT 730 (fabricant non precise)",
+    "facts": {
+      "componentType": {
+        "value": "Carte graphique",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "puce GeForce GT 730, variante memoire et bus non precises par la designation",
+        "evidence": [
+          {
+            "url": "https://technical.city/en/gpu/GeForce-GT-730",
+            "proof": "Device Type: Desktop graphics card, manufacturer NVIDIA"
+          },
+          {
+            "url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-4h-sl-2gd5/techspec/",
+            "proof": "Fil d'Ariane : Motherboards / Components > Graphics Cards > ASUS > GT730-4H-SL-2GD5"
+          }
+        ]
+      },
+      "gpuChipset": {
+        "value": "GeForce GT 730",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "puce GeForce GT 730, variante memoire et bus non precises par la designation",
+        "evidence": [
+          {
+            "url": "https://technical.city/en/gpu/GeForce-GT-730",
+            "proof": "Product Name: GeForce GT 730"
+          },
+          {
+            "url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-4h-sl-2gd5/techspec/",
+            "proof": "Graphics Engine: NVIDIA GeForce GT 730"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "sku": "CRN-T3-3100",
+    "model": "AMD Ryzen 3 3100",
+    "facts": {
+      "componentType": {
+        "value": "Processeur",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 3 3100, toutes references",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-3000-series/amd-ryzen-3-3100.html",
+            "proof": "Form Factor: Desktops, Boxed Processor"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-3-3100-ryzen-3-3rd-gen/p/N82E16819113649",
+            "proof": "Product category: Desktop processor (Ryzen 3 3rd Gen)"
+          }
+        ]
+      },
+      "processor": {
+        "value": "AMD Ryzen 3",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 3 3100, toutes references",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-3000-series/amd-ryzen-3-3100.html",
+            "proof": "Name: AMD Ryzen 3 3100 - Series: Ryzen 3000 Series"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-3-3100-ryzen-3-3rd-gen/p/N82E16819113649",
+            "proof": "AMD Ryzen 3 3100 - Ryzen 3 3rd Gen"
+          }
+        ]
+      },
+      "cpuCores": {
+        "value": "4 cœurs",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 3 3100, toutes references",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-3000-series/amd-ryzen-3-3100.html",
+            "proof": "# of CPU Cores: 4"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-3-3100-ryzen-3-3rd-gen/p/N82E16819113649",
+            "proof": "Number of cores: Quad-Core"
+          }
+        ]
+      },
+      "socket": {
+        "value": "AM4",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 3 3100, toutes references",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-3000-series/amd-ryzen-3-3100.html",
+            "proof": "CPU Socket: AM4"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-3-3100-ryzen-3-3rd-gen/p/N82E16819113649",
+            "proof": "CPU socket type: Socket AM4"
+          }
+        ]
+      },
+      "tdp": {
+        "value": "65 W",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 3 3100, toutes references",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-3000-series/amd-ryzen-3-3100.html",
+            "proof": "Default TDP: 65W"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-3-3100-ryzen-3-3rd-gen/p/N82E16819113649",
+            "proof": "Thermal design power: 65W"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "sku": "SG-7969",
+    "model": "AMD Ryzen 5 5500",
+    "facts": {
+      "componentType": {
+        "value": "Processeur",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 5 5500, versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5500.html",
+            "proof": "Form Factor: Desktops, Boxed Processor - Market Segment: Mainstream Desktop"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-5-5000-series-ryzen-5-5500-cezanne-socket-am4-desktop-cpu-processor/p/N82E16819113737",
+            "proof": "Product Category: Desktop CPU Processor"
+          }
+        ]
+      },
+      "processor": {
+        "value": "AMD Ryzen 5",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 5 5500, versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5500.html",
+            "proof": "Name: AMD Ryzen 5 5500 - Series: Ryzen 5000 Series"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-5-5000-series-ryzen-5-5500-cezanne-socket-am4-desktop-cpu-processor/p/N82E16819113737",
+            "proof": "AMD Ryzen 5 5500, Ryzen 5 5000 Series"
+          }
+        ]
+      },
+      "cpuCores": {
+        "value": "6 cœurs",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 5 5500, versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5500.html",
+            "proof": "# of CPU Cores: 6 - # of Threads: 12"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-5-5000-series-ryzen-5-5500-cezanne-socket-am4-desktop-cpu-processor/p/N82E16819113737",
+            "proof": "Number of Cores: 6-Core, Number of Threads: 12-Threads"
+          }
+        ]
+      },
+      "socket": {
+        "value": "AM4",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 5 5500, versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5500.html",
+            "proof": "CPU Socket: AM4"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-5-5000-series-ryzen-5-5500-cezanne-socket-am4-desktop-cpu-processor/p/N82E16819113737",
+            "proof": "Socket: Socket AM4"
+          }
+        ]
+      },
+      "tdp": {
+        "value": "65 W",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 5 5500, versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5500.html",
+            "proof": "Default TDP: 65W"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-5-5000-series-ryzen-5-5500-cezanne-socket-am4-desktop-cpu-processor/p/N82E16819113737",
+            "proof": "Thermal Design Power (TDP): 65W"
+          }
+        ]
+      },
+      "integratedGraphics": {
+        "value": false,
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 5 5500, versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5500.html",
+            "proof": "Graphics Capabilities - Graphics Model: Discrete Graphics Card Required"
+          },
+          {
+            "url": "https://www.newegg.com/amd-ryzen-5-5000-series-ryzen-5-5500-cezanne-socket-am4-desktop-cpu-processor/p/N82E16819113737",
+            "proof": "Integrated Graphics: None"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "sku": "SG-10773",
+    "model": "AMD Ryzen 7 5700",
+    "facts": {
+      "componentType": {
+        "value": "Processeur",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 7 5700 (Cezanne), versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-7-5700.html",
+            "proof": "Form Factor: Desktops, Boxed Processor - Market Segment: Mainstream Desktop"
+          },
+          {
+            "url": "https://cputronic.com/cpu/amd-ryzen-7-5700",
+            "proof": "Fiche processeur AMD Ryzen 7 5700, socket AMD Socket AM4"
+          }
+        ]
+      },
+      "processor": {
+        "value": "AMD Ryzen 7",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 7 5700 (Cezanne), versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-7-5700.html",
+            "proof": "Name: AMD Ryzen 7 5700 - Series: Ryzen 5000 Series"
+          },
+          {
+            "url": "https://cputronic.com/cpu/amd-ryzen-7-5700",
+            "proof": "AMD Ryzen 7 5700 Specifications - Codename: Cezanne"
+          }
+        ]
+      },
+      "cpuCores": {
+        "value": "8 cœurs",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 7 5700 (Cezanne), versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-7-5700.html",
+            "proof": "# of CPU Cores: 8 - # of Threads: 16"
+          },
+          {
+            "url": "https://cputronic.com/cpu/amd-ryzen-7-5700",
+            "proof": "Cores & Threads: 8 cores / 16 threads"
+          }
+        ]
+      },
+      "socket": {
+        "value": "AM4",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 7 5700 (Cezanne), versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-7-5700.html",
+            "proof": "CPU Socket: AM4"
+          },
+          {
+            "url": "https://cputronic.com/cpu/amd-ryzen-7-5700",
+            "proof": "Socket: AMD Socket AM4"
+          }
+        ]
+      },
+      "tdp": {
+        "value": "65 W",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 7 5700 (Cezanne), versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-7-5700.html",
+            "proof": "Default TDP: 65W"
+          },
+          {
+            "url": "https://cputronic.com/cpu/amd-ryzen-7-5700",
+            "proof": "TDP: 65 W"
+          }
+        ]
+      },
+      "integratedGraphics": {
+        "value": false,
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "AMD Ryzen 7 5700 (Cezanne), versions boitee et tray",
+        "evidence": [
+          {
+            "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-7-5700.html",
+            "proof": "Graphics Capabilities - Graphics Model: Discrete Graphics Card Required"
+          },
+          {
+            "url": "https://cputronic.com/cpu/amd-ryzen-7-5700",
+            "proof": "Integrated Graphics: No integrated GPU (discrete systems only)"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "sku": "SG-5945",
+    "model": "MSI A520M-A PRO",
+    "facts": {
+      "componentType": {
+        "value": "Carte mère",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI A520M-A PRO",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/A520M-A-PRO/Specification",
+            "proof": "Page PRODUCT SPECIFICATIONS de la rubrique Motherboard, modele A520M-A PRO"
+          },
+          {
+            "url": "https://mobilespecs.net/motherboard/MSI/MSI_A520M-A_Pro.html",
+            "proof": "Fiche motherboard MSI A520M-A Pro"
+          }
+        ]
+      },
+      "socket": {
+        "value": "AM4",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI A520M-A PRO",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/A520M-A-PRO/Specification",
+            "proof": "SOCKET : AMD Socket AM4"
+          },
+          {
+            "url": "https://mobilespecs.net/motherboard/MSI/MSI_A520M-A_Pro.html",
+            "proof": "Socket: Socket AM4"
+          }
+        ]
+      },
+      "chipset": {
+        "value": "A520",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI A520M-A PRO",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/A520M-A-PRO/Specification",
+            "proof": "CHIPSET : AMD A520 Chipset"
+          },
+          {
+            "url": "https://mobilespecs.net/motherboard/MSI/MSI_A520M-A_Pro.html",
+            "proof": "Chipset: A520"
+          }
+        ]
+      },
+      "motherboardFormat": {
+        "value": "Micro-ATX",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI A520M-A PRO",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/A520M-A-PRO/Specification",
+            "proof": "FORM FACTOR : MATX"
+          },
+          {
+            "url": "https://mobilespecs.net/motherboard/MSI/MSI_A520M-A_Pro.html",
+            "proof": "Form Factor: Micro-ATX"
+          }
+        ]
+      },
+      "ramSlots": {
+        "value": "2 slots",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI A520M-A PRO",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/A520M-A-PRO/Specification",
+            "proof": "DIMM SLOTS : 2"
+          },
+          {
+            "url": "https://mobilespecs.net/motherboard/MSI/MSI_A520M-A_Pro.html",
+            "proof": "Memory Slots: 2"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "sku": "SG-8329",
+    "model": "MSI B550M PRO-VDH",
+    "facts": {
+      "componentType": {
+        "value": "Carte mère",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI B550M PRO-VDH, version sans Wi-Fi",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/B550M-PRO-VDH/Specification",
+            "proof": "Page PRODUCT SPECIFICATIONS de la rubrique Motherboard, modele B550M PRO-VDH"
+          },
+          {
+            "url": "https://www.newegg.com/msi-b550m-pro-vdh-micro-atx-amd-motherboard-amd-b550-am4/p/N82E16813144412",
+            "proof": "Product Category: AMD Motherboard (Micro ATX form factor for the AM4 socket)"
+          }
+        ]
+      },
+      "socket": {
+        "value": "AM4",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI B550M PRO-VDH, version sans Wi-Fi",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/B550M-PRO-VDH/Specification",
+            "proof": "SOCKET : AMD Socket AM4"
+          },
+          {
+            "url": "https://www.newegg.com/msi-b550m-pro-vdh-micro-atx-amd-motherboard-amd-b550-am4/p/N82E16813144412",
+            "proof": "CPU Socket Type: AM4"
+          }
+        ]
+      },
+      "chipset": {
+        "value": "B550",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI B550M PRO-VDH, version sans Wi-Fi",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/B550M-PRO-VDH/Specification",
+            "proof": "CHIPSET : AMD B550 Chipset"
+          },
+          {
+            "url": "https://www.newegg.com/msi-b550m-pro-vdh-micro-atx-amd-motherboard-amd-b550-am4/p/N82E16813144412",
+            "proof": "Chipset: AMD B550"
+          }
+        ]
+      },
+      "motherboardFormat": {
+        "value": "Micro-ATX",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI B550M PRO-VDH, version sans Wi-Fi",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/B550M-PRO-VDH/Specification",
+            "proof": "FORM FACTOR : MATX"
+          },
+          {
+            "url": "https://www.newegg.com/msi-b550m-pro-vdh-micro-atx-amd-motherboard-amd-b550-am4/p/N82E16813144412",
+            "proof": "Form Factor: Micro ATX"
+          }
+        ]
+      },
+      "ramSlots": {
+        "value": "4 slots",
+        "status": "verified",
+        "checkedAt": "2026-09-13",
+        "scope": "MSI B550M PRO-VDH, version sans Wi-Fi",
+        "evidence": [
+          {
+            "url": "https://www.msi.com/Motherboard/B550M-PRO-VDH/Specification",
+            "proof": "DIMM SLOTS : 4"
+          },
+          {
+            "url": "https://www.newegg.com/msi-b550m-pro-vdh-micro-atx-amd-motherboard-amd-b550-am4/p/N82E16813144412",
+            "proof": "Number of Memory Slots: 4x288pin (DDR4)"
+          }
+        ]
+      }
+    }
   }
 ]

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { slugSchema } from "@/lib/validations/common";
+import { attributeSlugSchema, slugSchema } from "@/lib/validations/common";
 
 export const filterInputTypeSchema = z.enum([
   "CHECKBOX",
@@ -23,7 +23,7 @@ export const filterAttributeSchema = z.object({
   groupId: z.string().min(1),
   categoryId: z.string().min(1),
   label: z.string().trim().min(1, "Libellé filtre obligatoire."),
-  slug: slugSchema,
+  slug: attributeSlugSchema,
   type: filterInputTypeSchema,
   unit: z.string().trim().optional(),
   filterable: z.boolean().default(true),

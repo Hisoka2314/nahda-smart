@@ -153,6 +153,7 @@ node scripts/nettoyer-marques.mjs --apply
 | `import-product-images.mjs` | Photos depuis Icecat, sites constructeurs, dossier local. |
 | `backup-postgres.mjs` | `npm run backup:db`. À faire avant toute écriture. |
 | `import-verified-specs.mjs` | Importe uniquement les attributs sourcés du registre vérifié, avec sauvegarde, transaction, audit et provenance. |
+| `configurer-filtres.mjs` | Crée les groupes, filtres et options d'une catégorie depuis `scripts/lib/filtres-categories.mjs`. Idempotent, ne supprime rien. |
 
 ---
 
@@ -351,7 +352,11 @@ Fichiers du chantier :
 - `tests/verified-specs.test.ts` — tests unitaires de la preuve et de
   l'encodage ;
 - `docs/import-attributs-verifies.md` — mode opératoire ;
-- `docs/rapport-attributs-verifies-2026-09-09.md` — rapport du lot courant.
+- `docs/rapport-attributs-verifies-2026-09-09.md` — rapport du lot réseau ;
+- `docs/rapport-filtres-composants-pc-2026-09-13.md` — rapport du lot
+  Composants PC, avec les commandes de publication sur le VPS ;
+- `scripts/lib/filtres-categories.mjs` et `scripts/configurer-filtres.mjs` —
+  structure des filtres par catégorie.
 
 Le script d'import accepte `--purge-unverified`. En mode simulation, il liste
 les anciennes valeurs sans `valueJson.verifiedSpec`. En mode
@@ -363,13 +368,13 @@ simulation doit être idempotente.
 Validation locale du registre actuel :
 
 ```text
-25 références
-203 valeurs
+35 références
+247 valeurs
 preuves invalides : 0
 proposed après import : 0
-identique : 203
+identique : 247
 nonVerified : 0
-tests : 12 fichiers / 67 tests passés
+tests : 13 fichiers / 73 tests passés
 typecheck : passé
 eslint : passé
 next build : passé (243 pages statiques)
@@ -392,25 +397,30 @@ réussi, mais les 325 anciennes lignes déduites restent à remplacer.
 
 ### Point exact où le travail s'arrête
 
-Le lot réseau est intégré et validé localement. La prochaine tâche est de
-configurer les filtres PostgreSQL des catégories qui n'en ont aucun. L'audit
-local a trouvé :
+**Composants PC est traité** (lot du 13 septembre 2026 : 28 filtres, 125
+options, 44 valeurs sur 10 références). Voir
+`docs/rapport-filtres-composants-pc-2026-09-13.md`.
+
+Restent les catégories sans aucun `FilterAttribute` :
 
 | Catégorie | Produits | Filtres PostgreSQL |
 |---|---:|---:|
-| Composants PC | 38 | 0 |
 | Câbles & Connectique | 23 | 0 |
+| Énergie & Éclairage | 12 | 0 |
 | Ventilation & Climatisation | 9 | 0 |
 | Écrans & Moniteurs | 3 | 0 |
-| Énergie & Éclairage | 12 | 0 |
 
-Commencer par **Composants PC**. Les premières références faciles à vérifier
-sont `VGA1030` (ASUS GT 1030), `VGMSI1030` (MSI GT 1030 Aero ITX), `VGB1030`
-(Biostar GT 1030), `CRN-T3-3100` (Ryzen 3 3100), `SG-7969` (Ryzen 5 5500) et
-`SG-10773` (Ryzen 7 5700). Définir d'abord les attributs/options cohérents pour
-GPU, mémoire, processeur, socket, fréquence, TDP et format ; ensuite seulement
-ajouter les faits à l'importeur. Les références génériques ou dont le suffixe
-est ambigu doivent rester vides.
+La méthode est fixée : déclarer d'abord la structure dans
+`scripts/lib/filtres-categories.mjs`, l'appliquer avec
+`node scripts/configurer-filtres.mjs <categorie> --apply`, puis seulement
+chercher les faits sourcés. Un filtre sans valeur est masqué en boutique, donc
+rien d'inachevé n'est visible du client. Les références génériques ou dont le
+suffixe est ambigu doivent rester vides, et deux sources qui se contredisent
+valent une valeur vide.
+
+Ensuite : les 20 barrettes de mémoire de Composants PC. Leur désignation donne
+capacité, génération et format, mais aucun fabricant ni référence : elles
+demandent l'avis du gérant avant d'être décrites.
 
 Le fichier local `.claude/settings.local.json` est sans rapport avec ce
 chantier : ne pas le versionner.
@@ -421,11 +431,8 @@ Sur le poste Windows :
 
 ```powershell
 cd "C:\Users\hp\Documents\nahda smart"
-git add AGENTS.md `
-  data/verified-product-specs.json `
-  docs/rapport-attributs-verifies-2026-09-09.md `
-  docs/reprise-projet.md
-git commit -m "feat(catalogue): completer les attributs verifies reseau"
+git add AGENTS.md data/verified-product-specs.json docs/ lib/ scripts/ tests/
+git commit -m "feat(catalogue): filtres et attributs verifies des composants PC"
 git push origin main
 ```
 
@@ -438,6 +445,7 @@ Sur le VPS, après le push :
 cd /var/www/nahda/app
 sudo -u nahda npm run backup:db
 sudo -u nahda git pull --ff-only
+sudo -u nahda node scripts/configurer-filtres.mjs composants-pc --apply
 sudo -u nahda node scripts/import-verified-specs.mjs --purge-unverified
 sudo -u nahda node scripts/import-verified-specs.mjs --apply --purge-unverified
 sudo -u nahda npm run build
@@ -445,8 +453,12 @@ sudo systemctl restart nahda
 sudo -u nahda node scripts/import-verified-specs.mjs
 ```
 
-Avant l'application, la simulation devrait proposer les 203 valeurs du
+Avant l'application, la simulation devrait proposer les 247 valeurs du
 registre et signaler environ 325 lignes à purger. Après application, la
-dernière simulation doit retourner `proposed: 0`, `identique: 203` et
+dernière simulation doit retourner `proposed: 0`, `identique: 247` et
 `nonVerified: 0`. Si les nombres diffèrent, lire le fichier JSON indiqué par
 `report` avant de continuer.
+
+`configurer-filtres.mjs` doit passer **avant** l'import : sans les filtres de
+la catégorie, les 44 valeurs des composants PC seraient rejetées avec
+le statut `filtre_absent`.

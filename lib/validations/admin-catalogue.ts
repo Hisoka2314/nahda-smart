@@ -7,6 +7,7 @@ import {
 } from "@prisma/client";
 import { z } from "zod";
 import {
+  attributeSlugSchema,
   nonNegativeMoneySchema,
   optionalTextSchema,
   slugSchema,
@@ -128,7 +129,7 @@ export const adminFilterAttributeSchema = z.object({
   groupId: z.string().min(1),
   categoryId: z.string().min(1),
   label: z.string().trim().min(1, "Libelle filtre obligatoire."),
-  slug: slugSchema,
+  slug: attributeSlugSchema,
   type: z.enum(FilterInputType),
   unit: optionalString,
   filterable: z.coerce.boolean().default(false),

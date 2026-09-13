@@ -50,7 +50,7 @@ export function prismaProductToCatalogProduct(
   product: PrismaPublicProduct,
   options: { includeDetails?: boolean } = {},
 ): CatalogProduct {
-  const attributes = buildAttributes(product);
+  const attributes = buildAttributes(product.attributeValues);
   const price = Number(product.promoPrice ?? product.priceSell);
   const oldPrice = product.promoPrice ? Number(product.priceSell) : undefined;
   const stockQuantity = product.stocks.reduce(
@@ -163,17 +163,17 @@ function lireCaracteristiques(
   }
 }
 
-function buildAttributes(product: PrismaPublicProduct) {
+export function buildAttributes(values: PrismaPublicProduct["attributeValues"]) {
   const attributes: Record<string, AttributeValue> = {};
 
-  for (const value of product.attributeValues) {
+  for (const value of values) {
     const key = value.attribute.slug;
     const optionValue = value.option?.value;
     const parsedValue =
       optionValue ??
       value.valueString ??
       value.valueNumber ??
-      value.valueBoolean ??
+      ouiNon(value.valueBoolean) ??
       value.valueJson ??
       undefined;
 
@@ -194,6 +194,17 @@ function buildAttributes(product: PrismaPublicProduct) {
   }
 
   return attributes;
+}
+
+// Les attributs BOOLEAN sont stockes dans "valueBoolean", mais leurs options
+// de filtre valent "Oui" et "Non". Le catalogue compare String(valeur) a la
+// valeur de l'option : "true" ne correspondait a rien, donc les filtres
+// Tactile, PoE, Wi-Fi ou Scanner restaient invisibles en boutique alors que
+// les valeurs verifiees etaient bien en base. La fiche produit, elle,
+// formatait deja le booleen en "Oui"/"Non" : on aligne la lecture.
+function ouiNon(value: boolean | null) {
+  if (value === null || value === undefined) return undefined;
+  return value ? "Oui" : "Non";
 }
 
 function normalizeAttributeValue(

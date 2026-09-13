@@ -53,3 +53,16 @@ export const slugSchema = z
   .trim()
   .min(2, "Le slug est obligatoire.")
   .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug invalide.");
+
+// Le slug d'un filtre n'est pas une adresse : c'est la cle technique sous
+// laquelle la valeur est lue sur le produit (product.attributes[slug]).
+// Elles sont en camelCase depuis l'origine du catalogue - "processorGeneration",
+// "storageType", "networkType". slugSchema n'acceptait que le kebab-case : le
+// back-office refusait donc l'enregistrement de tout filtre existant, et un
+// filtre cree a la main avec un slug kebab ne correspondait a aucune valeur
+// produit, donc n'apparaissait jamais en boutique.
+export const attributeSlugSchema = z
+  .string()
+  .trim()
+  .min(2, "Le slug est obligatoire.")
+  .regex(/^[a-z][a-zA-Z0-9]*(?:-[a-zA-Z0-9]+)*$/, "Slug invalide.");
